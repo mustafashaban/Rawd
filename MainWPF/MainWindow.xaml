@@ -1,0 +1,802 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:MainWPF" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:MainControls="clr-namespace:MainWPF.MainControls"
+    mc:Ignorable="d" x:Class="MainWPF.MainWindow"
+    x:Name="MyMainWindow" Title="MainWindow"
+    Height="700" Width="1354" WindowStyle="None" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowState="Maximized" 
+    AllowsTransparency="True" Loaded="Window_Loaded" Closing="MyMainWindow_Closing">
+    <Window.Resources>
+        <SolidColorBrush x:Key="MyDarkGreenSolidBrush" Color="#FF101D11"/>
+
+        <SolidColorBrush x:Key="Green1" Color="#FF16A085"/>
+        <SolidColorBrush x:Key="Green2" Color="#FF1ABC9C"/>
+        <SolidColorBrush x:Key="LightGreen1" Color="#FF27AE60"/>
+        <SolidColorBrush x:Key="LightGreen2" Color="#FF2ECC71"/>
+        <SolidColorBrush x:Key="DarkGreen1" Color="#FF2C3E50"/>
+        <SolidColorBrush x:Key="DarkGreen2" Color="#FF34495E"/>
+
+        <TransformGroup x:Key="btnTransformStyle">
+            <ScaleTransform/>
+        </TransformGroup>
+        <LinearGradientBrush x:Key="MyBrushMainWindow"  StartPoint="0.5,0.5"  EndPoint="0,0" SpreadMethod="Reflect">
+            <GradientStop Color="#FF4AC34F" Offset="0"/>
+            <GradientStop Color="#FF1D211D" Offset="0.95"/>
+            <!--<GradientStop Color="#FF40A8F0" Offset="0"/>
+            <GradientStop Color="#FF0E0F0E" Offset="0.95"/>-->
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="MyBrushWindow2" EndPoint="0.5,0" StartPoint="0.5,1" SpreadMethod="Reflect">
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="#FF0A0A0A" Offset="0.5"/>
+            <GradientStop Color="Black" Offset="1"/>
+
+            <!--<GradientStop Color="White" Offset="0.1"/>
+            <GradientStop Color="#FFC7F3D7" Offset="0.5"/>
+            <GradientStop Color="White" Offset="0.9"/>-->
+        </LinearGradientBrush>
+        <Storyboard x:Key="sbStartupBtns" Completed="SbStartup_Completed">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="btnSettings" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="btnSettings" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="btnSettings" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.2" Storyboard.TargetName="btnAddFamily" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.2" Storyboard.TargetName="btnAddFamily" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.2" Storyboard.TargetName="btnAddFamily" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.4" Storyboard.TargetName="btnSystem" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.4" Storyboard.TargetName="btnSystem" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.4" Storyboard.TargetName="btnSystem" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.6" Storyboard.TargetName="btnSearch" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.6" Storyboard.TargetName="btnSearch" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.6" Storyboard.TargetName="btnSearch" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.8" Storyboard.TargetName="btnInventory" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.8" Storyboard.TargetName="btnInventory" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00.8" Storyboard.TargetName="btnInventory" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:1" Storyboard.TargetName="btnOrphans" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:1" Storyboard.TargetName="btnOrphans" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:1" Storyboard.TargetName="btnOrphans" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.00" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.8000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase Oscillations="2" Springiness="5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="sbSlideUp" Duration="0:0:1.2" Completed="Storyboard_Completed">
+            <DoubleAnimation Duration="0:0:1" Storyboard.TargetName="grdTop" Storyboard.TargetProperty="Height" To="30"/>
+            <DoubleAnimation Duration="0:0:1" Storyboard.TargetName="grdBottom" Storyboard.TargetProperty="Height" To="30"/>
+            <DoubleAnimation Duration="0:0:1" Storyboard.TargetName="imgLogo" Storyboard.TargetProperty="Opacity" To="0"/>
+            <DoubleAnimation Duration="0:0:1" Storyboard.TargetName="txtSlogan" Storyboard.TargetProperty="Opacity" To="0"/>
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="tcMain" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value=".3"/>
+                <EasingDoubleKeyFrame Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="tcMain" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="sbSlideDown" Duration="0:0:1" Completed="Storyboard_Completed">
+            <DoubleAnimation Duration="0:0:1" Storyboard.TargetName="grdTop" Storyboard.TargetProperty="Height" To="150"/>
+            <DoubleAnimation Duration="0:0:1" Storyboard.TargetName="grdBottom" Storyboard.TargetProperty="Height" To="150"/>
+            <DoubleAnimation Duration="0:0:1" Storyboard.TargetName="imgLogo" Storyboard.TargetProperty="Opacity" To="1"/>
+            <DoubleAnimation Duration="0:0:1" Storyboard.TargetName="txtSlogan" Storyboard.TargetProperty="Opacity" To="1"/>
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="tcMain" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame Value="0"></EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="tcMain" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame Value="0"></EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="sbHideButtons">
+            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0" To="1" Storyboard.TargetName="btnSettings" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.0" Duration="0:0:0.2" From="1" To="0" Storyboard.TargetName="btnSearch" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.2" Duration="0:0:0.2" From="1" To="0" Storyboard.TargetName="btnAddFamily" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.4" Duration="0:0:0.2" From="1" To="0" Storyboard.TargetName="btnOrphans" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.6" Duration="0:0:0.2" From="1" To="0" Storyboard.TargetName="btnSystem" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.8" Duration="0:0:0.2" From="1" To="0" Storyboard.TargetName="btnInventory" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:1.0" Duration="0:0:0.2" From="1" To="0" Storyboard.TargetName="btnSettings" Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
+        <Storyboard x:Key="sbShowButtons">
+            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0" To="0" Storyboard.TargetName="btnSettings" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.0" Duration="0:0:0.2" From="0" To="1" Storyboard.TargetName="btnSearch" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.2" Duration="0:0:0.2" From="0" To="1" Storyboard.TargetName="btnAddFamily" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.4" Duration="0:0:0.2" From="0" To="1" Storyboard.TargetName="btnOrphans" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.6" Duration="0:0:0.2" From="0" To="1" Storyboard.TargetName="btnSystem" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:0.8" Duration="0:0:0.2" From="0" To="1" Storyboard.TargetName="btnInventory" Storyboard.TargetProperty="Opacity"/>
+            <DoubleAnimation BeginTime="0:0:1.0" Duration="0:0:0.2" From="0" To="1" Storyboard.TargetName="btnSettings" Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
+        <Style x:Key="XStyle" TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="{StaticResource MyFontFamily}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                    </TransformGroup>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Margin="7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Border Background="{StaticResource MyDarkGreenSolidBrush}" Margin="7" CornerRadius="30" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Border.RenderTransform>
+                                <Border.Triggers>
+                                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+
+                                                <!--<DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1.2" Duration="0:0:0.15" />
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1.2" Duration="0:0:0.15"/>-->
+                                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                                                    <SplineDoubleKeyFrame KeySpline="0.5,0,0.5,1" KeyTime="00:00:00.1000000" Value="1.2"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                    <SplineDoubleKeyFrame KeySpline="0.5,0,0.5,1" KeyTime="00:00:00.1000000" Value="1.2"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.15" />
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Border.Triggers>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Opacity="0.8" Color="Gray"/>
+                                </Border.Effect>
+                                <Image Margin="15" Width="115" RenderTransformOrigin="0.5,0.5">
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelWidth="115" UriSource="{Binding}"></BitmapImage>
+                                    </Image.Source>
+                                    <Image.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="0.95"/>
+                                            <SkewTransform />
+                                            <RotateTransform />
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Image.RenderTransform>
+                                    <Image.Triggers>
+                                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard AutoReverse="True" RepeatBehavior="Forever">
+                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" From="0.95" To="1.05" Duration="0:0:1" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="0.95" Duration="0:0:0.3" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                            </Border>
+                            <TextBlock Foreground="{StaticResource MyDarkGreenSolidBrush}" Text="{TemplateBinding Content}" Grid.Row="1" Margin="0,12,0,0" HorizontalAlignment="Center" FontSize="{TemplateBinding FontSize}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="ButtonBase.Click">
+                    <BeginStoryboard>
+                        <Storyboard AutoReverse="True">
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" From="1" To="0" Duration="0:0:0.25" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="TabItemCloseButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="17"/>
+            <Setter Property="Width" Value="17"/>
+            <Setter Property="IsTabStop" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,4,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Border.RenderTransform>
+                            <Grid>
+                                <Ellipse x:Name="ellipes" Opacity=".81" Fill="#FFD63A00"></Ellipse>
+                                <Path x:Name="ButtonPath"
+                                  Stroke="White"
+                    				Data="F1 M 6.742676,3.852539 L 9.110840,1.559570 L 8.910645,0.500000 L 6.838379,0.500000 L 4.902832,2.435547 L 2.967285,0.500000 L 0.895020,0.500000 L 0.694824,1.559570 L 3.062988,3.852539 L 0.527832,6.351563 L 0.689941,7.600586 L 2.967285,7.600586 L 4.897949,5.575195 L 6.854004,7.600586 L 9.115723,7.600586 L 9.277832,6.351563 L 6.742676,3.852539 Z" Fill="#FFFFFFFF"
+                    				Width="10" Height="10"
+                                  Stretch="Uniform"
+                    				VerticalAlignment="Center"
+                    				HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.05" Storyboard.TargetName="ellipes" Storyboard.TargetProperty="Opacity" To="1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseIn"></CubicEase>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.05" Storyboard.TargetName="ellipes" Storyboard.TargetProperty="Opacity" To="0.8">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseIn"></CubicEase>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.05" Storyboard.TargetName="ButtonBorder" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1.05">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseIn"></CubicEase>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.05" Storyboard.TargetName="ButtonBorder" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1.05">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseIn"></CubicEase>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.05" Storyboard.TargetName="ButtonBorder" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseIn"></CubicEase>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.05" Storyboard.TargetName="ButtonBorder" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseIn"></CubicEase>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SmallButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="20"></Setter>
+            <Setter Property="Width" Value="20"></Setter>
+            <Setter Property="Focusable" Value="False"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="grid" Background="#02FFFFFF">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="X"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="rectangle"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0.85" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="X"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="X"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Rectangle x:Name="rectangle" Fill="White" RadiusX="2" RadiusY="2" Opacity="0"/>
+                            <ContentPresenter
+                              x:Name="X"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Duration="0" To="Green" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Duration="0" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Duration="0" To="LightGray" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Duration="0" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="MainMenuTab" TargetType="{x:Type TabControl}">
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Focusable" Value="True"/>
+                        <Setter Property="FocusVisualStyle">
+                            <Setter.Value>
+                                <Style>
+                                    <Setter Property="Control.Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Width" Value="Auto"/>
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" Margin="10,0" FontFamily="Times New Roman" FontWeight="Bold" Text="{Binding}" Foreground="WhiteSmoke"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TabItem}">
+                                    <Border x:Name="Border" Margin="1,2,1,-2" BorderThickness="2,2,2,0" CornerRadius="3,3,0,0" BorderBrush="#FF252525" Background="{DynamicResource MyDarkGreenSolidBrush}">
+                                        <Grid>
+                                            <Border x:Name="focusElement" Visibility="Collapsed" Height="6" VerticalAlignment="Top" Background="Orange"></Border>
+                                            <ContentPresenter Margin="10,0" HorizontalAlignment="Center" ContentSource="Header" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                                <ContentPresenter.RenderTransform>
+                                                    <TransformGroup>
+                                                        <TranslateTransform x:Name="tt"/>
+                                                    </TransformGroup>
+                                                </ContentPresenter.RenderTransform>
+                                            </ContentPresenter>
+                                            <Button x:Name="btnTabClose" Opacity="0" Style="{StaticResource TabItemCloseButtonStyle}" Click="btnTabClose_Click"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="tt" Storyboard.TargetProperty="X" To="-12"></DoubleAnimation>
+                                                        <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="btnTabClose" Storyboard.TargetProperty="Opacity" To="1"></DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="tt" Storyboard.TargetProperty="X" To="0"></DoubleAnimation>
+                                                        <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="btnTabClose" Storyboard.TargetProperty="Opacity" To="0"></DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="Orange"></Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="focusElement" Property="Visibility" Value="Visible"></Setter>
+                                            <Setter TargetName="Border" Property="Background" Value="#FF0F4B38"/>
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="#FF085D3E"></Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard Storyboard="{StaticResource sbStartupBtns}"></BeginStoryboard>
+            <BeginStoryboard>
+                <Storyboard Duration="0:1:0" RepeatBehavior="Forever" AutoReverse="True">
+                    <DoubleAnimation BeginTime="0:0:10" Duration="0:0:5" Storyboard.TargetName="rt_imgBackLogo" Storyboard.TargetProperty="Angle" From="0" To="360">
+                        <DoubleAnimation.EasingFunction>
+                            <CircleEase EasingMode="EaseInOut"></CircleEase>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid x:Name="grdContainer">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#44FFFFFF" Offset="0"/>
+                <GradientStop Color="#4456FF6B" Offset="0.5"/>
+                <GradientStop Color="#44FFFFFF" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <!--Background="{StaticResource MyBrushMainWindow}">-->
+        <Grid HorizontalAlignment="Left" Height="716" Margin="180,0" VerticalAlignment="Center" Width="669">
+            <Grid.RenderTransform>
+                <TranslateTransform Y="-60"></TranslateTransform>
+            </Grid.RenderTransform>
+            <Image Opacity="0.06" RenderOptions.BitmapScalingMode="LowQuality" RenderTransformOrigin="0.5,0.5" >
+                <Image.Source>
+                    <BitmapImage DecodePixelWidth="669" UriSource="Images/Untitled-1.png"></BitmapImage>
+                </Image.Source>
+                <Image.RenderTransform>
+                    <RotateTransform x:Name="rt_imgBackLogo"></RotateTransform>
+                </Image.RenderTransform>
+            </Image>
+        </Grid>
+        <TabControl x:Name="tcMain" SelectionChanged="tcMain_SelectionChanged" Style="{StaticResource MainMenuTab}" BorderThickness="0" FlowDirection="RightToLeft" Margin="150,37,20,43" TabStripPlacement="Top" Background="Transparent">
+            <TabControl.InputBindings>
+                <KeyBinding Key="F4" Modifiers="Control" Command="ApplicationCommands.Close"></KeyBinding>
+                <KeyBinding Key="Escape" Modifiers="Shift" Command="ApplicationCommands.Close"></KeyBinding>
+            </TabControl.InputBindings>
+            <TabControl.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Close" Executed="CommandBindingClose_Executed"></CommandBinding>
+            </TabControl.CommandBindings>
+            <TabControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0" ScaleY="0"/>
+                </TransformGroup>
+            </TabControl.RenderTransform>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="0,10,10,10" BorderBrush="#FF085D3E"  Background="Transparent" BorderThickness="5">
+                        <ContentPresenter Margin="40,30" Content="{Binding}"/>
+                    </Border>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+
+        <Grid x:Name="grdBtns" FlowDirection="RightToLeft" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6,35" Height="200">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="172"/>
+                <ColumnDefinition Width="172"/>
+                <ColumnDefinition Width="172"/>
+                <ColumnDefinition Width="172"/>
+                <ColumnDefinition Width="172"/>
+                <ColumnDefinition Width="172"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnSearch" Content="إحصائيات وبحث" DataContext="Images/FIND1.PNG" Grid.Column="0" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
+            <Button x:Name="btnAddFamily" Content="بيانات العوائل" DataContext="Images/family.png" Grid.Column="1" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
+            <Button x:Name="btnOrphans" Content="متابعة الأيتام" DataContext="Images/member.png" Grid.Column="2" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="20"></Button>
+            <Button x:Name="btnSystem" Content="بيانات النظام" DataContext="Images/System.png" Grid.Column="3" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
+            <Button x:Name="btnInventory" Content="المواد والمستودعات" DataContext="Images/warehouse.png" Grid.Column="4" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
+            <Button x:Name="btnSettings" Content="إعدادات" DataContext="Images/Settings.png" Grid.Column="5" Style="{StaticResource XStyle}" Click="btnSettings_Click" FontSize="19"></Button>
+        </Grid>
+
+        <Grid x:Name="grdAboutProject" Margin="150" Visibility="Hidden" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <MainControls:AboutProjectControl/>
+            <Button Style="{StaticResource myBtnNext}" x:Name="btnExitAboutControl" Margin="-20,0,0,0" Width="25" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Click="btnExitAboutControl_Click"></Button>
+        </Grid>
+        <Grid x:Name="grdSettings" Margin="150,0" Visibility="Hidden" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <MainControls:SettingsControl/>
+            <Button Style="{StaticResource myBtnNext}" x:Name="btnExitSettings" Margin="-20,-20,0,0" Width="25" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Click="btnExitAboutControl_Click"></Button>
+        </Grid>
+
+
+        <Grid x:Name="grdTop" Margin="0" VerticalAlignment="Top" Height="150" DockPanel.Dock="Top">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF122113" Offset="0"/>
+                    <GradientStop Color="#FF0E0E0E" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <!--Background="{StaticResource MyBrushWindow2}"-->
+            <Border BorderBrush="#CCFFFFFF" Margin="0,0,0,0" BorderThickness="0,0,0,1"></Border>
+            <Border BorderBrush="#AAFFFFFF" Margin="0,0,0,1" BorderThickness="0,0,0,1"></Border>
+            <Border BorderBrush="#88FFFFFF" Margin="0,0,0,2" BorderThickness="0,0,0,1"></Border>
+            <Border BorderBrush="#66FFFFFF" Margin="0,0,0,3" BorderThickness="0,0,0,1"></Border>
+            <Border BorderBrush="#44FFFFFF" Margin="0,0,0,4" BorderThickness="0,0,0,1"></Border>
+            <Border BorderBrush="#22FFFFFF" Margin="0,0,0,5" BorderThickness="0,0,0,1"></Border>
+            <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnMessages" Height="25" Style="{StaticResource CUD_Style}" Margin="5,-15,0,-20" FontFamily="Arial" FontSize="16" Foreground="#FFEAEAEA" Click="btnMessages_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Border x:Name="brdrMessage" Visibility="Collapsed" Margin="0,-5,0,0" Width="20" Height="20" CornerRadius="50" Background="#FFFF0303">
+                            <TextBlock x:Name="txtMessage" Foreground="WhiteSmoke" FontWeight="Bold" FontSize="10" FontFamily="Arial" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <Path x:Name="sss" Width="30" Margin="0" HorizontalAlignment="Center" Stretch="Uniform" Fill="#FF01D33D" Data="F1 M 33,51L 36.4167,61.75L 24,51L 19,51L 19,22L 57,22L 57,51L 33,51 Z M 44.7244,45.3609C 45.2458,44.776 45.7533,44.0978 46.2471,43.3263L 47.5506,40.9739L 48.4534,38.6341C 48.6802,37.8711 48.7936,37.1972 48.7936,36.6122C 48.7936,36.0273 48.6802,35.3533 48.4534,34.5904L 47.5506,32.2379L 46.2471,29.8854L 44.7244,27.8635L 42.6898,27.8635C 43.7622,29.097 44.5729,30.4248 45.1218,31.8469C 45.6707,33.2689 45.9451,34.8574 45.9451,36.6122C 45.9451,38.3543 45.6707,39.9354 45.1218,41.3554C 44.5729,42.7753 43.7622,44.1105 42.6898,45.3609L 44.7244,45.3609 Z M 36.0208,34.8334C 35.1464,34.8334 34.4375,35.5422 34.4375,36.4167C 34.4375,37.2911 35.1464,38 36.0208,38L 39.1875,38C 40.0619,38 41.5625,37.2911 41.5625,36.4167C 41.5625,35.5422 40.0619,34.8334 39.1875,34.8334L 36.0208,34.8334 Z M 29.2917,30.0834C 28.4172,30.0834 27.7083,30.7922 27.7083,31.6667C 27.7083,32.5411 28.4172,32.8542 29.2917,32.8542L 30.875,32.8542C 31.7494,32.8542 32.4583,32.5411 32.4583,31.6667C 32.4583,30.7922 31.7494,30.0834 30.875,30.0834L 29.2917,30.0834 Z M 29.2917,39.9792C 28.4172,39.9792 27.7083,40.2922 27.7083,41.1667C 27.7083,42.0411 28.4172,42.75 29.2917,42.75L 30.875,42.75C 31.7494,42.75 32.4583,42.0411 32.4583,41.1667C 32.4583,40.2922 31.7494,39.9792 30.875,39.9792L 29.2917,39.9792 Z "/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnUser" Grid.Column="1" Margin="10,5,20,0" FontFamily="Arial" FontSize="16" Foreground="#FFEAEAEA" Click="btnChangePassword_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <TextBlock x:Name="txt" Foreground="{TemplateBinding Foreground}" Text="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="txt" Property="Foreground" Value="#FF0074FF"></Setter>
+                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter TargetName="txt" Property="Foreground" Value="#FF0F53A4"></Setter>
+                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <TextBlock x:Name="txtClock" HorizontalAlignment="Right" Margin="5,5,10,0" Text="00:00 00/00/0000" FontFamily="Arial" FontSize="16" Foreground="#FFEAEAEA"/>
+                <Button x:Name="btnMinimize" ToolTip="تصغير" Style="{StaticResource SmallButtonStyle}" Margin="5,5,0,0" Click="btnMinimize_Click" Background="#FF08A000">
+                    <Path Data="F1 M0,6 L1,6 1,0 0,0" Stretch="Fill" Height="5" Margin="0,0,0,3" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}, Path=Background, Mode=TwoWay}"/>
+                </Button>
+                <Button x:Name="btnExit" ToolTip="إغلاق" Style="{StaticResource SmallButtonStyle}" Margin="5,5,0,0" Click="btnExit_Click" Background="#FFFF7400">
+                    <Path Stretch="Fill" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}, Path=Background, Mode=TwoWay}"  Data="F1 M 6.742676,3.852539 L 9.110840,1.559570 L 8.910645,0.500000 L 6.838379,0.500000 L 4.902832,2.435547 L 2.967285,0.500000 L 0.895020,0.500000 L 0.694824,1.559570 L 3.062988,3.852539 L 0.527832,6.351563 L 0.689941,7.600586 L 2.967285,7.600586 L 4.897949,5.575195 L 6.854004,7.600586 L 9.115723,7.600586 L 9.277832,6.351563 L 6.742676,3.852539 Z"/>
+                </Button>
+            </StackPanel>
+            <Grid Margin="10,100,0,0" Width="284" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Foreground="#FFC7C7C7" FontSize="20" Width="100" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontFamily="{DynamicResource MyFontFamily}" Margin="5,0" Click="btnAboutProg_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <TextBlock x:Name="txt" Foreground="{TemplateBinding Foreground}" Text="عن البرنامج" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="txt" Property="Foreground" Value="#FF0074FF"></Setter>
+                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter TargetName="txt" Property="Foreground" Value="#FF0F53A4"></Setter>
+                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Foreground="#FFC7C7C7" FontSize="20" Width="100" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontFamily="{DynamicResource MyFontFamily}" Margin="5,0" Click="btnAboutProject_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <TextBlock x:Name="txt" Foreground="{TemplateBinding Foreground}" Text="عن المشروع" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="txt" Property="Foreground" Value="#FF0074FF"></Setter>
+                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter TargetName="txt" Property="Foreground" Value="#FF0F53A4"></Setter>
+                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <TextBlock Foreground="White" TextAlignment="Center" FontSize="30" Margin="10,30,0,0" HorizontalAlignment="Left" Width="284" FontFamily="{DynamicResource MyFontFamily}" VerticalAlignment="Top">
+                <Run Text="برنامج روض"/><LineBreak/><InlineUIContainer>
+            		<TextBlock FontSize="16" Foreground="#FF49FF49">
+                    <Run Text="لإدارة بيانات الجمعيات والمؤسسات الخيرية"/>
+                    </TextBlock>
+            	</InlineUIContainer></TextBlock>
+        </Grid>
+        <Grid x:Name="grdBottom" Height="150" DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF122113" Offset="0"/>
+                    <GradientStop Color="#FF0E0E0E" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <!--Background="{StaticResource MyBrushWindow2}">-->
+            <Border BorderBrush="#CCFFFFFF" Margin="0,0,0,0" BorderThickness="0,1,0,0"></Border>
+            <Border BorderBrush="#AAFFFFFF" Margin="0,1,0,0" BorderThickness="0,1,0,0"></Border>
+            <Border BorderBrush="#88FFFFFF" Margin="0,2,0,0" BorderThickness="0,1,0,0"></Border>
+            <Border BorderBrush="#66FFFFFF" Margin="0,3,0,0" BorderThickness="0,1,0,0"></Border>
+            <Border BorderBrush="#44FFFFFF" Margin="0,4,0,0" BorderThickness="0,1,0,0"></Border>
+            <Border BorderBrush="#22FFFFFF" Margin="0,5,0,0" BorderThickness="0,1,0,0"></Border>
+            <TextBlock Foreground="Gainsboro" Margin="5,0,0,3" TextAlignment="Left" FontSize="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontFamily="{DynamicResource MyFontFamily}">
+                <Run Text="البرنامج هدية مقدمة من مكتب "/>
+                <Hyperlink NavigateUri="http://www.dawatkhir.com" Click="Hyperlink_Click" Foreground="#FF59ACFF"><Run Text="دعوة خير"/></Hyperlink>
+                <Run Text=" - جميع الحقوق محفوظة للمكتب" />
+                <Run Text=" © 2013" FontFamily="Arial"/>
+            </TextBlock>
+            <TextBlock x:Name="txtSlogan" Foreground="#FFECEC39" TextAlignment="Center" FontSize="30" Height="84" Margin="0,0,147,24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="284" FontFamily="{DynamicResource MyFontFamily}" Grid.Column="1"><Run Text="مشروع معاً التكاملي"/><LineBreak/><InlineUIContainer>
+            		<TextBlock FontSize="16" Foreground="#FF89FF89"><Run Text="نظرة متكاملة ورؤية مشتركة للخير"/></TextBlock>
+            	</InlineUIContainer></TextBlock>
+            <Image x:Name="imgLogo" Opacity="0.9" HorizontalAlignment="Right" Height="130" Margin="0,0,10,7" VerticalAlignment="Bottom" Width="132" Source="Images/Untitled-1.png" Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</Window>

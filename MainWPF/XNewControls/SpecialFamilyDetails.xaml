@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="MainWPF.SpecialFamilyDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Local="clr-namespace:MainWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="750" MaxWidth="750" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <Style TargetType="DataGridRow">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStop Color="#FFF0A334" Offset="0"/>
+                                <GradientStop Color="#FFF9C12A" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Height" Value="Auto"></Setter>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                        <Condition Property="IsSelected" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStop Color="#AAD8C54D" Offset="0"/>
+                                <GradientStop Color="#AAE8B93C" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="الاسم" Grid.Row="0"/>
+            <TextBlock Text="اسم الاب" Grid.Row="1"></TextBlock>
+            <TextBlock Text="اسم الام" Grid.Row="2"></TextBlock>
+            <TextBlock Text="الجنس" Grid.Column="2" Grid.Row="0"></TextBlock>
+            <TextBlock Text="الرقم الوطني" Grid.Column="2" Grid.Row="1"></TextBlock>
+            <TextBlock Text="تاريخ الولادة" Grid.Column="2" Grid.Row="2"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="ملاحظات" VerticalAlignment="Top" Margin="0,6,0,0"></TextBlock>
+
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding FatherName, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding MotherName, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            <ComboBox Grid.Column="3" Grid.Row="0" Text="{Binding Gender, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                <ComboBoxItem  Content="ذكر"/>
+                <ComboBoxItem  Content="أنثى"/>
+            </ComboBox>
+            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding PID, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"/>
+            <DatePicker Grid.Column="3" Grid.Row="2" SelectedDate="{Binding DOB, Mode=TwoWay, ValidatesOnDataErrors=True, StringFormat='dd-MM-yyyy'}"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="4" MaxLength="2000" Grid.Row="4" VerticalAlignment="Stretch" Height="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Margin="8,0" VerticalContentAlignment="Top" TextWrapping="WrapWithOverflow" Text="{Binding Notes, Mode=TwoWay}"/>
+
+        </Grid>
+        <Button x:Name="btnSave" Grid.Row="1" HorizontalAlignment="Right" Width="150" Margin="5,2" FontSize="16" Content="حفظ" Click="btnSave_Click"></Button>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <ListView x:Name="lvOrders" ItemsSource="{Binding Orders}" MouseDoubleClick="lvOrders_MouseDoubleClick" FontSize="18" Margin="10"  Grid.Row="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Margin="0,5" Orientation="Vertical" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding OrderCode}" HorizontalAlignment="Center" FontFamily="Arial"/>
+                                <TextBlock Text="{Binding BarCode}" FontSize="12" HorizontalAlignment="Center" FontFamily="Arial"/>
+                                <TextBlock Text="{Binding Date, StringFormat='d/M/yyyy'}" HorizontalAlignment="Center" Foreground="#FFB90000" FontWeight="Bold" FontFamily="Arial"/>
+                                <TextBlock Text="{Binding LastUserName}" HorizontalAlignment="Center" FontFamily="Arial"/>
+                            </StackPanel>
+                            <StackPanel x:Name="spNotes" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBlock Text="ملاحظات" Width="110" FontWeight="Bold"/>
+                                <TextBlock TextWrapping="WrapWithOverflow" MaxWidth="400" Text="{Binding Notes}"/>
+                            </StackPanel>
+                            <ListBox Background="#FF838383" Grid.Column="1" ItemsSource="{Binding OIs}" HorizontalAlignment="Left" IsEnabled="False" Margin="1,5">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"></ColumnDefinition>
+                                                <ColumnDefinition Width="220"></ColumnDefinition>
+                                                <ColumnDefinition Width="60"></ColumnDefinition>
+                                                <ColumnDefinition Width="40"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock FontSize="14" Margin="1,0" Text="المادة :" FontFamily="{StaticResource MyFontFamilyMedium}" Grid.Column="0" HorizontalAlignment="Left"></TextBlock>
+                                            <TextBlock FontSize="14" Margin="1,0" Text="{Binding Item.Name}" Grid.Column="1" HorizontalAlignment="Left"></TextBlock>
+                                            <TextBlock FontSize="14" Margin="1,0" Text="الكمية :" FontFamily="{StaticResource MyFontFamilyMedium}" Grid.Column="2" HorizontalAlignment="Left"></TextBlock>
+                                            <TextBlock FontSize="14" Margin="1,0" Text="{Binding Quantity}" FontFamily="Arial" Grid.Column="3" HorizontalAlignment="Left"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Notes}" Value="">
+                                <Setter TargetName="spNotes" Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Notes}" Value="{x:Null}">
+                                <Setter TargetName="spNotes" Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button x:Name="AddSupport" Width="120" Margin="5" FontSize="16" Content="إضافة إعانة" Click="AddSupport_Click"></Button>
+                <Button x:Name="UpdateSupport" Width="120" Margin="5" FontSize="16" Content="تعديل إعانة" Click="UpdateSupport_Click"></Button>
+                <Button x:Name="DeleteSupport" Width="164" Margin="5" FontSize="16" Click="btnDelSupport_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/MainWPF;component/Images/DELETE.PNG"/>
+                        <TextBlock Text="حذف الإعانة" VerticalAlignment="Center" Margin="10,0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

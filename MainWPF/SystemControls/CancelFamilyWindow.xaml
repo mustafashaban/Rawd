@@ -1,0 +1,42 @@
+﻿<Window x:Class="MainWPF.CancelFamilyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+        Title="CancelFamilyWindow" Height="300" Width="700" WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="191*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="0,1,0,39" Grid.RowSpan="2">
+            <CheckBox x:Name="chk" IsChecked="{Binding IsCanceled, Mode=TwoWay}" Style="{StaticResource LargeCheckBox}"></CheckBox>
+            <TextBlock Text="إلغاء العائلة" Margin="10,0" FontSize="20"></TextBlock>
+        </StackPanel>
+        <TextBlock x:Name="txtDate" Text="تاريخ الإلغاء" FontSize="20" FontFamily="{StaticResource MyFontFamily}" Grid.Row="1" Grid.Column="1" ></TextBlock>
+        <DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="5,0" IsEnabled="{Binding ElementName=chk, Path=IsChecked}" SelectedDate="{Binding CancelDate, Mode=TwoWay}" Grid.Column="2" Grid.Row="1"></DatePicker>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
+            <CheckBox x:Name="chkAcquittance" IsEnabled="{Binding ElementName=chk, Path=IsChecked}" IsChecked="{Binding IsAcquittance, Mode=TwoWay}" Style="{StaticResource LargeCheckBox}"></CheckBox>
+            <TextBlock Text="منح براءة ذمة" Margin="10,0" FontSize="20"></TextBlock>
+        </StackPanel>
+        <TextBlock x:Name="txtAcquittance" Text="تاريخ المنح" FontSize="20" FontFamily="{StaticResource MyFontFamily}" Grid.Row="2" Grid.Column="1" ></TextBlock>
+        <DatePicker x:Name="dtpAcquittance" HorizontalAlignment="Left" Margin="5,0" IsEnabled="{Binding ElementName=chkAcquittance, Path=IsChecked}" SelectedDate="{Binding AcquittanceDate, Mode=TwoWay}" Grid.Column="2" Grid.Row="2"></DatePicker>
+
+        <TextBlock Text="سبب الإلغاء" FontSize="20" Grid.Row="3" FontFamily="{StaticResource MyFontFamily}"/>
+        <TextBox x:Name="txtNotes" IsReadOnly="True" MaxLength="10000" Grid.RowSpan="2" VerticalAlignment="Stretch" Height="Auto" Text="{Binding CancelReason, Mode=TwoWay}" AcceptsReturn="True" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="5"></TextBox>
+        <Button x:Name="btnSave" Content="حفظ" FontSize="16" Grid.Row="5" HorizontalAlignment="Right" Width="117" Grid.Column="2" Click="btnSave_Click"/>
+        <Button x:Name="btnBack" Content="رجوع" FontSize="16" Grid.Row="5" Grid.Column="1" Margin="0,0,122,0" HorizontalAlignment="Right" Width="117" Grid.ColumnSpan="2" Click="btnBack_Click"/>
+        
+        <Button Grid.Row="4" Width="30" Height="30" Click="btnAddNotes_Click" Style="{StaticResource CUD_Style}" VerticalAlignment="Bottom" HorizontalAlignment="Right" ToolTip="اضافة سبب الالغاء">
+            <Path Stretch="Fill" Fill="#FF000000" Data="F1 M 53.2929,21.2929L 54.7071,22.7071C 56.4645,24.4645 56.4645,27.3137 54.7071,29.0711L 52.2323,31.5459L 44.4541,23.7677L 46.9289,21.2929C 48.6863,19.5355 51.5355,19.5355 53.2929,21.2929 Z M 31.7262,52.052L 23.948,44.2738L 43.0399,25.182L 50.818,32.9601L 31.7262,52.052 Z M 23.2409,47.1023L 28.8977,52.7591L 21.0463,54.9537L 23.2409,47.1023 Z M 17,28L 17,23L 23,23L 23,17L 28,17L 28,23L 34,23L 34,28L 28,28L 28,34L 23,34L 23,28L 17,28 Z "/>
+        </Button>
+    </Grid>
+</Window>

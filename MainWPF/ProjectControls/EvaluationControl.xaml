@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="MainWPF.EvaluationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="31.076" Width="200" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource MyFontFamily}"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal">
+        <RadioButton Name="rad1" Style="{StaticResource MyRadioStyleEV}" Checked="rad_CheckedChanged" Width="55" Margin="10,0,0,0" Content="جيد"></RadioButton>
+        <RadioButton Name="rad2" Style="{StaticResource MyRadioStyleEV}" Checked="rad_CheckedChanged" Width="55" Margin="-5,0,0,0" Content="متوسط" ></RadioButton>
+        <RadioButton Name="rad3" Style="{StaticResource MyRadioStyleEV}" Checked="rad_CheckedChanged" Width="55" Margin="18,0,0,0" Content="سيء"></RadioButton>
+        <RadioButton Name="rad4" Style="{StaticResource MyRadioStyleEV}" Checked="rad_CheckedChanged" Width="55" Content="جيد" Visibility="Hidden"></RadioButton>
+    </StackPanel>
+</UserControl>

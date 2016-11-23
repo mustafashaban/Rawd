@@ -1,0 +1,145 @@
+﻿<Window x:Class="MainWPF.UsersControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DBControl" Height="710" Width="800" WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="FontFamily" Value="{StaticResource MyFontFamily}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgUsers" Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="120" Header="اسم المستخدم" Binding="{Binding Name}" FontFamily="Arial" FontSize="16"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="500"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Margin="20,0,0,0" TextBlock.FontFamily="{StaticResource MyFontFamily}">
+                <RadioButton x:Name="radAdd" Content="اضافة" Style="{DynamicResource MyRadioStyle}" Checked="radAdd_Checked" IsChecked="True"></RadioButton>
+                <RadioButton x:Name="radUpd" Content="تعديل" Style="{DynamicResource MyRadioStyle}" Checked="radUpd_Checked"  Margin="20,0"></RadioButton>
+                <RadioButton x:Name="radDel" Content="حذف" Style="{DynamicResource MyRadioStyle}" Margin="20,0"></RadioButton>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="اسم المستخدم" HorizontalAlignment="Left"></TextBlock>
+                <TextBox Width="160" Text="{Binding Name, Mode=TwoWay}" FontFamily="Arial" FontSize="16"></TextBox>
+                <TextBlock Text="كلمة المرور" HorizontalAlignment="Left"></TextBlock>
+                <TextBox Width="160" Text="{Binding Password, Mode=OneWayToSource}" FontFamily="Arial" FontSize="16"></TextBox>
+            </StackPanel>
+            <Button x:Name="btnExecute" Click="btnExecute_Click" Grid.Row="1" VerticalAlignment="Bottom" Height="35" Content="اضافة" FontSize="16" Margin="5,5"></Button>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="صلاحيات المستخدم" Grid.Column="0" Background="LightBlue" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBlock>
+                <StackPanel Grid.Column="0" Margin="0,30,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IsAdmin, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="مدير نظام"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanAdd, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية الاضاقة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanUpdate, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية التعديل"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanDelete, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية الحذف"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanPresent, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية التسليم"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanEnterTempFamily, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية ادخال العوائل المؤقتة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanCancelTempFamily, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية الغاء العوائل المؤقتة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanDeleteTempFamily, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية حذف العوائل المؤقتة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanUpdateSupport, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية تعديل الإعانة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IT, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="مدير IT"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding ReportAdmin, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="معد تقارير"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="0,30,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanEnterListerGroup, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية ادخال فرق التقييم"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanEnterFamily, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية ادخال العوائل العامة "></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanUpdateFamily, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية تعديل العوائل العامة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanEnterFamilyNeed, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية ادخال احتياجات العائلة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanMakeStatistics, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية اجراء الاحصائيات"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanCancelFamily, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية الغاء العوائل العامة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanExport, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية التصدير "></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanPrintReports, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية طباعة التقارير"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding CanDeleteSupport, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="امكانية حذف الإعانة"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Style="{StaticResource LargeCheckBox}" IsChecked="{Binding PointAdmin, Mode=TwoWay}"></CheckBox>
+                        <TextBlock Text="مدير نقطة"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

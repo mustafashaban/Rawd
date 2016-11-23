@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="MainWPF.NumericUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Local="clr-namespace:MainWPF" Background="Transparent" BorderBrush="Transparent"
+             mc:Ignorable="d" MinWidth="100" MinHeight="25"
+             d:DesignHeight="25" d:DesignWidth="100">
+    <UserControl.Resources>
+        <Style TargetType="RepeatButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border x:Name="brdr" Background="#FFF1F1F1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="brdr" Property="Background" Value="#FFB0B0B0"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="brdr" Property="Background" Value="#FFFFE8E8"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{x:Static Local:NumericUpDown.UpRoutedCommand}" Executed="ExecutedUpCommand"></CommandBinding>
+        <CommandBinding Command="{x:Static Local:NumericUpDown.DownRoutedCommand}" Executed="ExecutedDownCommand"></CommandBinding>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Key="Up" Command="{x:Static Local:NumericUpDown.UpRoutedCommand}" ></KeyBinding>
+        <KeyBinding Key="Down" Command="{x:Static Local:NumericUpDown.DownRoutedCommand}" ></KeyBinding>
+    </UserControl.InputBindings>
+    <Grid FlowDirection="LeftToRight">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="txt" LostFocus="txt_LostFocus" GotFocus="txt_GotFocus" VerticalAlignment="Stretch" Height="Auto" HorizontalContentAlignment="Center" FontFamily="Arial" Width="Auto" Margin="0">
+            <TextBox.CommandBindings>
+                <CommandBinding Command="{x:Static Local:NumericUpDown.UpRoutedCommand}" Executed="ExecutedUpCommand"></CommandBinding>
+                <CommandBinding Command="{x:Static Local:NumericUpDown.DownRoutedCommand}" Executed="ExecutedDownCommand"></CommandBinding>
+                <CommandBinding Command="{x:Static Local:NumericUpDown.EnterRoutedCommand}" Executed="ExecutedEnterCommand"></CommandBinding>
+            </TextBox.CommandBindings>
+            <TextBox.InputBindings>
+                <KeyBinding Key="Up" Command="{x:Static Local:NumericUpDown.UpRoutedCommand}" ></KeyBinding>
+                <KeyBinding Key="Down" Command="{x:Static Local:NumericUpDown.DownRoutedCommand}" ></KeyBinding>
+                <KeyBinding Key="Enter" Command="{x:Static Local:NumericUpDown.EnterRoutedCommand}" ></KeyBinding>
+            </TextBox.InputBindings>
+        </TextBox>
+        <RepeatButton x:Name="btnAdd" IsTabStop="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" Click="RepeatButtonPlus_Click">
+            <Path Fill="#88000000" Grid.Column="1" Width="18" Height="15" Stretch="Fill" Data="M24.5,0 L49.5,0 49.5,24.5 74,24.5 74,49.5 49.5,49.5 49.5,74 24.5,74 24.5,49.5 0,49.5 0,24.5 24.5,24.5 z"></Path>
+        </RepeatButton>
+        <RepeatButton x:Name="btnMinus" IsTabStop="False" Grid.Column="2" Click="RepeatButtonMinus_Click">
+            <Rectangle Grid.Column="1" Fill="#88000000" Width="20" Height="5"/>
+        </RepeatButton>
+        <Border CornerRadius="1" BorderBrush="#88000000" BorderThickness="1" Grid.ColumnSpan="3"></Border>
+    </Grid>
+</UserControl>

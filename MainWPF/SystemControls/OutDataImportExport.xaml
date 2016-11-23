@@ -1,0 +1,44 @@
+﻿<Window x:Class="MainWPF.OutDataImportExport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OutDataImportExport" Height="320" Width="500" Style="{StaticResource MyWindowStyle}" 
+                WindowStartupLocation="CenterScreen">
+    <Grid>
+        <GroupBox Margin="10,0">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="بيانات التسليم" FontFamily="{StaticResource MyFontFamily}" FontSize="17"></TextBlock>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="اختر المستودع" HorizontalAlignment="Center"/>
+                    <ComboBox x:Name="cmboInventory" DisplayMemberPath="Name" Width="150"/>
+                </StackPanel>
+                <Button Width="100" Height="100" Margin="10,0" Grid.Column="1" ToolTip="تصدير بيانات التسليم" Click="btnExportPresentData_Click">
+                    <Image Margin="10">
+                        <Image.Source>
+                            <BitmapImage DecodePixelWidth="80" UriSource="/MainWPF;component/Images/EXPORT1.PNG" ></BitmapImage>
+                        </Image.Source>
+                    </Image>
+                </Button>
+                <TextBlock Text="استيراد بيانات التسليم" Grid.Row="1"/>
+                <Button Width="100" Height="100" Margin="10,0" Grid.Row="1" Grid.Column="1" ToolTip="استيراد بيانات التسليم" Click="btnImportPresentData_Click">
+                    <Image Margin="10">
+                        <Image.Source>
+                            <BitmapImage DecodePixelWidth="80" UriSource="/MainWPF;component/Images/IMPORT2.PNG" ></BitmapImage>
+                        </Image.Source>
+                    </Image>
+                </Button>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

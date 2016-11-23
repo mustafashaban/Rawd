@@ -1,0 +1,72 @@
+﻿<Window x:Class="MainWPF.SponsorControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Local="clr-namespace:MainWPF"
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+        Height="530" Width="770" x:Name="myWindow" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="153" />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="الاسم" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" />
+            <TextBlock Text="الكنية" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" />
+            <TextBlock Text="مكان الولادة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" />
+            <TextBlock Text="تاريخ الولادة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="3" />
+            <TextBlock Text="الجنس" TextWrapping="Wrap" Grid.Column="0" Grid.Row="4" />
+            <TextBlock Text="الجنسية" TextWrapping="Wrap" Grid.Column="0" Grid.Row="5" />
+            <TextBlock Text="العمل" TextWrapping="Wrap" Grid.Column="0" Grid.Row="6" />
+            <TextBlock Text="الهاتف" TextWrapping="Wrap" Grid.Column="2" />
+            <TextBlock Text="الموبايل" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" />
+            <TextBlock Text="البريد الإلكتروني" Grid.Column="2" Grid.Row="2"  />
+            <TextBlock Text="المستوى التعليمي" Grid.Row="7" />
+            <TextBlock Text="العنوان" TextWrapping="Wrap" Grid.Column="2" Grid.Row="3" />
+            <TextBlock Text="صورة الهوية" TextWrapping="Wrap" Grid.Column="2" Grid.Row="4" />
+            <TextBlock Text="هل الكفيل منظمة" TextWrapping="Wrap" Grid.Column="2" Grid.Row="5" />
+            <TextBlock Text="الكفالة الرئيسية" TextWrapping="Wrap" Grid.Column="2" Grid.Row="6" />
+            <TextBlock Text="ملاحظات" TextWrapping="Wrap" Grid.Column="0" Grid.Row="8" Margin="0,5,0,46" Grid.RowSpan="2" />
+
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=true}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LastName, Mode=TwoWay}" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding BirthPlace, Mode=TwoWay}"/>
+            <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding DOB, Mode=TwoWay}" />
+            <ComboBox Grid.Column="1" Grid.Row="4" Text="{Binding Gender, Mode=TwoWay}" FontSize="14" Width="100">
+                <ComboBoxItem Background="#FFB8DCFF" Content="ذكر"/>
+                <ComboBoxItem Background="#FFFFC0C0" Content="أنثى"/>
+            </ComboBox>
+            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Nationality, Mode=TwoWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Job, Mode=TwoWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding ScientificQualifier, Mode=TwoWay}"/>
+
+            <TextBox Grid.Column="3" Text="{Binding Phone, Mode=TwoWay}"/>
+            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Mobile, Mode=TwoWay}" />
+            <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Email, Mode=TwoWay}"/>
+            <TextBox Grid.Column="3" Grid.Row="3" Text="{Binding PlaceAddress, Mode=TwoWay}"/>
+            <Local:ImageBoxControl HorizontalAlignment="Center" Grid.Column="3" Grid.Row="4" Value="{Binding IdentityImage, Mode=TwoWay}"></Local:ImageBoxControl>
+            <CheckBox Grid.Column="3" Grid.Row="5" IsChecked="{Binding IsGovernment, Mode=TwoWay, ValidatesOnDataErrors=true}" Style="{StaticResource LargeCheckBox}"></CheckBox>
+            <TextBox Grid.Column="3" Grid.Row="6" Text="{Binding MainBail, Mode=TwoWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="8" AcceptsReturn="True" Text="{Binding Notes, Mode=TwoWay}" VerticalAlignment="Stretch" VerticalContentAlignment="Top" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="74" TextWrapping="WrapWithOverflow" />
+        </Grid>
+        <Button x:Name="btnAdd" Grid.Row="1" Width="120" Content="إضافة" FontSize="16" HorizontalAlignment="Right" Click="BtnAdd_Click"></Button>
+        <Button x:Name="btnUpdate" Grid.Row="1" Width="120" Content="تعديل" FontSize="16" HorizontalAlignment="Right" Visibility="Hidden" Click="BtnUpdate_Click"></Button>
+    </Grid>
+</Window>

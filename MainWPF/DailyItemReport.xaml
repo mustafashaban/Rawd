@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="MainWPF.DailyItemReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainWPF"
+             mc:Ignorable="d" 
+             Width="21cm" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="من تاريخ" VerticalAlignment="Center" FontFamily="{StaticResource MyFontFamily}" Margin="5,0"/>
+            <DatePicker x:Name="dp1" Width="120" />
+            <TextBlock Text="الى تاريخ" VerticalAlignment="Center" FontFamily="{StaticResource MyFontFamily}" Margin="5,0"/>
+            <DatePicker x:Name="dp2" Width="120"/>
+            <TextBlock Text="المستودع" VerticalAlignment="Center" FontFamily="{StaticResource MyFontFamily}" Margin="5,0"/>
+            <ComboBox x:Name="cmboInventory" Width="180" ItemsSource="{x:Static local:Inventory.AllInventories}" SelectedValuePath="ID" DisplayMemberPath="Name"/>
+            <Button Width="100" Content="عرض التقرير" Click="btnShow_Click" Margin="5,0"/>
+        </StackPanel>
+        <Grid Grid.Row="1" VerticalAlignment="Top" >
+            <ScrollViewer x:Name="sv" Background="White" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <Grid x:Name="grdToPrint" Visibility="Collapsed">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="FontSize" Value="14"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid FlowDirection="RightToLeft" Margin="1cm,0cm">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4cm"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img1" VerticalAlignment="Center" Grid.RowSpan="2" Grid.Row="1" Stretch="Uniform" Margin="0,-200,0,0" MaxHeight="10cm" Opacity="0.4"/>
+                        <Image x:Name="img2" HorizontalAlignment="Left" Margin="10,0" Height="2.5cm" Width="2.5cm" VerticalAlignment="Top" Opacity="1"/>
+                        <TextBlock x:Name="txtHeader" FontSize="15" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        <TextBlock Text="المواد المخرجة" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                        <TextBlock x:Name="txtInventoryHeader" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,15"/>
+                        <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,5">
+                            <StackPanel Orientation="Horizontal">
+                                <Border BorderThickness="0,0,0,1" BorderBrush="Black">
+                                    <TextBlock Width="100" Text="من تاريخ" TextAlignment="Center" Margin="0,3"/>
+                                </Border>
+                                <Border BorderThickness="0,0,0,1" BorderBrush="Black" Margin="2,0">
+                                    <TextBlock x:Name="txtDate1" TextAlignment="Center" Margin="0,3" Width="120" />
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Border BorderThickness="0,0,0,1" BorderBrush="Black">
+                                    <TextBlock Width="100" Text="الى تاريخ" TextAlignment="Center" Margin="0,3"/>
+                                </Border>
+                                <Border BorderThickness="0,0,0,1" BorderBrush="Black" Margin="2,0">
+                                    <TextBlock x:Name="txtDate2" TextAlignment="Center" Margin="0,3" Width="120" />
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                        <Grid VerticalAlignment="Top" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8cm"/>
+                                <ColumnDefinition Width="4cm"/>
+                                <ColumnDefinition Width="7cm"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="16" Text="اسم المادة"/>
+                            <TextBlock Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center" FontSize="16" Text="العدد"/>
+                            <TextBlock Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center" FontSize="16" Text="الوحدة القياسية"/>
+                        </Grid>
+                        <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" Margin="0,20,0,0">
+                            <ItemsControl x:Name="Items" VerticalAlignment="Top" Margin="0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Height="20">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="8cm"/>
+                                                <ColumnDefinition Width="4cm"/>
+                                                <ColumnDefinition Width="7cm"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding ItemName}" VerticalAlignment="Center" FontFamily="Arial" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Quantity}" VerticalAlignment="Center" FontFamily="Arial" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding StandardUnit}" VerticalAlignment="Center" FlowDirection="LeftToRight" FontFamily="Arial" HorizontalAlignment="Center"/>
+                                            <Border BorderThickness="0,0,0,1" VerticalAlignment="Bottom" Grid.ColumnSpan="3" BorderBrush="Black"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+                        <TextBlock x:Name="txtNow" Grid.Row="2" HorizontalAlignment="Left" Margin="50,20,0,0"/>
+                        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,20,50,0">
+                            <TextBlock HorizontalAlignment="Center" Text="الموظف المسؤول" FontWeight="Bold"/>
+                            <Border BorderBrush="Black" BorderThickness="0,1,0,0" Width="100"/>
+                            <TextBlock HorizontalAlignment="Center" x:Name="txtUser"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+            <Button Grid.Row="1" Margin="5,5,20,5" Width="50" Cursor="Hand" ToolTip="طباعة التقرير" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnReport_Click" Style="{StaticResource CUD_Style}">
+                <Path Stretch="Uniform" Fill="#FF424242" Data="F1 M 25,27L 25,17L 51,17L 51,27L 47,27L 47,21L 29,21L 29,27L 25,27 Z M 16,28L 60,28L 60,51L 52,51L 52,46L 55,46L 55,33L 21,33L 21,46L 24,46L 24,51L 16,51L 16,28 Z M 25,39L 28,39L 28,52L 35,52L 35,59L 48,59L 48,39L 51,39L 51,62L 33,62L 25,54L 25,39 Z M 46,55L 38,55L 38,52L 46,52L 46,55 Z M 46,49L 30,49L 30,46L 46,46L 46,49 Z M 46,43L 30,43L 30,40L 46,40L 46,43 Z "/>
+            </Button>
+        </Grid>
+        
+        
+    </Grid>
+</UserControl>
+

@@ -1,0 +1,27 @@
+﻿<Window x:Class="MainWPF.CancelTempFamilyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+        Title="CancelFamilyWindow" Height="300" Width="500" WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="191*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <CheckBox x:Name="chk" IsChecked="{Binding IsCancelled, Mode=TwoWay}" Style="{StaticResource LargeCheckBox}"></CheckBox>
+            <TextBlock Text="إلغاء العائلة" Margin="10,0" FontSize="20"></TextBlock>
+        </StackPanel>
+        <TextBlock Text="سبب الإلغاء" FontSize="20" Grid.Row="2" FontFamily="{StaticResource MyFontFamily}"/>
+        <TextBox IsEnabled="{Binding ElementName=chk, Path=IsChecked}" MaxLength="2000" Text="{Binding CancelReason, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" Height="Auto" Margin="5" AcceptsReturn="True"></TextBox>
+        <Button x:Name="btnSave" Content="حفظ" FontSize="16" Grid.Row="4" HorizontalAlignment="Right" Width="117" Grid.Column="1" Click="btnSave_Click"/>
+        <Button x:Name="btnBack" Content="رجوع" FontSize="16" Grid.Row="4" Margin="0,0,122,0" HorizontalAlignment="Right" Width="117" Grid.ColumnSpan="2" Click="btnBack_Click"/>
+    </Grid>
+</Window>

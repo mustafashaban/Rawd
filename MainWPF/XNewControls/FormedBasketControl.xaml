@@ -1,0 +1,145 @@
+﻿<UserControl  x:Class="MainWPF.FormedBasketControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:Local="clr-namespace:MainWPF"
+             mc:Ignorable="d"  
+             d:DesignWidth="1000" Loaded="Window_Loaded" d:DesignHeight="600" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type wtk:DoubleUpDown}">
+            <Setter Property="Margin" Value="8,2"></Setter>
+            <Setter Property="TextAlignment" Value="Left"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+            <RadioButton IsChecked="True" Content="اضافة سلة مواد" Checked="rad_Checked" GroupName="A" FontFamily="{StaticResource MyFontFamily}" VerticalAlignment="Center">
+                <RadioButton.LayoutTransform>
+                    <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>
+                </RadioButton.LayoutTransform>
+            </RadioButton>
+            <RadioButton x:Name="radUpdate" Checked="rad_Checked" GroupName="A" Margin="10,0,10,0" Content="تعديل سلة مواد" FontFamily="{StaticResource MyFontFamily}" VerticalAlignment="Center">
+                <RadioButton.LayoutTransform>
+                    <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>
+                </RadioButton.LayoutTransform>
+            </RadioButton>
+            <ComboBox x:Name="cmboFormedBasket" IsEnabled="{Binding ElementName=radUpdate, Path=IsChecked}" Width="250" DisplayMemberPath="Name" SelectionChanged="cmboFormedBasket_SelectionChanged" Margin="2,0" HorizontalAlignment="Left" Grid.Row="3"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="150"/>
+                <ColumnDefinition MaxWidth="220"/>
+                <ColumnDefinition MinWidth="150"/>
+                <ColumnDefinition MaxWidth="220"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="اسم سلة المواد" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            <StackPanel HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{StaticResource LargeCheckBox}"/>
+                <TextBlock Margin="20,0"  Text="مفعّلة" />
+                <CheckBox IsChecked="{Binding IsUrgent, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{StaticResource LargeCheckBox}"/>
+                <TextBlock Margin="20,0,0,0"  Text="طارئة" />
+            </StackPanel>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="ملاحظات" />
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalContentAlignment="Top" VerticalAlignment="Stretch" Height="Auto" AcceptsReturn="True" MaxLength="1000" Margin="8,5" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="المواد ضمن السلة" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBox x:Name="txtSearch" TextChanged="txtSearch_TextChanged" PreviewKeyDown="txtSearch_PreviewKeyDown"></TextBox>
+            <Image HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,6" RenderTransformOrigin="0.5,0.5" Height="30">
+                <Image.Source>
+                    <BitmapImage DecodePixelHeight="40" UriSource="/MainWPF;component/Images/FIND2.PNG"></BitmapImage>
+                </Image.Source>
+            </Image>
+            <ListBox x:Name="lbMainItems" MouseDoubleClick="lbMainItems_MouseDoubleClick" VirtualizingPanel.IsVirtualizingWhenGrouping="True" VirtualizingPanel.IsVirtualizing="True" Margin="3,0" FontFamily="{StaticResource MyFontFamily}" FontSize="16" Grid.Row="1" BorderThickness="5" BorderBrush="#FF10551F">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path='Name'}" Margin="3,0,0,0"></TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox x:Name="lbItemsFiltered" MouseDoubleClick="lbMainItems_MouseDoubleClick" Visibility="Collapsed" VirtualizingPanel.IsVirtualizingWhenGrouping="True" VirtualizingPanel.IsVirtualizing="True" Margin="3,0" Grid.RowSpan="2" FontFamily="{StaticResource MyFontFamily}" FontSize="16" Grid.Row="1" BorderThickness="5" BorderBrush="#FF10551F">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path='Name'}" Margin="3,0,0,0"></TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0">
+                <Button x:Name="btnAddLister" Height="50" Content="+" FontSize="30" Click="btnAddItem_Click"/>
+                <Button x:Name="btnDelLister" Height="50" Content="-" FontSize="30" Click="btnDelItem_Click"/>
+            </StackPanel>
+            <DataGrid Grid.Column="2" Grid.Row="1" x:Name="dgSelectedItems" IsReadOnly="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="True" MinWidth="180" Header="اسم المادة" Binding="{Binding RelatedItem.Name}"/>
+                    <Local:MyDataGridTemplateColumn MinWidth="60" Header="العدد" Width="*" IsReadOnly="False">
+                        <Local:MyDataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Local:NumericUpDown HorizontalAlignment="Center" Value="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="90" Minimum="1" Margin="1,0"></Local:NumericUpDown>
+                                </Grid>
+                            </DataTemplate>
+                        </Local:MyDataGridTemplateColumn.CellEditingTemplate>
+                        <Local:MyDataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding Quantity}" FontFamily="Arial" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </Local:MyDataGridTemplateColumn.CellTemplate>
+                    </Local:MyDataGridTemplateColumn>
+                    <DataGridTextColumn IsReadOnly="True" MinWidth="180" Header="الوحدة" Binding="{Binding RelatedItem.StandardUnit}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="القطاعات المرتبطة بهذه السلة" FontSize="20" HorizontalAlignment="Center"/>
+            <Button Width="35" Height="25" ToolTip="تحديد الكل" Click="btnSelectAllSectors_Click" HorizontalAlignment="Right" Style="{StaticResource CUD_Style}">
+                <Path Fill="#FF4D4D4D" Stretch="Uniform" Data="F1 M 30.4792,27.3126L 56.6041,27.3126C 57.9158,27.3126 58.9791,27.9801 58.9791,29.2918C 58.9791,30.6034 57.9158,31.2709 56.6041,31.2709L 30.4792,31.2709C 29.1675,31.2709 28.1042,30.6034 28.1042,29.2917C 28.1042,27.98 29.1675,27.3126 30.4792,27.3126 Z M 30.4791,36.8125L 60.9582,36.8126C 62.2699,36.8126 63.3332,37.4801 63.3332,38.7918C 63.3332,40.1035 61.8827,40.6887 60.571,40.6887L 30.092,40.6886C 28.7803,40.6886 28.1041,40.1034 28.1041,38.7917C 28.1041,37.48 29.1675,36.8125 30.4791,36.8125 Z M 30.4792,46.3125L 53.0415,46.3126C 54.3532,46.3126 55.4165,46.9801 55.4165,48.2917C 55.4165,49.6034 54.3532,50.2709 53.0415,50.2709L 30.4792,50.2709C 29.1675,50.2709 28.1042,49.6034 28.1042,48.2917C 28.1042,46.98 29.1675,46.3125 30.4792,46.3125 Z M 16.6122,46.3508L 19.3192,48.7386L 24.1458,42.75L 26.3037,45.1378L 20.2769,52.25L 18.6042,52.25L 14.7735,48.4866L 14.7735,46.3508L 16.6122,46.3508 Z M 16.8293,36.8508L 19.5363,39.2386L 24.3629,33.25L 26.5208,35.6378L 20.494,42.75L 18.8213,42.75L 14.9906,38.9866L 14.9906,36.8508L 16.8293,36.8508 Z M 16.8293,27.3508L 19.5363,29.7385L 24.3629,23.75L 26.5208,26.1378L 20.494,33.25L 18.8213,33.25L 14.9906,29.4866L 14.9906,27.3508L 16.8293,27.3508 Z "/>
+            </Button>
+            <ListBox x:Name="lbSectors" Margin="5" FontFamily="{StaticResource MyFontFamily}" FontSize="16" Grid.Row="1" BorderThickness="2" BorderBrush="#FF10551F">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Style="{StaticResource LargeCheckBox}"></CheckBox>
+                            <TextBlock Text="{Binding Path=Name}" Margin="3,0,0,0"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Content="حفظ" Click="btnSave_Click" Margin="5,0" Grid.Row="3" Grid.Column="2" />
+        </Grid>
+        <Border x:Name="brdrBack" Visibility="Collapsed" Background="#22636363" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+    </Grid>
+</UserControl>

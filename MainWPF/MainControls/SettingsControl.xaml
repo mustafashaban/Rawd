@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="MainWPF.MainControls.SettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="536.426" Background="Transparent" d:DesignWidth="987">
+    <UserControl.Resources>
+        <TransformGroup x:Key="btnTransformStyle">
+            <ScaleTransform/>
+        </TransformGroup>
+        <SolidColorBrush x:Key="MyDarkGreenSolidBrush" Color="#FF101D11"/>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="{StaticResource MyFontFamily}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Height" Value="180"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform" Value="{DynamicResource btnTransformStyle}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Margin="7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Border Background="{StaticResource MyDarkGreenSolidBrush}" Margin="7" CornerRadius="25" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Border.RenderTransform>
+                                <Border.Triggers>
+                                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1.2" Duration="0:0:0.15" />
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1.2" Duration="0:0:0.15"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.3" />
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Border.Triggers>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Opacity="0.8" Color="Gray"/>
+                                </Border.Effect>
+                                <Image Source="{Binding}" Margin="15" RenderTransformOrigin="0.5,0.5">
+                                    <Image.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="0.95"/>
+                                            <SkewTransform />
+                                            <RotateTransform />
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Image.RenderTransform>
+                                    <Image.Triggers>
+                                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard AutoReverse="True" RepeatBehavior="Forever">
+                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" From="0.95" To="1.05" Duration="0:0:1" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="0.95" Duration="0:0:0.3" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                            </Border>
+                            <ContentPresenter Grid.Row="1" Margin="0,12,0,0" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="ButtonBase.Click">
+                    <BeginStoryboard>
+                        <Storyboard AutoReverse="True">
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" From="1" To="0" Duration="0:0:0.25" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="177*"/>
+            <ColumnDefinition Width="178*"/>
+            <ColumnDefinition Width="177*"/>
+            <ColumnDefinition Width="178*"/>
+            <ColumnDefinition Width="177*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="4" x:Name="btnExcelEmport" Content="استيراد من إكسل" FontSize="19" DataContext="../Images/office_excel_silver.png" Click="btnExcelImport_Click"/>
+        <Button Grid.Row="0" Grid.Column="3" x:Name="btnIEData" Content="استيراد وتصدير بيانات" FontSize="16" DataContext="../Images/Connect.png" Click="btnIEData_Click"/>
+        <Button Grid.Row="0" Grid.Column="2" x:Name="btnBackup" Content="نسخة احتياطية" DataContext="../Images/DB (2).png" Click="btnBackup_Click"/>
+        <Button Grid.Row="0" Grid.Column="1" x:Name="btnUsers" Content="مستخدمون" DataContext="../Images/LOCK_ALT.png" Click="btnUsers_Click"/>
+        <Button Grid.Row="0" x:Name="btnFixData" Content="إصلاح البيانات" FontSize="19" DataContext="../Images/Config.PNG" Click="btnFixData_Click"/>
+        <Button Grid.Row="1" Grid.Column="4" x:Name="btnCodes" Content="ادارة رموز العائلات" FontSize="19" DataContext="../Images/Keychain.png" Click="btnCodes_Click"/>
+        <Button Grid.Row="1" Grid.Column="3" x:Name="btnFingerPrintActivator" Content="البصمة الالكترونية" FontSize="17" DataContext="../Images/fp.png" Click="btnFingerPrintActivator_Click"/>
+        <Button Grid.Row="1" Grid.Column="2" x:Name="btnHeaderControl" Content="ترويسة التقارير" FontSize="19" DataContext="../Images/SOBRES.PNG" Click="btnHeaderControl_Click"/>
+        <Button Grid.Row="1" Grid.Column="1" x:Name="btnServerConnect" Content="مخدم قاعدة البيانات" FontSize="16" DataContext="../Images/Server.png" Click="btnServerConnect_Click"/>
+        <Button Grid.Row="1" Grid.Column="0" x:Name="btnVoucherType" Content="وصول التسليم" FontSize="19" DataContext="../Images/Bill.png" Click="btnVoucherType_Click"/>
+    </Grid>
+</UserControl>

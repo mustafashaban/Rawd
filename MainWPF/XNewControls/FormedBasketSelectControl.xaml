@@ -1,0 +1,22 @@
+﻿<Window x:Class="MainWPF.FormedBasketSelectControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MainWPF"
+        mc:Ignorable="d" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen"
+        Title="FormedBasketSelectControl" Height="300" Width="300" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="المواد المشكلة" HorizontalAlignment="Center"/>
+        <ListBox x:Name="lstFormedBakset" Grid.Row="1" DisplayMemberPath="Name"/>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Width="100" Content="الغاء الامر" Click="btnCancel_Click"/>
+            <Button Width="100" Content="اختيار" Click="btnSelect_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

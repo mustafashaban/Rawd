@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="MainWPF.MainControls.AboutProjectControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Background="Transparent" d:DesignWidth="884.751">
+    <Grid>
+        <Image Source="/MainWPF;component/Images/Newlogoda3weh.png" Margin="30,10,0,0" Height="120" VerticalAlignment="Top" HorizontalAlignment="Left" Width="280" ></Image>
+
+        <TextBlock TextWrapping="WrapWithOverflow" FontSize="20" Margin="295,10,0,0" FontFamily="{StaticResource MyFontFamily}" TextAlignment="Center" Height="115" VerticalAlignment="Top" Foreground="Black"><Run Text="بسم الله الرحمن الرحيم"/><LineBreak/><Run Text="مشروع معاً التكاملي"/><LineBreak/><Run Text="نظرة متكاملة ورؤية مشتركة للخير"/><LineBreak/><Run Text="معاً نصنع الخير"/><LineBreak/></TextBlock>
+        <ScrollViewer Margin="0,130,0,0" FlowDirection="RightToLeft">
+            <StackPanel>
+                <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Justify" FontSize="18" FontFamily="{StaticResource MyFontFamily}">
+                    <Run Foreground="#FFFFD100" Text="فكرة المشروع:"/><LineBreak/><Run Text="توحيد جهود العاملين في كل مجال من مجالات العمل الخيري، وذلك عبر تقديم المعايير والأساليب والخبرات لنصل إلى تخصص وجودة في الأداء.. ووضع أسس ومعايير وشروط وآليات موحدة لكل باب من أبواب الخير لتكون دستور وقانون للعاملين في هذا الباب .. ومن سيعمل مستقبلاً في هذا الباب."/><LineBreak/>
+                    <Run Foreground="#FFFFD100" Text="الاستراتيجية:"/><LineBreak/><Run Text="عدم تهميش أي أحد يعمل في أي خير كان مهما قلّ أو كثر، وإنما التواصل والتعاون والتكامل معه من خلال التدريب والتأهيل المتبادل من الجميع وتبادل الخبرات والبدء من حيث انتهى الآخرون لنصل -بعون الله وفضله - ليكون لكل باب من أبواب الخير قوانينه وشروطه ومعاييره المتفق عليها والتي تتكون من خلاصة خبرات وتجارب وآراء العاملين في هذا الباب وبالتالي الوصول لأفضل شكل ممكن لهذا لخير. "/><LineBreak/>
+                    <Run Foreground="#FFFFD100" Text="الأهداف:"/><LineBreak/>
+                        <Run Foreground="#FFFF7400" Text=" 1- الأهداف القريبة:"/><LineBreak/>
+                            <Run Text="  -	جمع كل من يعمل بباب معين من أبواب الخير مع العاملين بذات الباب.."/><LineBreak/>
+                            <Run Text="  -	تحديد من يعمل في هذا الباب، ومن الأقدر على العمل فيه."/><LineBreak/>
+                            <Run Text="  -	تحديد التدريب اللازم للوصول للخدمة بالشكل الأمثل."/><LineBreak/>
+                            <Run Text="  -	تحديد المناهج المتوفرة والتي يجب توفيرها والعمل على ذلك."/><LineBreak/>
+                            <Run Text="  -	توحيد جهود جميع العاملين في باب معين من أبواب الخير ليكونوا متكاملين ومتعاونين في هذا الباب."/><LineBreak/>
+                            <Run Text="  -	قطع الطريق على غير المتخصصين والذين يعملون بدون منهجية ويكون عملهم هدر للموارد من حيث لا يشعرون."/><LineBreak/>
+                        <Run Foreground="#FFFF7400" Text="2- الأهداف البعيدة:"/><LineBreak/>
+                            <Run Text=" -	أن يصبح لكل باب من أبواب الخير مؤسسة تشمل كل العاملين بهذا الباب متخصصين به ولهم مواردهم الخاصة."/><LineBreak/>
+                    <Run Foreground="#FFFFD100" Text="الخطوات:"/><LineBreak/>
+                        <Run Text="   1-	دور تنسيقي، من خلال تكامل وتعاون كل العاملين بكل باب من أبواب الخير."/><LineBreak/>
+                        <Run Text="  2-	دور تمويلي وإداري، من خلال مجلس إدارة لكل باب خير يُشكل من كل العاملين الفاعلين فيه."/><LineBreak/>
+                        <Run Text="  3-	مؤسسة متخصصة تنضوي تحتها جميع الهيئات والمبادرات والنشاطات الفردية والمؤسسية. "/><LineBreak/>
+                        <Run Text="  4-	دور تقييمي ارتباطاً بالتمويل والإدارة، من خلال المؤسسة المتخصصة بهذا الباب.."/><LineBreak/><LineBreak/>
+                        
+                    <Run Text="بدأنا بعون الله مشروع معاً التكاملي .. معاً نصنع الخير .. بمشروع معاً رفقاء .. باليتيم رفقاء .. للنبي صلى الله عليه وسلم رفقاء."/><LineBreak/><LineBreak/>
+                    <Run Text="قام فريق البرمجة بمكتب دعوة خير  .. بتجهيز برنامج الكتروني متكامل لمعالجة بيانات ومتابعات خاصة بالعمل الخيري .. ويعطي مخرجات وإحصاءات واسعة .. وأهم ميزة بالبرنامج المرونة .. الشمول .. الواجهات سهلة الإدخال .. الخ"/><LineBreak/>
+                    <Run Text="يتم تقديم هذا البرنامج كهدية للعاملين بأي باب من أبواب الخير .. ويوضع على الموقع الالكتروني للمكتب كهدية لمن يرغب."/><LineBreak/>
+                    <Run Text="-	يقوم مكتب دعوة خير بتجهيز موقع الكتروني خاص بمشروع معا رفقاء باليتيم مع التصميم الكامل، يعرض عليه كامل نشاطات الشركاء .. ويقدم إمكانية تحديث للبرنامج الالكتروني الخاص بحيث يتم تبادل معلومات محددة تشمل بيانات (جزئية فقط بهدف تجنب الإزدواجية في بيانات العوائل ) . وتكون هناك إمكانية تبادل كامل المعلومات لمن يرغب وبالتالي يتم حصر المستفيدين الغير مكفولين ويتم السعي من الجميع لتأمين كفالة لهم. في حال تم الوصول للهدف البعيد وهو أن تكون مؤسسة متخصصة يتم تقديم الموقع الالكتروني للمؤسسة من قبل مكتب دعوة خير."/><LineBreak/><LineBreak/>
+                    <Run Foreground="#FFFFD100" Text="فريق تأسيس مشروع معاً التكاملي :"/><LineBreak/>
+                    <Run Text="تم وضع فكرة المشروع الأولية .. والتمويل التأسيسي من قبل فريق مكتب دعوة خير 2013 م /1434هـ ."/><LineBreak/>
+                    <Run Foreground="#FFFFD100" Text="فريق معاً المقترح: ( المستقبلي ) :"/><LineBreak/>
+                    <Run Text="   	جميع الهيئات والمؤسسات الغير حكومية العاملة ضمن محافظة حلب، ثم بمراحل متقدمة جميع من يعمل ضمن أراضي الجمهورية العربية السورية."></Run><LineBreak/>
+                    <Run Text="   	جميع الجمعيات الخيرية العاملة في محافظة حلب."></Run><LineBreak/>
+                    <Run Text="   	جميع المبادرات العاملة أو المؤسسة حديثاً."></Run><LineBreak/>
+                    <Run Text="   	جميع المهتمين وأصحاب الخبرات بجميع أبواب وطرق الخير."></Run><LineBreak/>
+                    <Run Text="   	من يرغب من رجال الأعمال والتجار والصناعيين .. ضمن شروط خاصة أخلاقية ومالية.. محددة."></Run><LineBreak/>
+                    <LineBreak/><Run Text="ملاحظة: يشترط بفريق معاً المقترح .. العمل الفعلي المتقن."></Run>
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

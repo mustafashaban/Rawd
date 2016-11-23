@@ -1,0 +1,1265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FC71CD59-05D5-4AC8-A195-5C01B91EE8E0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MainWPF</RootNamespace>
+    <AssemblyName>MainWPF</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>J:\SetUPAfterERORR\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <ProductName>روض</ProductName>
+    <PublisherName>دعوة خير</PublisherName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>130</ApplicationRevision>
+    <ApplicationVersion>1.5.6.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;02010178013</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>934C67B992AABDDBD85F36FD2E2771DE35815040</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>MainWPF_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ProjectIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <StartupObject>MainWPF.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="De.TorstenMandelkow.MetroChart">
+      <HintPath>C:\Users\Safi\Desktop\IPHS_Project\IPHS_Project\bin\Debug\De.TorstenMandelkow.MetroChart.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>C:\Users\Safi\Desktop\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\Program Files\Microsoft Office\root\VFS\ProgramFilesX86\Microsoft Office\Office16\DCF\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
+      <HintPath>C:\Users\Safi\Downloads\DataVisualizationDemos\Toolkit\WPF4\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\Compressed\ExtendedWPFToolkit_Binaries_3\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AllInventoryStaControl.xaml.cs">
+      <DependentUpon>AllInventoryStaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\ChangePasswordWindow.xaml.cs">
+      <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Basket_Item.cs" />
+    <Compile Include="Classes\FormedBaset_Item.cs" />
+    <Compile Include="Classes\FormedBasket.cs" />
+    <Compile Include="Classes\Inventory.cs" />
+    <Compile Include="Classes\Item.cs" />
+    <Compile Include="Classes\ItemCriteria.cs" />
+    <Compile Include="Classes\Order.cs" />
+    <Compile Include="Classes\Order_Item.cs" />
+    <Compile Include="Classes\Sector.cs" />
+    <Compile Include="Classes\SpecialCard.cs" />
+    <Compile Include="Classes\SpecialCardCenter.cs" />
+    <Compile Include="Classes\SpecialCardSource.cs" />
+    <Compile Include="Classes\SpecialFamily.cs" />
+    <Compile Include="Classes\FormedBasket_Sector.cs" />
+    <Compile Include="DailyItemReport.xaml.cs">
+      <DependentUpon>DailyItemReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\MessageDateConverter.cs" />
+    <Compile Include="SystemControls\NotesWindow.xaml.cs">
+      <DependentUpon>NotesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\SystemProperties.cs" />
+    <Compile Include="Classes\UserForMessage.cs" />
+    <Compile Include="Classes\UserMessage.cs" />
+    <Compile Include="XNewControls\UserMessageControl.xaml.cs">
+      <DependentUpon>UserMessageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\SpecialCardStaControl.xaml.cs">
+      <DependentUpon>SpecialCardStaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\SpecialCardControl.xaml.cs">
+      <DependentUpon>SpecialCardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\SpecialCardMainControl.xaml.cs">
+      <DependentUpon>SpecialCardMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\SpecialFamilyControl.xaml.cs">
+      <DependentUpon>SpecialFamilyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\SpecialFamilyDetails.xaml.cs">
+      <DependentUpon>SpecialFamilyDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\VoucherTypeControl.xaml.cs">
+      <DependentUpon>VoucherTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\VisibilityToNullableBooleanConverter.cs" />
+    <Compile Include="XNewControls\InventoryItemSta.xaml.cs">
+      <DependentUpon>InventoryItemSta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\FormedBasketControl.xaml.cs">
+      <DependentUpon>FormedBasketControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\FormedBasketSelectControl.xaml.cs">
+      <DependentUpon>FormedBasketSelectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\NextOrderCriteria.cs" />
+    <Compile Include="XNewControls\NextOrderCriteriaControl.xaml.cs">
+      <DependentUpon>NextOrderCriteriaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\VoucherCriteriaControl.xaml.cs">
+      <DependentUpon>VoucherCriteriaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\BasketItemsQuantityControl.xaml.cs">
+      <DependentUpon>BasketItemsQuantityControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\FamilyNeedByLister.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\InvertBoolConverter.cs" />
+    <Compile Include="Converters\FamilyImageConverter.cs" />
+    <Compile Include="Classes\SystemClasses\ModelViewContext.cs" />
+    <Compile Include="XNewControls\FamilyOrderControl.xaml.cs">
+      <DependentUpon>FamilyOrderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\DoubleUpDown.xaml.cs">
+      <DependentUpon>DoubleUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\InventoryBaseControl.xaml.cs">
+      <DependentUpon>InventoryBaseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\InventoryControl.xaml.cs">
+      <DependentUpon>InventoryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\ItemControl.xaml.cs">
+      <DependentUpon>ItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\ItemDetailsControl.xaml.cs">
+      <DependentUpon>ItemDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\ItemQuantityControl.xaml.cs">
+      <DependentUpon>ItemQuantityControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\OrderDetailsControl.xaml.cs">
+      <DependentUpon>OrderDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\OrderMainControl.xaml.cs">
+      <DependentUpon>OrderMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\SystemClasses\PrintTicket.cs" />
+    <Compile Include="Reports\ReportFixedFamilyControlAll.xaml.cs">
+      <DependentUpon>ReportFixedFamilyControlAll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\SystemClasses\StatisticsClass.cs" />
+    <Compile Include="SystemControls\FixingDataWindow.xaml.cs">
+      <DependentUpon>FixingDataWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\ListerGroupSta.xaml.cs">
+      <DependentUpon>ListerGroupSta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\FingerPrintActivatorWindow.xaml.cs">
+      <DependentUpon>FingerPrintActivatorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\MyDataGridTemplateColumn.cs" />
+    <Compile Include="Classes\FamilyNeed_ListerGroup.cs" />
+    <Compile Include="Reports\ReportAllControl.xaml.cs">
+      <DependentUpon>ReportAllControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\ReportHeaderWindow.xaml.cs">
+      <DependentUpon>ReportHeaderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReportTempFamilyControlAll.xaml.cs">
+      <DependentUpon>ReportTempFamilyControlAll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReportUserControl.xaml.cs">
+      <DependentUpon>ReportUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\ServerWindow.xaml.cs">
+      <DependentUpon>ServerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\StaFamilyPerson.xaml.cs">
+      <DependentUpon>StaFamilyPerson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\SystemClasses\SystemData.cs" />
+    <Compile Include="UserControls\FamilyNeed_ListerGroupControl.xaml.cs">
+      <DependentUpon>FamilyNeed_ListerGroupControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\RelationShipItemsConverter.cs" />
+    <Compile Include="UserControls\ItemCriteriaControl.xaml.cs">
+      <DependentUpon>ItemCriteriaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\CancelTempFamilyWindow.xaml.cs">
+      <DependentUpon>CancelTempFamilyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\SystemClasses\DBMain.cs" />
+    <Compile Include="Converters\GroupSupportsConverter.cs" />
+    <Compile Include="Classes\Father.cs" />
+    <Compile Include="Classes\Mother.cs" />
+    <Compile Include="SystemControls\OutDataImportExport.xaml.cs">
+      <DependentUpon>OutDataImportExport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\SectorWindow.xaml.cs">
+      <DependentUpon>SectorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\AboutProgramWindow.xaml.cs">
+      <DependentUpon>AboutProgramWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\AddFamilyControlHilal.xaml.cs">
+      <DependentUpon>AddFamilyControlHilal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\SystemClasses\ExportToExcel.cs" />
+    <Compile Include="MainControls\ExcelImport4Aleppo.xaml.cs">
+      <DependentUpon>ExcelImport4Aleppo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\TempChild.cs" />
+    <Compile Include="UserControls\FamilyControlHilal.xaml.cs">
+      <DependentUpon>FamilyControlHilal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\ImportDataControl.xaml.cs">
+      <DependentUpon>ImportDataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\StaFamilyNeed.xaml.cs">
+      <DependentUpon>StaFamilyNeed.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\StaHilal.xaml.cs">
+      <DependentUpon>StaHilal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\LoadingWindow.xaml.cs">
+      <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\StaFamily.xaml.cs">
+      <DependentUpon>StaFamily.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\StaOrphan.xaml.cs">
+      <DependentUpon>StaOrphan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\StaSupport.xaml.cs">
+      <DependentUpon>StaSupport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrphanContinousControl.xaml.cs" />
+    <Compile Include="Classes\MergedFamily.cs" />
+    <Compile Include="Classes\MergedOrphan.cs" />
+    <Compile Include="SystemControls\CancelFamilyWindow.xaml.cs">
+      <DependentUpon>CancelFamilyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\ColumnsSelectWindow.xaml.cs">
+      <DependentUpon>ColumnsSelectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\ImagePreview.xaml.cs">
+      <DependentUpon>ImagePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\StatisticsControl.xaml.cs">
+      <DependentUpon>StatisticsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\SignInUser.xaml.cs">
+      <DependentUpon>SignInUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\UsersControl.xaml.cs">
+      <DependentUpon>UsersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\StudySideInsertControl.xaml.cs">
+      <DependentUpon>StudySideInsertControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TrainedControl.xaml.cs">
+      <DependentUpon>TrainedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContainersControls\TrainingMainControl.xaml.cs">
+      <DependentUpon>TrainingMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContainersControls\SponsorMainControl.xaml.cs">
+      <DependentUpon>SponsorMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContainersControls\SupervisorMainControl.xaml.cs">
+      <DependentUpon>SupervisorMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\SupportGroupIDConverter.cs" />
+    <Compile Include="Converters\InternalSupportIDConverter.cs" />
+    <Compile Include="Converters\TrainedIDConverter.cs" />
+    <Compile Include="Converters\SponsorIDConverter.cs" />
+    <Compile Include="Converters\SupervisorIDConverter.cs" />
+    <Compile Include="Converters\GuardianIDConverter.cs" />
+    <Compile Include="ContainersControls\NursemaidMainControl.xaml.cs">
+      <DependentUpon>NursemaidMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContainersControls\GuardianMainControl.xaml.cs">
+      <DependentUpon>GuardianMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HouseSector.xaml.cs">
+      <DependentUpon>HouseSector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\OrphanDetailsControl.xaml.cs">
+      <DependentUpon>OrphanDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\TempFamily.cs" />
+    <Compile Include="MainControls\TempFamilyMainControl.xaml.cs">
+      <DependentUpon>TempFamilyMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\DBControl.xaml.cs">
+      <DependentUpon>DBControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XNewControls\FamilyOrderContainer.xaml.cs">
+      <DependentUpon>FamilyOrderContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TempFamilyControl.xaml.cs">
+      <DependentUpon>TempFamilyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SponsorSelectControl.xaml.cs">
+      <DependentUpon>SponsorSelectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SponsorOrphanControl.xaml.cs">
+      <DependentUpon>SponsorOrphanControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SupervisorSelectControl.xaml.cs">
+      <DependentUpon>SupervisorSelectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SupervisorOrphanControl.xaml.cs">
+      <DependentUpon>SupervisorOrphanControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TeachingStageControl.xaml.cs">
+      <DependentUpon>TeachingStageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrphanImpedingControl.xaml.cs">
+      <DependentUpon>OrphanImpedingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NursmaidFamilyControl.xaml.cs">
+      <DependentUpon>NursmaidFamilyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GuardianFamilyControl.xaml.cs">
+      <DependentUpon>GuardianFamilyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContainersControls\ListerMainControl.xaml.cs">
+      <DependentUpon>ListerMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\MyMessageBox.xaml.cs">
+      <DependentUpon>MyMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\SystemDataControl.xaml.cs">
+      <DependentUpon>SystemDataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AdminEvalautionControl.xaml.cs">
+      <DependentUpon>AdminEvalautionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\AdminEvaluation.cs" />
+    <Compile Include="Classes\Impeding.cs" />
+    <Compile Include="Classes\SystemClasses\MyMessage.cs" />
+    <Compile Include="MainControls\OrphanMainControl.xaml.cs">
+      <DependentUpon>OrphanMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\AgeConverter.cs" />
+    <Compile Include="Converters\ListerIDConverter.cs" />
+    <Compile Include="ContainersControls\Lister_OrphanContainer.xaml.cs">
+      <DependentUpon>Lister_OrphanContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\FamilyMainControl.xaml.cs">
+      <DependentUpon>FamilyMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrphanHealthControl.xaml.cs">
+      <DependentUpon>OrphanHealthControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\SplashWindow.xaml.cs">
+      <DependentUpon>SplashWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GuardianFeMaleControl.xaml.cs">
+      <DependentUpon>GuardianFeMaleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GuardianMaleControl.xaml.cs">
+      <DependentUpon>GuardianMaleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\AboutProjectControl.xaml.cs">
+      <DependentUpon>AboutProjectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListerGroupControl.xaml.cs">
+      <DependentUpon>ListerGroupControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainControls\AddFamilyControl.xaml.cs">
+      <DependentUpon>AddFamilyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\QualificationConverter.cs" />
+    <Compile Include="ContainersControls\QualificationContainerWindow.xaml.cs">
+      <DependentUpon>QualificationContainerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControls\MyContinuingOrphanControl.xaml.cs">
+      <DependentUpon>MyContinuingOrphanControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\MessageWindow.xaml.cs">
+      <DependentUpon>MessageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrphanControl.xaml.cs">
+      <DependentUpon>OrphanControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FamilyControl.xaml.cs">
+      <DependentUpon>FamilyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TrainingControl.xaml.cs">
+      <DependentUpon>TrainingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\EvaluationControl.xaml.cs">
+      <DependentUpon>EvaluationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HouseControl.xaml.cs">
+      <DependentUpon>HouseControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectControls\ImageBoxControl.xaml.cs">
+      <DependentUpon>ImageBoxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FamilyPersonControl.xaml.cs">
+      <DependentUpon>FamilyPersonControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\SystemClasses\BaseDataBase.cs" />
+    <Compile Include="Classes\FamilyPerson.cs" />
+    <Compile Include="Classes\ExternalCourse.cs" />
+    <Compile Include="Classes\ExternalFamilySupport.cs" />
+    <Compile Include="Classes\Family.cs" />
+    <Compile Include="Classes\FamilyNeed.cs" />
+    <Compile Include="Classes\FamilyProperty.cs" />
+    <Compile Include="Classes\Guardian.cs" />
+    <Compile Include="Classes\Guardian_Orphan.cs" />
+    <Compile Include="Classes\TeachingStage.cs" />
+    <Compile Include="Classes\House.cs" />
+    <Compile Include="Classes\Lister.cs" />
+    <Compile Include="Classes\QualificationType.cs" />
+    <Compile Include="UserControls\ExternalFamilySupportControl.xaml.cs">
+      <DependentUpon>ExternalFamilySupportControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FamilyNeedControl.xaml.cs">
+      <DependentUpon>FamilyNeedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FamilyPropertyControl.xaml.cs">
+      <DependentUpon>FamilyPropertyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ParentControl.xaml.cs">
+      <DependentUpon>ParentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SupervisorControl.xaml.cs">
+      <DependentUpon>SupervisorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GuardianControl.xaml.cs">
+      <DependentUpon>GuardianControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ListerControl.xaml.cs">
+      <DependentUpon>ListerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\ListerGroup.cs" />
+    <Compile Include="Classes\NominationSide.cs" />
+    <Compile Include="Classes\Orphan.cs" />
+    <Compile Include="Classes\Orphan_Health.cs" />
+    <Compile Include="Classes\Orphan_Supervisor.cs" />
+    <Compile Include="Classes\Parent.cs" />
+    <Compile Include="Classes\Person.cs" />
+    <Compile Include="Classes\Qualification.cs" />
+    <Compile Include="Classes\Specialty.cs" />
+    <Compile Include="Classes\Sponsor.cs" />
+    <Compile Include="Classes\Sponsor_Orphan.cs" />
+    <Compile Include="Classes\StudySide.cs" />
+    <Compile Include="Classes\Supervisor.cs" />
+    <Compile Include="Classes\Trained.cs" />
+    <Compile Include="Classes\Trainer.cs" />
+    <Compile Include="Classes\Training.cs" />
+    <Compile Include="UserControls\TrainerControl.xaml.cs">
+      <DependentUpon>TrainerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TrainingDetailsControl2.xaml.cs">
+      <DependentUpon>TrainingDetailsControl2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TrainingTrainedDetails.xaml.cs">
+      <DependentUpon>TrainingTrainedDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Users.cs" />
+    <Content Include="FamilyReportTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="AllInventoryStaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\ChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DailyItemReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\NotesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\UserMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\SpecialCardStaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\SpecialCardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\SpecialCardMainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\SpecialFamilyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\SpecialFamilyDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\VoucherTypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\InventoryItemSta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\FormedBasketControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\FormedBasketSelectControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\NextOrderCriteriaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Resource Include="Images\Sta.png" />
+    <Resource Include="Images\Bill.png" />
+    <Resource Include="Images\Excel.png" />
+    <Content Include="VoucherReportTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="XNewControls\VoucherCriteriaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\BasketItemsQuantityControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\FamilyOrderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\DoubleUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\InventoryBaseControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\InventoryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\ItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\ItemDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\ItemQuantityControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\OrderDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\OrderMainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\ReportFixedFamilyControlAll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\FixingDataWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\ListerGroupSta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\FingerPrintActivatorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\ReportAllControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\ReportHeaderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\ReportTempFamilyControlAll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\ReportUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\ServerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\StaFamilyPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FamilyNeed_ListerGroupControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ItemCriteriaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\CancelTempFamilyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\OutDataImportExport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\SectorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\AboutProgramWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\AddFamilyControlHilal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\ExcelImport4Aleppo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FamilyControlHilal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\ImportDataControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\StaFamilyNeed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\StaHilal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\StaFamily.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\StaOrphan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\StaSupport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OrphanContinousControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SystemControls\CancelFamilyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\ColumnsSelectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\ImagePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\StatisticsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\SignInUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SystemControls\UsersControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SystemControls\StudySideInsertControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TrainedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ContainersControls\TrainingMainControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ContainersControls\SponsorMainControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ContainersControls\SupervisorMainControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ContainersControls\NursemaidMainControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ContainersControls\GuardianMainControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\HouseSector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\OrphanDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\SettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\TempFamilyMainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\DBControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\FamilyOrderContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\TempFamilyControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SponsorSelectControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SponsorOrphanControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SupervisorSelectControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SupervisorOrphanControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\TeachingStageControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\OrphanImpedingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\NursmaidFamilyControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\GuardianFamilyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContainersControls\ListerMainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\MyMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\SystemDataControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AdminEvalautionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resourses\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resourses\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\OrphanMainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContainersControls\Lister_OrphanContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\FamilyMainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OrphanHealthControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resourses\ScrollBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\SplashWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\GuardianFeMaleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\GuardianMaleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\AboutProjectControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListerGroupControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainControls\AddFamilyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContainersControls\QualificationContainerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControls\MyContinuingOrphanControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\MessageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OrphanControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FamilyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TrainingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\EvaluationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\HouseControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectControls\ImageBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FamilyPersonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ExternalFamilySupportControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FamilyNeedControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FamilyPropertyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ParentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SupervisorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\GuardianControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SponsorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SponsorControl.xaml.cs">
+      <DependentUpon>SponsorControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="UserControls\TrainerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TrainingDetailsControl2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TrainingTrainedDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Images\CONFIG.PNG" />
+    <Resource Include="Images\Server.png" />
+    <Resource Include="Images\NewLogoDa3weh.png" />
+    <Resource Include="Images\item.png" />
+    <Resource Include="Images\order.png" />
+    <Resource Include="Images\Vouchers.png" />
+    <Resource Include="Images\inventory.png" />
+    <Resource Include="Images\product.png" />
+    <Resource Include="Images\Criteria.png" />
+    <Resource Include="Images\warehouse.png" />
+    <Resource Include="Images\family.png" />
+    <Resource Include="Images\member.png" />
+    <Resource Include="Images\Find1.png" />
+    <Resource Include="Images\Settings.png" />
+    <Resource Include="Images\System.png" />
+    <Resource Include="Images\NextOrder.png" />
+    <Resource Include="Images\update.png" />
+    <Content Include="User Guide.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Keychain.png" />
+    <Resource Include="Images\play-star2.png" />
+    <Resource Include="Images\CONNECT.PNG" />
+    <Resource Include="Fonts\GE_SS_Two_Light.otf" />
+    <Resource Include="Fonts\GE_SS_Two_Bold.otf" />
+    <Resource Include="Fonts\GE_SS_Two_Medium.otf" />
+    <Resource Include="Fonts\BarcodeFont.ttf" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DB %282%29.PNG" />
+    <Resource Include="Images\FIND.PNG" />
+    <Resource Include="Images\LOCK_ALT.PNG" />
+    <Resource Include="Images\SEARCH.PNG" />
+    <Resource Include="Images\SOBRES.PNG" />
+    <Resource Include="Images\USER.PNG" />
+    <Resource Include="Images\USERS.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\maan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Untitled-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OK.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Alert Note.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\exclamation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\strips.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ATTACH.ICO" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\لوغو.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SAVE-ALT.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\play-star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FIND2.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\IMAGE.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\REMOVE.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DELETE.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DB-ADD.PNG" />
+    <Resource Include="Images\db-download.png" />
+    <Resource Include="Images\db-upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\merge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\merge1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Dollar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\EXPORT1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\REFRESH.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\IMPORT2.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ProjectIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LogoDa3weh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\office_excel_silver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Un2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\maan1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PRINTER.PNG" />
+    <Content Include="biokey.ocx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\fp.png" />
+    <Resource Include="Images\bullets.png" />
+    <Content Include="TempFamilyReportTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="ZKFPEngXControl">
+      <Guid>{D95CB779-00CB-4B49-97B9-9F0B61CAB3C1}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

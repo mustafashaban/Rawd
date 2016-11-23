@@ -1,0 +1,223 @@
+﻿<UserControl x:Class="MainWPF.FamilyMainReportControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:MainWPF="clr-namespace:MainWPF"
+             xmlns:Collections="clr-namespace:System.Collections;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="800"  Width="500">
+    <FlowDocumentPageViewer FlowDirection="RightToLeft">
+        <FlowDocument x:Name="fdMain" MaxPageHeight="400" ColumnWidth="999999" MaxPageWidth="500" Background="White">
+            <Table x:Name="p" MainWPF:ParagraphInlineBehavior.ParagraphInlineSource="{Binding}"
+                       MainWPF:ParagraphInlineBehavior.TemplateResourceName="inlineTemplate">
+                <Table.Columns>
+                    <TableColumn/>
+                    <TableColumn/>
+                    <TableColumn/>
+                </Table.Columns>
+                <Table.Resources>
+                    <Collections:ArrayList x:Shared="False" x:Key="inlineTemplate">
+                        <TableRowGroup>
+                            <TableRow>
+                                <TableCell ColumnSpan="2">
+                                    <BlockUIContainer>
+                                        <TextBlock FontSize="14" FontFamily="Arial" Margin="0,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center">
+                                <Run Text="الجمهورية العربية السورية"></Run>
+                                <LineBreak/>
+                                <Run Text="جمعية الاحسان الخيرية التنموية بحلب"></Run>
+                                <LineBreak/>
+                                <Run Text="مشهرة برقم 1258"></Run>
+                                        </TextBlock>
+                                    </BlockUIContainer>
+                                </TableCell>
+                                <TableCell ColumnSpan="1" Padding="0,0,0,20">
+                                    <BlockUIContainer>
+                                        <Image Width="75" HorizontalAlignment="Right">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelWidth="75" UriSource="Images/AlI7sanLogo.png"></BitmapImage>
+                                            </Image.Source>
+                                        </Image>
+                                    </BlockUIContainer>
+                                </TableCell>
+                            </TableRow>
+                        </TableRowGroup>
+                        <TableRowGroup>
+                            <TableRowGroup.Resources>
+                                <Style TargetType="TableCell">
+                                    <Setter Property="Padding" Value="5"></Setter>
+                                    <Setter Property="BorderBrush" Value="Black"></Setter>
+                                    <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+                                </Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontFamily" Value="Arial"></Setter>
+                                    <Setter Property="FontSize" Value="10"></Setter>
+                                </Style>
+                            </TableRowGroup.Resources>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="رمز العائلة :  "></Run>
+                                    <Run Text="{Binding FamilyCode, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="اسم المعيل :  "></Run>
+                                    <Run Text="{Binding FamilyName, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="مسجل الكشف :  "></Run>
+                                    <Run Text="{Binding FamilyCode, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="رقم دفتر العائلة :  "></Run>
+                                    <Run Text="{Binding FamilyIdentityID, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="عدد الافراد :  "></Run>
+                                    <Run Text="{Binding FamilyName, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="تقييم العائلة :  "></Run>
+                                    <Run Text="{Binding FamilyCode, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="اسم الزوج الثلاثي :  "></Run>
+                                    <Run Text="{Binding FamilyIdentityID, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="الرقم الوطني للزوج :  "></Run>
+                                    <Run Text="{Binding FamilyName, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="تاريخ الميلاد :  "></Run>
+                                    <Run Text="{Binding FamilyCode, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="اسم الزوجة الثلاثي :  "></Run>
+                                    <Run Text="{Binding FamilyIdentityID, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="الرقم الوطني للزوجة :  "></Run>
+                                    <Run Text="{Binding FamilyName, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="تاريخ الميلاد :  "></Run>
+                                    <Run Text="{Binding FamilyCode, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="السكن الأصلي :  "></Run>
+                                    <Run Text="{Binding OldAddress, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell ColumnSpan="2">
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="نوع السكن :  "></Run>
+                                    <Run Text="ملك    ايجار    رهن    اعارة    دخول لمكان فارغ"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell ColumnSpan="3">
+                                    <Paragraph>
+                                        <TextBlock FontWeight="Bold">
+                                    <Run Text="السكن الحالي : "></Run>
+                                    <Run Text="{Binding Address}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="الهاتف :  "></Run>
+                                    <Run Text="{Binding Phone, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell ColumnSpan="2">
+                                    <Paragraph>
+                                        <TextBlock>
+                                    <Run FontWeight="Bold" Text="الموبايل :  "></Run>
+                                    <Run Text="{Binding Mobile, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell ColumnSpan="3" BorderThickness="0" Padding="0,5,0,55">
+                                    <BlockUIContainer>
+                                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Top">
+                                    <Run FontWeight="Bold" Text="ملاحظات العائلة :  "></Run>
+                                    <Run Text="{Binding Notes, Mode=OneWay}"></Run>
+                                        </TextBlock>
+                                    </BlockUIContainer>
+                                </TableCell>
+                            </TableRow>
+                        </TableRowGroup>
+                    </Collections:ArrayList>
+                </Table.Resources>
+            </Table>
+        </FlowDocument>
+    </FlowDocumentPageViewer>
+</UserControl>

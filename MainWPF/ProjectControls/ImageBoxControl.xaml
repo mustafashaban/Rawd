@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="MainWPF.ImageBoxControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"  Name="imgControl" FlowDirection="LeftToRight"
+             d:DesignHeight="29.833" d:DesignWidth="152.499" >
+    <StackPanel Orientation="Horizontal">
+        <Button Name="btnShow" HorizontalAlignment="Left" IsEnabled="False" VerticalAlignment="Center" ToolTip="عرض الصورة الحالية" Width="40" Height="25" Margin="5,0" Click="btnShow_Click">
+            <Image Source="../Images/Image.png" Width="20"></Image>
+        </Button>
+        <Button Name="btnNew" Content="..." FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" ToolTip="اختيار صورة جديدة" Width="40" Height="25" Margin="5,0" Click="btnImageSet_Click"/>
+        <Button Name="btnDel" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Center" ToolTip="حذف الصورة الحالية" Width="40" Height="25" Margin="5,0" Click="btnDel_Click">
+            <Path x:Name="X" Margin="12,5" Data="F1 M 6.742676,3.852539 L 9.110840,1.559570 L 8.910645,0.500000 L 6.838379,0.500000 L 4.902832,2.435547 L 2.967285,0.500000 L 0.895020,0.500000 L 0.694824,1.559570 L 3.062988,3.852539 L 0.527832,6.351563 L 0.689941,7.600586 L 2.967285,7.600586 L 4.897949,5.575195 L 6.854004,7.600586 L 9.115723,7.600586 L 9.277832,6.351563 L 6.742676,3.852539 Z" Fill="White" HorizontalAlignment="Center" Stretch="Fill" VerticalAlignment="Center"/>
+        </Button>
+    </StackPanel>
+</UserControl>

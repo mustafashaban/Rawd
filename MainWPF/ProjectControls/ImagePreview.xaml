@@ -1,0 +1,9 @@
+﻿<Window x:Class="MainWPF.ImagePreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ImagePreview" Height="700" Width="900" WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}">
+    <Grid>
+        <Image x:Name="img" Margin="20" Stretch="Uniform">
+        </Image>
+    </Grid>
+</Window>

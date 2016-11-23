@@ -1,0 +1,82 @@
+﻿<Window x:Class="MainWPF.OrderDetailsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainWPF"
+             mc:Ignorable="d" 
+             Width="1000" Height="550" FlowDirection="RightToLeft" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="بيانات الامر" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>
+        <Grid Margin="5,30,5,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="txtInventory" Grid.Row="2" Grid.Column="0" Text="المستودع" />
+            <ComboBox x:Name="cmboInventory" DisplayMemberPath="Name" SelectedValuePath="ID" SelectionChanged="cmboInventory_SelectionChanged" SelectedValue="{Binding InventoryID, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="نوع الامر" />
+            <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" TextAlignment="Center" Text="{Binding TypeText, Mode=OneWay}" />
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="التاريخ" />
+            <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Date, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            <TextBlock x:Name="txtSource" Grid.Row="3" Grid.Column="0" Text="مصدر الامر" />
+            <ComboBox Grid.Row="3" Grid.Column="1" IsEditable="True" x:Name="cmboSources" ItemsSource="{x:Static local:Order.GetDistinctSource}" Text="{Binding Source, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            <ComboBox x:Name="cmboInventory2" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValue="{Binding Source, Mode=TwoWay}" Visibility="Collapsed" Grid.Row="3" Grid.Column="1"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="رقم الفاتورة" />
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding InvoiceSerial, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="رقم فاتورة المصدر" />
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding InvoiceSerial, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="بيان الامر" />
+            <TextBox Grid.Row="6" Grid.Column="1" TextWrapping="WrapWithOverflow" VerticalContentAlignment="Top" VerticalAlignment="Stretch" Height="Auto" AcceptsReturn="True" MaxLength="1000" Margin="8,5" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Description, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="ملاحظات" />
+            <Button Width="150" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Grid.ColumnSpan="2"  Content="اختيار المواد" FontSize="15" Click="btnSelectItems_Click"/>
+            <TextBox Grid.Row="7" Grid.Column="1" TextWrapping="WrapWithOverflow" VerticalContentAlignment="Top" VerticalAlignment="Stretch" Height="Auto" AcceptsReturn="True" MaxLength="1000" Margin="8,5" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            <DataGrid x:Name="dgOrderItems" Grid.Row="1" Grid.Column="2" Grid.RowSpan="7" Grid.ColumnSpan="2" Margin="8,5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn MinWidth="80" Header="اسم المادة" Binding="{Binding Item.Name}" Width="*"/>
+                    <DataGridTextColumn MinWidth="80" Header="الكمية" Binding="{Binding Quantity}" FontFamily="Arial" Width="*"/>
+                    <DataGridTextColumn MinWidth="80" Header="الوحدة" Binding="{Binding Item.StandardUnit}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"  Orientation="Horizontal">
+            <Button Width="150" Content="الغاء الامر" FontSize="15" Click="btnCancel_Click"/>
+            <Button Width="150" Content="حفظ" FontSize="15" Click="btnSave_Click"/>
+        </StackPanel>
+        <StackPanel x:Name="spNavigator" Grid.Row="1" Orientation="Horizontal" FlowDirection="LeftToRight" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0">
+            <Button ToolTip="الامر الاول" Style="{StaticResource CUD_Style}" Height="25" Width="36" Click="btnFirst_Click">
+                <Path Stretch="Uniform" Fill="#FF424242" Margin="3,0" Data="F1 M 57,27.7083L 57,48.2917L 43.5417,38L 57,27.7083 Z M 39.5833,27.7083L 39.5833,48.2917L 26.125,38L 39.5833,27.7083 Z M 23.75,28.5L 23.75,47.5L 19,47.5L 19,28.5L 23.75,28.5 Z "/>
+            </Button>
+            <Button ToolTip="الامر السابق" Style="{StaticResource CUD_Style}" Height="25" Width="30" Click="btnPrevious_Click">
+                <Path Stretch="Uniform" Fill="#FF424242" Margin="2" RenderTransformOrigin="0.5,0.5" Data="F1 M 30.0833,22.1667L 50.6665,37.6043L 50.6665,38.7918L 30.0833,53.8333L 30.0833,22.1667 Z ">
+                    <Path.RenderTransform>
+                        <RotateTransform Angle="180"></RotateTransform>
+                    </Path.RenderTransform>
+                </Path>
+            </Button>
+            <TextBlock x:Name="txtDataIndex" Width="80" TextAlignment="Center" Text="{Binding OrderCode, Mode=OneWay}" FlowDirection="RightToLeft" FontFamily="Arial" FontSize="14"></TextBlock>
+            <Button ToolTip="الامر التالي" Style="{StaticResource CUD_Style}"  Height="25" Width="30" Click="btnNext_Click">
+                <Path Stretch="Uniform" Fill="#FF424242" Margin="2" Data="F1 M 30.0833,22.1667L 50.6665,37.6043L 50.6665,38.7918L 30.0833,53.8333L 30.0833,22.1667 Z "/>
+            </Button>
+            <Button ToolTip="الامر الاخير" Style="{StaticResource CUD_Style}" Height="25" Width="36" Click="btnLast_Click">
+                <Path Stretch="Uniform" Fill="#FF424242" Margin="3,0" Data="F1 M 19,27.7083L 32.4583,38L 19,48.2917L 19,27.7083 Z M 36.4167,27.7083L 49.875,38L 36.4167,48.2917L 36.4167,27.7083 Z M 52.25,28.5L 57,28.5L 57,47.5L 52.25,47.5L 52.25,28.5 Z "/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,70 @@
+﻿<Window x:Class="MainWPF.AboutProgramWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AboutProgramWindow" Height="350" Width="600" WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}" Loaded="Window_Loaded_1">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="#FFAC0000" TextAlignment="Center" FontSize="30" Margin="0,42,0,0" HorizontalAlignment="Center" Width="284" FontFamily="{DynamicResource MyFontFamily}" VerticalAlignment="Top">
+                <Run Text="برنامج روض"/><LineBreak/><InlineUIContainer>
+            		<TextBlock FontSize="16" Foreground="#FF1B1B1B">
+                    <Run Text="لإدارة بيانات الجمعيات والمؤسسات الخيرية"/>
+                    </TextBlock>
+            	</InlineUIContainer></TextBlock>
+        <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Top" >
+            <TextBlock Foreground="WhiteSmoke" TextAlignment="Center" FontSize="20" Text="النسخة مسجلة لـ :" Margin="10,10,0,0" HorizontalAlignment="Left" FontFamily="{DynamicResource MyFontFamily}"/>
+            <TextBlock Foreground="#FF64FF4C" TextAlignment="Center" FontSize="20" x:Name="txtCharity" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" FontFamily="{DynamicResource MyFontFamily}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" >
+            <TextBlock Foreground="WhiteSmoke" TextAlignment="Center" FontSize="20" Text="رقم الاصدار : " Margin="10,10,0,0" HorizontalAlignment="Left" FontFamily="{DynamicResource MyFontFamily}"/>
+            <TextBlock Foreground="#FF64FF4C" TextAlignment="Center" FontSize="20" x:Name="txtVersion" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" FontFamily="Arial"/>
+        </StackPanel>
+
+        <Button Grid.Row="2" FontSize="20" Content="ملف المساعدة" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Right" FontFamily="{DynamicResource MyFontFamily}" Width="160" Height="40" Click="Button_Click_1"/>
+        <TextBlock Grid.Row="4" Foreground="WhiteSmoke" TextAlignment="Center" FontSize="15" Text="البرنامج مسجل لمكتب دعوة خير ( جميع الحقوق محفوظة للمكتب )" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" FontFamily="{DynamicResource MyFontFamily}"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Button Foreground="#FF88FF8E" FontSize="20" HorizontalContentAlignment="Right" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Button_Click_2">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <TextBlock x:Name="txt" Margin="10,30,0,0" Foreground="{TemplateBinding Foreground}" Text="www.dawatkhir.com" TextBlock.FontWeight="Bold" FontFamily="Arial" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="txt" Property="Foreground" Value="#FF82BBFF"></Setter>
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="txt" Property="Foreground" Value="#FF4D9AF5"></Setter>
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Grid.Row="4" Foreground="#FF88FF8E" FontSize="20" HorizontalContentAlignment="Right" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Button_Click_3">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <TextBlock x:Name="txt" Margin="30,30,0,0" Foreground="{TemplateBinding Foreground}" Text="www.m3n-sy.com" TextBlock.FontWeight="Bold" FontFamily="Arial" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="txt" Property="Foreground" Value="#FF82BBFF"></Setter>
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="txt" Property="Foreground" Value="#FF4D9AF5"></Setter>
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

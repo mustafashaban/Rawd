@@ -1,0 +1,69 @@
+﻿<Window x:Class="MainWPF.VoucherCriteriaControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainWPF"
+             mc:Ignorable="d" 
+             Height="400" Width="676.691" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen">
+    <Grid FlowDirection="RightToLeft">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="lstMain" Grid.Column="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="#FF13976D">
+                            <TextBlock FontFamily="Arial" FontSize="20" Text="{Binding Key}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ItemsControl ItemsSource="{Binding Value}" Grid.Column="1" Margin="10,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Left"></TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
+            <Button Height="35" Width="120" Content="اضافة مجموعة" Click="btnAddGroup_Click"/>
+            <Button Height="35" Width="120" Content="تعديل مجموعة" Click="btnUpdateGroup_Click" Visibility="Collapsed"/>
+            <Button Height="35" Width="120" Content="حذف مجموعة" Click="btnDeleteGroup_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Height="35" Width="120" Content="الغاء الامر" Click="btnCancel_Click"/>
+            <Button Height="35" Width="120" Content="حفظ التعديلات" Click="btnSave_Click"/>
+        </StackPanel>
+        <Border x:Name="brdr" Visibility="Collapsed" Margin="-10" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#AA000000">
+            <Grid Width="250" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <ListBox x:Name="lstItem" Margin="0" FlowDirection="LeftToRight">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox FontSize="16" FontFamily="{StaticResource MyFontFamily}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Content="{Binding Name}"></CheckBox>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Content="رجوع" FontSize="16" Width="95" Click="btnItemSelectCancel_Click"/>
+                    <Button Content="موافق" FontSize="16" Width="95" Click="btnItemSelect_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="MainWPF.StaSupport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:local="clr-namespace:MainWPF" 
+             xmlns:Converters="clr-namespace:MainWPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1100" FlowDirection="RightToLeft" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Converters:GroupSupportsConverter x:Key="GroupSupportsConverter"></Converters:GroupSupportsConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgMain" Grid.Column="1" VirtualizingPanel.CacheLength="3" VirtualizingPanel.CacheLengthUnit="Page" VirtualizingPanel.IsVirtualizing="True" CanUserSortColumns="False" VirtualizingPanel.IsVirtualizingWhenGrouping="True" SelectionMode="Extended" SelectionUnit="FullRow" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FFB4B4B4">
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="100" Header="رقم الوصل"      Binding="{Binding OrderID}" FontFamily="Arial"/>
+                <DataGridTextColumn MinWidth="100" Header="المستودع"         Binding="{Binding InventoryName}"/>
+                <DataGridTextColumn MinWidth="100" Header="القطاع"         Binding="{Binding Sector}"/>
+                <DataGridTextColumn MinWidth="100" Header="منطقة السكن"   Binding="{Binding HouseSection}" ></DataGridTextColumn>
+                <DataGridTextColumn MinWidth="100" Header="مصدر المادة"    Binding="{Binding Source}"/>
+                <DataGridTextColumn MinWidth="100" Header="نوع المادة"    Binding="{Binding ItemType}"/>
+                <DataGridTextColumn MinWidth="100" Header="اسم المادة"    Binding="{Binding Name}"/>
+                <DataGridTextColumn MinWidth="100" Header="العدد" FontFamily="Arial" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn MinWidth="100" Header="رمز العائلة" FontFamily="Arial" Binding="{Binding FamilyCode}"/>
+                <DataGridTextColumn MinWidth="100" Header="تاريخ التسليم" FontFamily="Arial" Binding="{Binding PresentDate, StringFormat='dd-MM-yyyy'}"/>
+                <DataGridTextColumn MinWidth="100" Header="المسلم" FontFamily="Arial" FontWeight="Bold" Binding="{Binding Presenter}"/>
+                <DataGridTextColumn MinWidth="100" Header="الباركود" FontFamily="Arial" FontWeight="Bold" Binding="{Binding Barcode}"/>
+            </DataGrid.Columns>
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Margin" Value="0,0,0,5"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Expander IsExpanded="False" BorderBrush="#FF055357"
+                                                   BorderThickness="0,0,0,1" >
+                                            <Expander.Header>
+                                                <Grid Background="#33FFCA19">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="200"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" Foreground="DarkGreen" Text="{Binding Path=Name}" Margin="5,0"/>
+                                                    <TextBlock Grid.Column="1" Foreground="Brown" Text="العدد :" Margin="5,0"/>
+                                                    <TextBlock Grid.Column="2" Foreground="#FF595959" FontFamily="Arial" FontWeight="Bold" Text="{Binding Path=ItemCount}"/>
+                                                    <TextBlock Grid.Column="3" Foreground="Brown" Text="المجموع :" Margin="10,0,5,0"/>
+                                                    <TextBlock Grid.Column="4" Foreground="#FF595959" FontFamily="Arial" FontWeight="Bold" Text="{Binding Converter={StaticResource GroupSupportsConverter}}"/>
+                                                </Grid>
+                                            </Expander.Header>
+                                            <Expander.Content>
+                                                <ItemsPresenter Margin="50,0,0,0"/>
+                                            </Expander.Content>
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
+        </DataGrid>
+        <ScrollViewer x:Name="svStatistics" RenderTransformOrigin="0,0.5" VerticalScrollBarVisibility="Auto" Visibility="Visible" Style="{StaticResource MyVerticalScrollViewer}">
+            <Grid Grid.Row="0" Width="250" Margin="0,0,20,0" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="105"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontFamily" Value="{StaticResource MyFontFamily}"/>
+                        <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+                <TextBlock Text="احصائيات البحث" FontSize="25" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4"/>
+                <TextBlock Text="مجال تاريخ التسليم" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Column="0"/>
+                <Button x:Name="btnRefresh" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" Margin="0,0,10,0" Width="70" ToolTip="تحديث البيانات" HorizontalAlignment="Right" Style="{StaticResource RefreshButtonStyle}" Click="btnSearch_Click"/>
+                <Button Grid.Row="3" Grid.ColumnSpan="2" Content="تقرير المواد" FontSize="15" Margin="20,2" Click="btnReport_Click"/>
+                <StackPanel Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="1">
+                    <DatePicker x:Name="dtpPresentDateSupport1" Grid.Row="2" Margin="1" Grid.Column="0" Width="150" BorderBrush="{x:Null}"/>
+                    <DatePicker x:Name="dtpPresentDateSupport2" Margin="1" Grid.Column="1" Grid.Row="2" Width="150" BorderBrush="{x:Null}"/>
+                </StackPanel>
+                <TextBlock Text="المستودع"  Grid.Column="0" Grid.Row="5"/>
+                <ComboBox x:Name="cmboInventory" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="5" SelectionChanged="Control_SelectionChanged"/>
+                <TextBlock Text="القطاع"  Grid.Column="0" Grid.Row="6"/>
+                <ComboBox x:Name="cmboSector" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="6" SelectionChanged="Control_SelectionChanged"/>
+                <TextBlock Text="منطقة السكن" Grid.Column="0" Grid.Row="7"/>
+                <ComboBox x:Name="cmboHouseSection" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="7" SelectionChanged="Control_SelectionChanged"/>
+                <TextBlock Text="رقم الوصل"  Grid.Column="0" Grid.Row="8"/>
+                <local:NumericUpDown x:Name="nudOrderID" Maximum="1000000" HorizontalAlignment="Center" Minimum="0" ValueChanged="nud_ValueChanged" Width="130" Grid.Row="8" Grid.Column="1"/>
+                <TextBlock Text="رمز العائلة"  Grid.Column="0" Grid.Row="9"/>
+                <TextBox x:Name="txtFamilyCodeSupports" Grid.Column="1" Grid.Row="9" TextChanged="Control_TextChanged"/>
+                <TextBlock Text="المسلّم" Grid.Column="0" Grid.Row="10"/>
+                <ComboBox x:Name="cmboPresenter" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="10" SelectionChanged="Control_SelectionChanged"/>
+                <TextBlock Text="مصدر المادة" Grid.Column="0" Grid.Row="11"/>
+                <ComboBox x:Name="cmboSource" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="11" SelectionChanged="Control_SelectionChanged"/>
+                <TextBlock Text="نوع المادة" Grid.Column="0" Grid.Row="12"/>
+                <ComboBox x:Name="cmboSupportType" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="12" SelectionChanged="Control_SelectionChanged"/>
+                <TextBlock Text="اسم المادة" Grid.Column="0" Grid.Row="13"/>
+                <ComboBox x:Name="cmboSupportName" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="13" SelectionChanged="Control_SelectionChanged"/>
+                <TextBlock Text="تجميع أولي" Grid.Column="0" Grid.Row="14"/>
+                <ComboBox x:Name="cmboGroup31" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="14" SelectionChanged="cmboGroup3_SelectionChanged">
+                    <ComboBoxItem Content="بلا تجميع"/>
+                    <ComboBoxItem Content="رمز العائلة"/>
+                    <ComboBoxItem Content="مصدر المادة"/>
+                    <ComboBoxItem Content="نوع المادة"/>
+                    <ComboBoxItem Content="اسم المادة"/>
+                    <ComboBoxItem Content="المسلّم"/>
+                    <ComboBoxItem Content="القطاع"/>
+                    <ComboBoxItem Content="منطقة السكن"/>
+                    <ComboBoxItem Content="المستودع"/>
+                </ComboBox>
+                <TextBlock Text="تجميع ثانوي" Grid.Column="0" Grid.Row="15"/>
+                <ComboBox x:Name="cmboGroup32" FontSize="15" Width="130" Margin="0,3" Grid.Column="1" Grid.Row="15" SelectionChanged="cmboGroup3_SelectionChanged">
+                    <ComboBoxItem Content="بلا تجميع"/>
+                    <ComboBoxItem Content="رمز العائلة"/>
+                    <ComboBoxItem Content="مصدر المادة"/>
+                    <ComboBoxItem Content="نوع المادة"/>
+                    <ComboBoxItem Content="اسم المادة"/>
+                    <ComboBoxItem Content="المسلّم"/>
+                    <ComboBoxItem Content="القطاع"/>
+                    <ComboBoxItem Content="منطقة السكن"/>
+                    <ComboBoxItem Content="المستودع"/>
+                </ComboBox>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

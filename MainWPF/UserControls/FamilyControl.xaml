@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="MainWPF.FamilyControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:Local="clr-namespace:MainWPF"
+             mc:Ignorable="d" Width="729" Height="400">
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <Grid>
+        <Grid Margin="10" FlowDirection="RightToLeft">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="رقم الاستمارة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0"/>
+            <TextBlock Text="اسم العائلة" TextWrapping="Wrap" Grid.Column="2" Grid.Row="0"/>
+            <TextBlock Text="نوع العائلة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1"/>
+            <TextBlock Text="رقم دفتر العائلة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="2"/>
+            <TextBlock Text="تاريخ التسجيل" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1"/>
+            <TextBlock Text="راتب العائلة" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2"/>
+            <TextBlock Text="مقدم الراتب" TextWrapping="Wrap" Grid.Column="2" Grid.Row="4"/>
+            <TextBlock Text="الجهة المعرّفة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="4"/>
+            <TextBlock Text="هاتف الجهة المعرفة" TextWrapping="Wrap" Grid.Row="5" Grid.Column="0"/>
+            <TextBlock Text="حالة العائلة" TextWrapping="Wrap" Grid.Row="6" Grid.Column="0" Margin="0,10"/>
+            <TextBlock Text="التقييم" TextWrapping="Wrap" Grid.Row="6" Grid.Column="2" Margin="0,10"/>
+            <TextBlock Text="عدد أفراد الأسرة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="3" />
+            <TextBlock Text="صورة دفتر العائلة" Grid.Column="2" Grid.Row="5"/>
+            <TextBlock Text="ملاحظات" TextWrapping="Wrap" Grid.Column="0" Grid.Row="7" Margin="0,10,0,46" VerticalAlignment="Top" Grid.RowSpan="2"/>
+            <TextBox Grid.Column="1" Grid.Row="0" FontFamily="Arial" Text="{Binding FamilyCode, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+            <TextBox Grid.Column="3" Grid.Row="0" Text="{Binding FamilyName, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+
+            <ComboBox x:Name="cmboFamilyType" Grid.Column="1" FontSize="15" Grid.Row="1" Margin="8,5" Text="{Binding FamilyType, Mode=TwoWay, ValidatesOnDataErrors=true}">
+                <ComboBoxItem Content="نازحين"></ComboBoxItem>
+                <ComboBoxItem Content="فقراء"></ComboBoxItem>
+                <ComboBoxItem Content="مفقود"></ComboBoxItem>
+                <ComboBoxItem Content="أيتام"></ComboBoxItem>
+                <ComboBoxItem Content="أرامل"></ComboBoxItem>
+                <ComboBoxItem Content="طالب علم"></ComboBoxItem>
+                <ComboBoxItem Content="ذو احتياجات خاصة"></ComboBoxItem>
+                <ComboBoxItem Content="موقوف"></ComboBoxItem>
+            </ComboBox>
+            <!--<DatePicker Grid.Column="3" Grid.Row="1" SelectedDate="{Binding ApplyDate, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{DynamicResource MyDatePickerStyle}" />-->
+            <DatePicker Grid.Column="3" Grid.Row="1" SelectedDate="{Binding ApplyDate, Mode=TwoWay, ValidatesOnDataErrors=True}"></DatePicker>
+            <ComboBox Grid.Column="1" Grid.Row="2" Margin="8,6" IsEditable="True" FontFamily="Arail" Text="{Binding FamilyIdentityID, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                <ComboBoxItem Content="لايوجد دفتر عائلة"></ComboBoxItem>
+                <ComboBox.ToolTip>
+                    <StackPanel>
+                        <TextBlock Text="مثال"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="دفتر العائلة الجديد   "></TextBlock>
+                            <TextBlock Text="000259658"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="دفتر العائلة القديم   "></TextBlock>
+                            <TextBlock Text="11658 أ 368"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </ComboBox.ToolTip>
+            </ComboBox>
+            <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding FamilySalary, Mode=TwoWay}"/>
+            <Local:NumericUpDown Grid.Column="1" Grid.Row="3" Minimum="1" HorizontalAlignment="Center" Value="{Binding FamilyPersonCount, Mode=TwoWay, ValidatesOnDataErrors=True}"></Local:NumericUpDown>
+            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding DefinedPersonName, Mode=TwoWay}"/>
+            <TextBox Grid.Column="3" Grid.Row="4" Text="{Binding SalarySupport, Mode=TwoWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding DefinedPersonPhone, Mode=TwoWay}"/>
+            <ComboBox x:Name="chkIsEnsured" Grid.Column="1" Margin="8,5" Width="120" Grid.Row="6" Text="{Binding FamilyStatus, Mode=TwoWay}">
+                <ComboBoxItem Content="مقيم"></ComboBoxItem>
+                <ComboBoxItem Content="نازح"></ComboBoxItem>
+                <ComboBoxItem Content="متضرر"></ComboBoxItem>
+            </ComboBox>
+            <TextBox IsReadOnly="True" Grid.Column="3" Grid.Row="6" Margin="8,5" FontFamily="Arial" Text="{Binding Evaluation, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" Width="80"></TextBox>
+            <Local:ImageBoxControl Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" Value="{Binding FamilyReportImage, Mode=TwoWay}"/>
+            <TextBox MaxLength="5000" Grid.Column="1" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Grid.Row="7" Margin="8,8,8,0" Text="{Binding Notes, Mode=TwoWay}" VerticalContentAlignment="Top" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.RowSpan="2" TextWrapping="WrapWithOverflow" Height="82" />
+        </Grid>
+    </Grid>
+</UserControl>

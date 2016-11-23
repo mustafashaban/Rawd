@@ -1,0 +1,16 @@
+﻿<Window x:Class="MainWPF.SystemControls.DBControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DBControl" Height="250" Width="500" WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}">
+    <Grid>
+        <TextBlock Text="النسخة الاحتياطية لقاعدة البيانات" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Margin="10,26,0,0"></TextBlock>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button FontSize="15" ToolTip="استعادة نسخة احتياطية" Width="100" Height="100" Margin="5,0" Click="btnRestore_Click" VerticalAlignment="Bottom">
+                <Image Source="/MainWPF;component/Images/DB-ADD.PNG" Margin="10"></Image>
+            </Button>
+            <Button FontSize="15" Visibility="Visible" ToolTip="إضافة نسخة احتياطية" Width="100" Height="100" Margin="5,0" Click="btnBackup_Click" VerticalAlignment="Bottom">
+                <Image Source="/MainWPF;component/Images/db-download.png" Margin="10"></Image>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,289 @@
+﻿<UserControl x:Class="MainWPF.StaFamilyPerson"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+            xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:Local="clr-namespace:MainWPF" 
+             xmlns:Converters="clr-namespace:MainWPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1135.458" FlowDirection="RightToLeft" Margin="0">
+    <UserControl.Resources>
+        <Converters:AgeConverter x:Key="AgeConverter"></Converters:AgeConverter>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid x:Name="dgMain" Margin="0" VirtualizingPanel.CacheLength="3" VirtualizingPanel.CacheLengthUnit="Page" VirtualizingPanel.IsVirtualizing="True"  VirtualizingPanel.IsVirtualizingWhenGrouping="True" SelectionMode="Extended" SelectionUnit="FullRow" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FFB4B4B4">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding FamilyCode}" FontFamily="Arial" Header="رمز العائلة"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Name}" Header="اسم الشخص" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Gender}" Header="الجنس" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding RelationShip}" Header="الصفة" ></DataGridTextColumn>
+                <DataGridTemplateColumn SortMemberPath="DOB" Header="تاريخ الولادة">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Border Width="75">
+                                    <TextBlock Margin="2,0" FontSize="12" FontFamily="Arial" Text="{Binding DOB, StringFormat={}{0:dd-MM-yyyy}, ValidatesOnDataErrors=True}"/>
+                                </Border>
+                                <Border MinWidth="40">
+                                    <TextBlock Margin="5,0,0,0" FontWeight="Medium" Foreground="#FFB2160F" FontSize="12" FontFamily="Arial" Text="{Binding DOB, Converter={StaticResource AgeConverter}, Mode=OneWay}"/>
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Job}" Header="العمل" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding IsImpeded}" Header="حالة الاعاقة"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding impededType}" Header="نوع الاعاقة" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding IsDead}" Header="متوفى؟"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding MaritalStatus}" Header="الحالة الاجتماعية"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding HealthStatus}" Header="الحالة الصحية"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding StudyStatus}" Header="الوضع الدراسي" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding IsPregnant}" Header="حامل؟" ></DataGridTextColumn>
+                <DataGridTemplateColumn SortMemberPath="PregnantDate" Header="تاريخ الحمل">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Border Width="75">
+                                    <TextBlock Margin="2,0" FontSize="12" FontFamily="Arial" Text="{Binding PregnantDate, StringFormat={}{0:dd-MM-yyyy}, ValidatesOnDataErrors=True}"/>
+                                </Border>
+                                <Border MinWidth="40">
+                                    <TextBlock Margin="5,0,0,0" FontWeight="Medium" Foreground="#FFB2160F" FontSize="12" FontFamily="Arial" Text="{Binding PregnantDate, Converter={StaticResource AgeConverter}, Mode=OneWay}"/>
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding FamilyName}" Header="اسم رب الأسرة"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding FamilyType}" Header="نوع العائلة"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding FamilyStatus}" Header="حالة العائلة"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding IsCanceled}" Header="الغاء العائلة"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Evaluation}" Header="التقييم"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding DefinedPersonPhone}" Header="الهاتف" FontFamily="Arial"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Mobile}" Header="الموبايل" FontFamily="Arial"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding OldAddress}" Header="السكن الأصلي" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding HouseSection}" Header="منطقة السكن" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding HouseStreet}" Header="شارع السكن" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding HouseType}" Header="نوع السكن" ></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding HouseStatus}" Header="حالة السكن" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.RowSpan="2" Orientation="Horizontal">
+            <ScrollViewer x:Name="svStatistics" RenderTransformOrigin="0,0.5" VerticalScrollBarVisibility="Auto" Visibility="Visible" Style="{StaticResource MyVerticalScrollViewer}">
+                <ScrollViewer.LayoutTransform>
+                    <ScaleTransform x:Name="st" ScaleX="0"/>
+                </ScrollViewer.LayoutTransform>
+                <Grid>
+                    <Border CornerRadius="0,5,5,0">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FF08552B" Offset="1"/>
+                                <GradientStop Color="#FF1C9C56" Offset="0.01"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Grid Grid.Row="0" x:Name="grdFamily" Focusable="False" VerticalAlignment="Center" Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="25"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="0*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="احصائيات البحث" Foreground="WhiteSmoke" FontSize="25"  HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"/>
+                        <TextBlock Text="رمز العائلة"  Grid.Column="0" Grid.Row="1"/>
+                        <TextBox x:Name="txtFamilyCode" Grid.Column="1" Grid.Row="1" TextChanged="Control_TextChanged"/>
+                        <TextBlock Text="اسم الشخص" Grid.Column="0" Grid.Row="2"/>
+                        <TextBox x:Name="txtPersonName" Grid.Column="1" Grid.Row="2" TextChanged="Control_TextChanged"/>
+                        <TextBlock Text="الجنس" Grid.Column="0" Grid.Row="3"/>
+                        <ComboBox x:Name="cmboGender" FontSize="15" Width="120" Margin="0,3" Grid.Column="1" Grid.Row="3" SelectionChanged="Control_SelectionChanged">
+                            <ComboBox.ItemsSource>
+                                <col:ArrayList>
+                                    <sys:String>الكل</sys:String>
+                                    <sys:String>ذكر</sys:String>
+                                    <sys:String>أنثى</sys:String>
+                                </col:ArrayList>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                        <TextBlock Text="الصفة" Grid.Column="0" Grid.Row="4"/>
+                        <ComboBox x:Name="cmboRelationShip" FontSize="15" Width="120" Margin="0,3" Grid.Column="1" Grid.Row="4" SelectionChanged="Control_SelectionChanged"></ComboBox>
+                        <TextBlock Text="العوائل الملغاة" Grid.Column="0" Grid.Row="5"/>
+                        <ComboBox x:Name="cmboIsCancelled" FontSize="15" Width="120" Margin="0,3" Grid.Column="1" Grid.Row="5" SelectionChanged="Control_SelectionChanged">
+                            <ComboBox.ItemsSource>
+                                <col:ArrayList>
+                                    <sys:String>الكل</sys:String>
+                                    <sys:String>ملغاة</sys:String>
+                                    <sys:String>غير ملغاة</sys:String>
+                                </col:ArrayList>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                        <TextBlock Text="التقييم" Grid.Column="0" Grid.Row="6"/>
+                        <ComboBox x:Name="cmboEvaluation" Width="100" Margin="0,3" Grid.Column="1" Grid.Row="6" SelectionChanged="Control_SelectionChanged">
+                            <ComboBox.ItemsSource>
+                                <col:ArrayList>
+                                    <sys:String>الكل</sys:String>
+                                    <sys:String>A</sys:String>
+                                    <sys:String>B</sys:String>
+                                    <sys:String>C</sys:String>
+                                </col:ArrayList>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                        <TextBlock Text="منطقة السكن" Grid.Column="0" Grid.Row="7"/>
+                        <ComboBox x:Name="cmboHouseSection" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="7" SelectionChanged="Control_SelectionChanged"/>
+                        <TextBlock Text="شارع السكن" Grid.Column="0" Grid.Row="8"/>
+                        <ComboBox x:Name="cmboHouseStreet" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="8" SelectionChanged="Control_SelectionChanged"/>
+                        <TextBlock Text="السكن الأصلي" Grid.Column="0" Grid.Row="9"/>
+                        <ComboBox x:Name="cmboOldAddress" FontSize="15" Margin="0,0,0,3" Grid.Column="1" Grid.Row="9" SelectionChanged="Control_SelectionChanged" VerticalAlignment="Bottom"/>
+                        <TextBlock Text="الحالة الاجتماعية" Grid.Column="0" Grid.Row="10"/>
+                        <ComboBox x:Name="cmboMaritalStatus" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="10" SelectionChanged="Control_SelectionChanged">
+                            <ComboBox.ItemsSource>
+                                <col:ArrayList>
+                                    <sys:String>الكل</sys:String>
+                                    <sys:String>أعزب</sys:String>
+                                    <sys:String>متزوج</sys:String>
+                                    <sys:String>أرمل</sys:String>
+                                    <sys:String>مطلّق</sys:String>
+                                    <sys:String>يتيم</sys:String>
+                                </col:ArrayList>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                        <TextBlock Text="الحالة الصحية" Grid.Column="0" Grid.Row="11"/>
+                        <ComboBox x:Name="cmboHealthStatus" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="11" SelectionChanged="Control_SelectionChanged"/>
+                        <TextBlock Text="الوضع الدراسي" Grid.Column="0" Grid.Row="12"/>
+                        <ComboBox x:Name="cmboStudyStatus" FontSize="15" Margin="0,0,0,4" Grid.Column="1" Grid.Row="12" SelectionChanged="Control_SelectionChanged" VerticalAlignment="Bottom"/>
+                        <TextBlock Text="متوفى؟" Grid.Column="0" Grid.Row="13"/>
+                        <ComboBox x:Name="cmboIsDead" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="13" SelectionChanged="Control_SelectionChanged">
+                            <ComboBox.ItemsSource>
+                                <col:ArrayList>
+                                    <sys:String>الكل</sys:String>
+                                    <sys:String>متوفى</sys:String>
+                                    <sys:String>غير متوفى</sys:String>
+                                </col:ArrayList>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                        <TextBlock Text="معاق" Grid.Column="0" Grid.Row="14"/>
+                        <ComboBox x:Name="cmboIsImpeded" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="14" SelectionChanged="Control_SelectionChanged">
+                            <ComboBox.ItemsSource>
+                                <col:ArrayList>
+                                    <sys:String>الكل</sys:String>
+                                    <sys:String>معاق</sys:String>
+                                    <sys:String>غير معاق</sys:String>
+                                </col:ArrayList>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                        <TextBlock Text="نوع الاعاقة" Grid.Column="0" Grid.Row="15"/>
+                        <ComboBox x:Name="cmboImpedeType" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="15" SelectionChanged="Control_SelectionChanged"/>
+                        <TextBlock Text="حامل" Grid.Column="0" Grid.Row="16"/>
+                        <ComboBox x:Name="cmboIsPregnant" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="16" SelectionChanged="Control_SelectionChanged">
+                            <ComboBox.ItemsSource>
+                                <col:ArrayList>
+                                    <sys:String>الكل</sys:String>
+                                    <sys:String>حامل</sys:String>
+                                    <sys:String>---</sys:String>
+                                </col:ArrayList>
+                            </ComboBox.ItemsSource>
+                        </ComboBox>
+                        <TextBlock Text="العمل" Grid.Column="0" Grid.Row="17"/>
+                        <ComboBox x:Name="cmboJob" FontSize="15" Margin="0,3" Grid.Column="1" Grid.Row="17" SelectionChanged="Control_SelectionChanged"/>
+                        <TextBlock Text="تاريخ الولادة بين" Grid.Column="0" Grid.Row="18"/>
+                        <DatePicker x:Name="dtpDOB1" Grid.Column="1" Grid.Row="18" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                        <TextBlock Text="و" Grid.Column="0" Grid.Row="19"/>
+                        <DatePicker x:Name="dtpDOB2" Grid.Column="1" Grid.Row="19" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+            <ToggleButton x:Name="tb" ToolTip="احصائيات البحث" HorizontalAlignment="Left" IsChecked="False" VerticalAlignment="Center" Width="20" Height="120">
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid x:Name="grd" Background="#55343434">
+                            <Path x:Name="path1" Data="M 0,0 10,15 0,30" StrokeThickness="5" Stroke="#88000000" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
+                            <Path x:Name="path2" Data="M 10,0 0,15 10,30" Visibility="Collapsed" StrokeThickness="5" Stroke="#88000000" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="path1" Property="Visibility" Value="Collapsed"></Setter>
+                                <Setter TargetName="path2" Property="Visibility" Value="Visible"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="path1" Property="Visibility" Value="Visible"></Setter>
+                                <Setter TargetName="path2" Property="Visibility" Value="Collapsed"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="grd" Property="Background" Value="#88343434"></Setter>
+                                <Setter TargetName="path1" Property="Stroke" Value="#AAE8FF00"></Setter>
+                                <Setter TargetName="path2" Property="Stroke" Value="#AAE8FF00"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="grd" Property="Background" Value="#AA343434"></Setter>
+                                <Setter TargetName="path1" Property="Stroke" Value="#DDE8FF00"></Setter>
+                                <Setter TargetName="path2" Property="Stroke" Value="#DDE8FF00"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
+            <StackPanel.Triggers>
+                <EventTrigger SourceName="tb" RoutedEvent="ToggleButton.Checked">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="svStatistics" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation Storyboard.TargetName="st" Duration="0:0:0.4" Storyboard.TargetProperty="ScaleX" To="1">
+                                <DoubleAnimation.EasingFunction>
+                                    <QuinticEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger SourceName="tb" RoutedEvent="ToggleButton.Unchecked">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="svStatistics" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation Storyboard.TargetName="st" Duration="0:0:0.4" Storyboard.TargetProperty="ScaleX" To="0">
+                                <DoubleAnimation.EasingFunction>
+                                    <QuinticEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </StackPanel.Triggers>
+        </StackPanel>
+    </Grid>
+</UserControl>

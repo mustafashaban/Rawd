@@ -1,0 +1,46 @@
+﻿<Window x:Class="MainWPF.ServerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Local="clr-namespace:MainWPF"
+        xmlns:Converters="clr-namespace:MainWPF.Converters"
+        Title="ServerWindow" Height="350" Width="400" WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}" ResizeMode="NoResize">
+    <Window.Resources>
+        <Converters:InvertBoolConverter x:Key="InvertBoolConverter"></Converters:InvertBoolConverter>
+    </Window.Resources>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="إعداد مخدم قواعد البيانات" HorizontalAlignment="Center" FontSize="25" Foreground="White"></TextBlock>
+        <CheckBox x:Name="chkIsLocalServer" Style="{StaticResource LargeCheckBox}" IsChecked="True" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="1"></CheckBox>
+        <TextBlock Text="مخدم محلي" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="1"></TextBlock>
+        <Grid Grid.Row="2" Margin="0,0,0,10" IsEnabled="{Binding ElementName=chkIsLocalServer, Path=IsChecked, Converter={StaticResource InvertBoolConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="اسم المخدم"/>
+            <TextBlock Grid.Row="1" Text="المنفذ"></TextBlock>
+            <TextBlock Grid.Row="2" Text="اسم المستخدم"></TextBlock>
+            <TextBlock Grid.Row="3" Text="كلمة المرور"></TextBlock>
+            <TextBox x:Name="txtServerName" Grid.Column="1" FontFamily="Arial"/>
+            <TextBox x:Name="txtPort" Grid.Column="1" Grid.Row="1" FontFamily="Arial"></TextBox>
+            <TextBox x:Name="txtUserName" Grid.Column="1" Grid.Row="2" FontFamily="Arial"></TextBox>
+            <PasswordBox x:Name="txtPassword" Grid.Column="1" Grid.Row="3"></PasswordBox>
+        </Grid>
+            <Button x:Name="btnCheckConnection" Grid.Row="3" Width="120" HorizontalAlignment="Left" Margin="2,0,10,0" Content="فحص الاتصال" FontSize="16" Click="btnCheckConnection_Click"></Button>
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button x:Name="btnCancel" Width="80" Content="الغاء" FontSize="16" Margin="2,0" Click="btnCancel_Click"></Button>
+            <Button x:Name="btnSave" Width="80" Content="حفظ" FontSize="16" Click="btnSave_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

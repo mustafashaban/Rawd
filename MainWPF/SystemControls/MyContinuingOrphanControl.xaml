@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="MainWPF.MyContinuingOrphanControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:local="clr-namespace:MainWPF" Name="MyControl"
+             mc:Ignorable="d" Height="150" Width="650" FlowDirection="RightToLeft">
+    <Grid Margin="0,0,-65,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="199"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="200*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border CornerRadius="0,20,20,0" Opacity="60" BorderThickness="2" HorizontalAlignment="Left" Width="230" Grid.ColumnSpan="2" Margin="0,5,30,0">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0.5">
+                    <GradientStop Color="#FF0F5749" Offset="1"/>
+                    <GradientStop Color="#FF5CBDB0"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF00AA74"/>
+                    <GradientStop Color="#FF0D6127" Offset="0.992"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock Name="txtMain" Text="" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MyFontFamily}" Foreground="White" Grid.Row="1"/>
+        </Border>
+        <TextBlock Text="التقييم" Grid.Column="0" Grid.Row="1"/>
+        <ComboBox Grid.Column="1" Grid.Row="1" Margin="10" FontFamily="{StaticResource MyFontFamily}" FontSize="15" IsEditable="True" Text="{Binding Path=SpecialtyValue, Mode=TwoWay}">
+            <ComboBoxItem Content="ممتاز"></ComboBoxItem>
+            <ComboBoxItem Content="جيد جدا"></ComboBoxItem>
+            <ComboBoxItem Content="جيد"></ComboBoxItem>
+            <ComboBoxItem Content="وسط"></ComboBoxItem>
+            <ComboBoxItem Content="سيء"></ComboBoxItem>
+            <ComboBoxItem Content="سيء جدا"></ComboBoxItem>
+        </ComboBox>
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="تاريخ الإضافة"></TextBlock>
+        <DatePicker Grid.Column="3" Grid.Row="1" Name="dp" SelectedDate="{Binding Date, StringFormat='d/M,yyyy'}"></DatePicker>
+        <TextBlock Grid.Row="2" Text="ملاحظات"/>
+        <TextBox Grid.Column="1" Margin="10" Grid.Row="2" FontSize="17" Text="{Binding Notes, Mode=TwoWay}" Name="txtNotes" Grid.ColumnSpan="3"></TextBox>
+
+
+        <Grid FlowDirection="RightToLeft" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5,0,-125,0">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition Width="55"></ColumnDefinition>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnBack" Grid.Column="0" Style="{StaticResource myBtnBack}" Margin="2" ToolTip="السابق" IsEnabled="False" Click="btnBack_Click"/>
+            <TextBox Grid.Column="1" Width="50" Height="30" Margin="5" TextAlignment="Center" FontFamily="Arial" Text="{Binding ElementName=MyControl, Path=Place, Mode=TwoWay}" FontSize="20"></TextBox>
+            <TextBlock Grid.Column="2" FontFamily="{StaticResource MyFontFamily}" Text="من" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Column="2" FontFamily="Arial" Text="{Binding ElementName=MyControl, Path=TotalCount}" HorizontalAlignment="Right" FontSize="20" VerticalAlignment="Center" Width="35"></TextBlock>
+            <Button Name="btnNext" Grid.Column="3" Style="{StaticResource myBtnNext}" Margin="2" ToolTip="التالي" IsEnabled="False" Click="btnNext_Click"/>
+            <Button Name="btnNew" Grid.Column="5" Margin="10,1" ToolTip="جديد" Click="btnNew_Click" Style="{StaticResource TransparentButton}">
+                <Image Source="../Images/play-star.png"></Image>
+            </Button>
+            <Button Name="btnSave" Grid.Column="6" Margin="10,1" ToolTip="حفظ" Click="btnSave_Click" Style="{StaticResource TransparentButton}">
+                <Image Source="../Images/SAVE-ALT.PNG"></Image>
+            </Button>
+            <Button Name="btnDelete" Grid.Column="4" Margin="10,1" ToolTip="حذف" Style="{StaticResource TransparentButton}" Click="btnDelete_Click">
+                <Image Source="../Images/remove.PNG"></Image>
+            </Button>
+        </Grid>
+            </Grid>
+</UserControl>

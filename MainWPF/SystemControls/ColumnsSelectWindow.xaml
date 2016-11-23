@@ -1,0 +1,23 @@
+﻿<Window x:Class="MainWPF.ColumnsSelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Converter="clr-namespace:MainWPF.Converters"
+        Title="ColumnsSelectWindow" Height="400" Width="350" WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}">
+    <Window.Resources>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="189*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="lst" Margin="30,10,30,47" FlowDirection="LeftToRight">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox FontSize="16" FontFamily="{StaticResource MyFontFamily}" IsChecked="{Binding IsReadOnly, Mode=TwoWay}" Content="{Binding Header}"></CheckBox>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="btnSelectAll" Grid.Row="0" Content="اختيار الكل" FontSize="16" Margin="0,253,153,10" HorizontalAlignment="Right" Width="97" Click="btnSelectAll_Click"></Button>
+        <Button x:Name="btnOK" Grid.Row="1" Content="موافق" FontSize="16" Margin="0" HorizontalAlignment="Right" Width="95" Click="btnOK_Click"></Button>
+        <Button x:Name="btnCancel" Grid.Row="1" Content="رجوع" FontSize="16" Margin="0,0,100,0" Click="btnCancel_Click" HorizontalAlignment="Right" Width="95"/>
+    </Grid>
+</Window>

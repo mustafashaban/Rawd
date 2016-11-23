@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="MainWPF.ListerMainControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Local="clr-namespace:MainWPF"
+             xmlns:LocalConverter="clr-namespace:MainWPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="395.618" d:DesignWidth="731.996" Margin="50" >
+    <UserControl.Resources>
+        <Local:Lister x:Key="MyLister"></Local:Lister>
+        <LocalConverter:AgeConverter x:Key="MyAgeConverter"></LocalConverter:AgeConverter>
+        
+        <DataTemplate x:Key="MyRowDetailsTemplate">
+            <Border BorderThickness="0" Background="#AAF5E1C3" Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontSize="15" Margin="3,0" Text="العمل :" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="15" Foreground="MidnightBlue" Text="{Binding Job}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="2" FontSize="15" Text="الحالة العائلية :" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="3" FontSize="15" Foreground="MidnightBlue" Text="{Binding MaritalStatus}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontSize="15" Margin="3,0" Text="عدد الأولاد :" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" FontSize="15" Foreground="MidnightBlue" Text="{Binding ChildCount}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" FontSize="15" Text="الهاتف :" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="3" FontSize="15" Foreground="MidnightBlue" Text="{Binding Phone}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="4" FontSize="15" Text="المكان :" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="5" FontSize="15" Foreground="MidnightBlue" Text="{Binding PlaceAddress}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="4" FontSize="15" Text="المؤهل العلمي :" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="5" FontSize="15" Foreground="MidnightBlue" Text="{Binding ScientificQualifier}" VerticalAlignment="Center" />
+
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid FlowDirection="RightToLeft" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10,0">
+            <TextBlock Text="الاسم :" ></TextBlock>
+            <TextBox Name="txtName" Width="120" TextChanged="Control_Changed"></TextBox>
+            <TextBlock Text="الجنس :"></TextBlock>
+            <ComboBox Name="cmboGender" FontSize="16" Width="100" SelectionChanged="cmboGender_SelectionChanged">
+                <ComboBoxItem Content="الكل"/>
+                <ComboBoxItem Background="#FFB8DCFF" Content="ذكر"/>
+                <ComboBoxItem Background="#FFFFC0C0" Content="أنثى"/>
+            </ComboBox>
+            <Button Width="100" x:Name="btnSearch" Click="btnSearch_Click" Margin="0">
+                <Button.Content>
+                    <Grid Width="90">
+                        <Image Source="../Images/Find2.png" HorizontalAlignment="Right" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="38"/>
+                        <TextBlock Text="بحث" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+        <DataGrid Name="dgListers" RowDetailsTemplate="{StaticResource MyRowDetailsTemplate}" MouseDoubleClick="dgListers_MouseDoubleClick" Margin="10" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="120" Header="اسم مقيّم" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn MinWidth="120" Header="الكنية" Binding="{Binding LastName}"/>
+                <DataGridTextColumn MinWidth="100" Header="الجنس" Binding="{Binding Gender}"/>
+                <DataGridTextColumn MinWidth="100" Header="عدد الكشوف المنجزة" Binding="{Binding ListerGroupCount}"/>
+                <DataGridTextColumn MinWidth="100" Header="تاريخ الولادة" Binding="{Binding DOB, StringFormat='d/M/yyyy'}"/>
+                <DataGridTextColumn Header="العمر" Binding="{Binding DOB, Converter={StaticResource MyAgeConverter}}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnAddNewLister" Grid.Row="2" VerticalAlignment="Bottom" Margin="0" HorizontalAlignment="Left" Height="35" Width="150" Content="إضافة بيانات مقيّم" FontSize="16" Click="btnAddNewLister_Click"/>
+        <Button x:Name="btnUpdateLister" Grid.Row="2" VerticalAlignment="Bottom" Margin="155,0,0,0" HorizontalAlignment="Left" Height="35" Width="150" Content="تعديل بيانات مقيّم" FontSize="16" Click="btnUpdateLister_Click"/>
+        <Button Grid.Row="2" HorizontalAlignment="Left" Margin="310,0,0,0" Width="164" FontSize="16" Click="btnDelLister_Click" Height="35" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/MainWPF;component/Images/DELETE.PNG">
+                </Image>
+                <TextBlock Text="حذف المقيّم" VerticalAlignment="Center" Margin="10,0"></TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="2" VerticalAlignment="Bottom" Margin="0,0,10,0" Height="35" Content="الدورات التدريبية"  FontSize="16" Click="btnListerTrainings_Click" HorizontalAlignment="Right" Width="120"/>
+
+    </Grid>
+</UserControl>

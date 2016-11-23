@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="MainWPF.ItemDetailsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:local="clr-namespace:MainWPF"
+             mc:Ignorable="d" 
+             d:DesignWidth="1000" FlowDirection="RightToLeft" RenderTransformOrigin="0.5,0.5" Margin="-20">
+    <UserControl.LayoutTransform>
+        <ScaleTransform ScaleX="0.92" ScaleY="0.92"/>
+    </UserControl.LayoutTransform>
+    <UserControl.Resources>
+        <Style TargetType="{x:Type wtk:DoubleUpDown}">
+            <Setter Property="Margin" Value="8,2"></Setter>
+            <Setter Property="TextAlignment" Value="Left"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Border Background="#33363636" CornerRadius="5,0,5,0" VerticalAlignment="Center">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="150"/>
+                    <ColumnDefinition MaxWidth="220"/>
+                    <ColumnDefinition MinWidth="150"/>
+                    <ColumnDefinition MaxWidth="220"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="اسم المادة" />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="مفعّلة" />
+                <CheckBox Grid.Row="0" Grid.Column="3" IsChecked="{Binding IsActive, Mode=TwoWay, ValidatesOnDataErrors=True}" Style="{StaticResource LargeCheckBox}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="مصدر المادة" />
+                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmboSources" ItemsSource="{x:Static local:Item.GetDistinctSource}" Text="{Binding Source, Mode=TwoWay, ValidatesOnDataErrors=True}" IsEditable="True"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="نوع المادة" />
+                <ComboBox Grid.Row="1" Grid.Column="3" IsEditable="True" ItemsSource="{x:Static local:Item.GetDistinctItemType}" Text="{Binding ItemType, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="الباركود" />
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Arial" Text="{Binding Barcode, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="وصف المادة" />
+                <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" VerticalContentAlignment="Top" VerticalAlignment="Stretch" Height="Auto" AcceptsReturn="True" MaxLength="1000" Margin="8,5" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Description, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="الوزن" />
+                <local:NumericUpDown Grid.Row="4" Grid.Column="1" Value="{Binding Weight, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="المستودع الافتراضي" />
+                <ComboBox Grid.Row="4" Grid.Column="3" ItemsSource="{x:Static local:Inventory.AllInventories}" DisplayMemberPath="Name" Text="{Binding DefaultLocation, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <GroupBox x:Name="gpUnits" Visibility="Visible" Grid.Row="5" Grid.ColumnSpan="4" BorderThickness="2">
+                    <GroupBox.Header>
+                        <Border Background="#FFFFE17A" CornerRadius="3">
+                            <TextBlock Margin="10,0" Text="وحدة القياس"/>
+                        </Border>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="150"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition MinWidth="150"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="الوحدة القياسية" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" IsEditable="True" Text="{Binding StandardUnit, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="كغ"/>
+                            <ComboBoxItem Content="لتر"/>
+                            <ComboBoxItem Content="قطعة"/>
+                            <ComboBoxItem Content="كرتونة"/>
+                        </ComboBox>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="الوحدة الثانية" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Unit2, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="تحويل الوحدة الثانية" />
+                        <local:NumericUpDown Grid.Row="1" Grid.Column="3" Value="{Binding Unit2Convert, Mode=TwoWay, ValidatesOnDataErrors=True}" Maximum="1000000"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="الوحدة الثالثة" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Unit3, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="تحويل الوحدة الثالثة" />
+                        <local:NumericUpDown Grid.Row="2" Grid.Column="3" Value="{Binding Unit3Convert, Mode=TwoWay, ValidatesOnDataErrors=True}" Maximum="1000000"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox x:Name="gpLimits" Grid.Row="6" Grid.ColumnSpan="4" BorderThickness="2">
+                    <GroupBox.Header>
+                        <Border Background="#FFFFE17A" CornerRadius="3">
+                            <TextBlock Margin="10,0" Text="حدود المستودع"/>
+                        </Border>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="150"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition MinWidth="150"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="حد التنبيه" />
+                        <local:NumericUpDown Grid.Column="1" Value="{Binding WarningQuantity, Mode=TwoWay, ValidatesOnDataErrors=True}" Maximum="1000000"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="الحد الادنى" />
+                        <local:NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding MinimumQuantity, Mode=TwoWay, ValidatesOnDataErrors=True}" Maximum="1000000"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="الحد الاعلى للعائلة" />
+                        <local:NumericUpDown Grid.Row="0" Grid.Column="3" Value="{Binding MaxQuantityPerFamily, Mode=TwoWay, ValidatesOnDataErrors=True}" Maximum="1000000"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="الحد الاعلى" />
+                        <local:NumericUpDown Grid.Row="1" Grid.Column="3" Value="{Binding MaximumQuantity, Mode=TwoWay, ValidatesOnDataErrors=True}" Maximum="1000000"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="اعلى كمية قي الامر" />
+                        <local:NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding MaxQuantityPerOrder, Mode=TwoWay, ValidatesOnDataErrors=True}" Maximum="1000000"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="اعلى كمية في اليوم" />
+                        <local:NumericUpDown Grid.Row="2" Grid.Column="3" Value="{Binding MaxQuantityPerDay, Mode=TwoWay, ValidatesOnDataErrors=True, TargetNullValue=''}" Maximum="1000000" />
+                    </Grid>
+                </GroupBox>
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="ملاحظات" />
+                <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" VerticalContentAlignment="Top" VerticalAlignment="Stretch" Height="Auto" AcceptsReturn="True" MaxLength="1000" Margin="8,5" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <Button x:Name="btnSelectItems" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" Click="btnSelectItems_Click">
+                    <TextBlock Margin="10,0" Text="المواد المتضمنة بهذه المادة" />
+                </Button>
+                <DataGrid x:Name="dgRelatedItems" CanUserResizeColumns="True" MinWidth="350" Grid.Row="1" Grid.Column="4" Grid.RowSpan="7" Margin="5">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="110" Header="اسم المادة" Binding="{Binding RelatedItem.Name}" Width="*"/>
+                        <DataGridTextColumn MinWidth="80" Header="العدد" Binding="{Binding Quantity}" FontFamily="Arial" Width="*"/>
+                        <DataGridTextColumn MinWidth="80" Header="الوحدة" Binding="{Binding RelatedItem.StandardUnit}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Margin="5,0" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="8" Grid.ColumnSpan="5">
+                    <Button Content="حفظ" Width="150" Click="btnSave_Click"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Border>
+</UserControl>

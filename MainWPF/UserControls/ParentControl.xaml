@@ -1,0 +1,242 @@
+﻿<UserControl x:Class="MainWPF.ParentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:Local="clr-namespace:MainWPF" xmlns:MainWPF="clr-namespace:MainWPF"
+             mc:Ignorable="d" MaxWidth="800" MinWidth="750">
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="1" BorderBrush="#FF115737">
+            <ScrollViewer FlowDirection="RightToLeft" Margin="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Name="ParentGrid1" Margin="10" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="الاسم" Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Text="الكنية" Grid.Column="0" Grid.Row="2" />
+                        <TextBlock Text="مكان الولادة" Grid.Column="0" Grid.Row="4" />
+                        <TextBlock Text="تاريخ الولادة" Grid.Column="0" Grid.Row="5" />
+                        <TextBlock Text="العمل" Grid.Column="2" Grid.Row="1" />
+                        <TextBlock Text="الهاتف" Grid.Column="2" Grid.Row="6"/>
+                        <TextBlock Text="الموبايل" Grid.Column="2" Grid.Row="7"/>
+                        <TextBlock Text="مواعيد العمل" Grid.Column="2" Grid.Row="4"  />
+                        <TextBlock Text="البريد الإلكتروني" Grid.Column="2" Grid.Row="8" />
+                        <TextBlock Text="تاريخ الوفاة" Grid.Column="2" Grid.Row="10" />
+                        <TextBlock Text="سبب الوفاة" Grid.Column="2" Grid.Row="11" />
+                        <TextBlock Text="اللقب" Grid.Row="7" />
+                        <TextBlock Text="العنوان" Grid.Column="2" Grid.Row="5" />
+                        <TextBlock Text="هل هو موظف؟" Grid.Column="2"  />
+                        <TextBlock Text="اسم الأب" Grid.Row="1"/>
+                        <TextBlock Text="اسم الأم" Grid.Row="6" />
+                        <TextBlock Text="الراتب" Grid.Column="2" Grid.Row="2" />
+                        <TextBlock Text="العملة" Grid.Column="2" Grid.Row="3" />
+                        <TextBlock Text="هل هو معاق؟" Grid.Column="0" Grid.Row="9"/>
+                        <TextBlock Text="نوع الإعاقة" Grid.Column="0" Grid.Row="10" />
+                        <TextBlock Text="تاريخ الإعاقة" Grid.Row="11" />
+                        <TextBlock Text="متوفى؟" Grid.Row="9" Grid.Column="2"/>
+                        <TextBlock Text="الوضع الصحي" Grid.Row="12" />
+                        <TextBlock Text="الحالة العائلية" Grid.Column="0" Grid.Row="8"/>
+                        <TextBlock Text="الوضع الدراسي" Grid.Row="12" Grid.Column="2"/>
+                        <TextBlock Text="الرقم الوطني"  Grid.Row="3"/>
+                        <TextBlock x:Name="txtIsNursemaid" Text="هل الأم حاضنة" Grid.Column="0" Grid.Row="13" />
+
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding FatherName, Mode=TwoWay, NotifyOnValidationError=True}"/>
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding LastName, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                        <ComboBox Grid.Column="1" Grid.Row="3" FontFamily="Arial" IsEditable="True" Text="{Binding PID, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="لايوجد رقم وطني"/>
+                        </ComboBox>
+                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding BirthPlace, Mode=TwoWay}" />
+                        <DatePicker Grid.Column="1" Grid.Row="5" SelectedDate="{Binding DOB, Mode=TwoWay, ValidatesOnDataErrors=True}" Margin="8"/>
+                        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding MotherName, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Nickname, Mode=TwoWay}" />
+                        <ComboBox Grid.Column="1" Width="160" Grid.Row="8" Text="{Binding MaritalStatus, Mode=TwoWay}">
+                            <ComboBoxItem Content="متزوج"></ComboBoxItem>
+                            <ComboBoxItem Content="أعزب"></ComboBoxItem>
+                            <ComboBoxItem Content="أرمل"></ComboBoxItem>
+                            <ComboBoxItem Content="مطلّق"></ComboBoxItem>
+                        </ComboBox>
+                        <CheckBox x:Name="chkIsImpede" Grid.Column="1" Grid.Row="9" Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IsImpeded, Mode=TwoWay}"></CheckBox>
+                        <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding impededType, Mode=TwoWay}" IsEnabled="{Binding ElementName=chkIsImpede, Path=IsChecked}" />
+                        <DatePicker Grid.Column="1" Grid.Row="11" SelectedDate="{Binding impededDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=chkIsImpede, Path=IsChecked}"/>
+                        <TextBox MaxLength="50" Grid.Column="1" Grid.Row="12" Text="{Binding HealthStatus, Mode=TwoWay}"/>
+
+                        <CheckBox Grid.Column="3" Grid.Row="0" Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IsEmployee, Mode=TwoWay}"></CheckBox>
+                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Job, Mode=TwoWay}" />
+                        <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Salary, Mode=TwoWay}"/>
+                        <ComboBox Grid.Column="3" Grid.Row="3" Margin="8" Text="{Binding SalaryCurrency, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="Name" Width="100"></ComboBox>
+                        <TextBox Grid.Column="3" Grid.Row="4" Text="{Binding JobAppointment, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="3" Grid.Row="5" Text="{Binding HomePlace, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="3" Grid.Row="6" FontFamily="Arial" Text="{Binding Phone, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="3" Grid.Row="7" FontFamily="Arial" Text="{Binding Mobile, Mode=TwoWay}" />
+                        <TextBox Grid.Column="3" Grid.Row="8" Text="{Binding Email, Mode=TwoWay}"/>
+                        <CheckBox Grid.Column="3" Grid.Row="9" Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IsDead, Mode=TwoWay}"/>
+                        <DatePicker Grid.Column="3" Grid.Row="10" SelectedDate="{Binding DeathDate, Mode=TwoWay}" />
+                        <TextBox Text="{Binding DeathReason, Mode=TwoWay}" Grid.Column="3" Grid.Row="11"/>
+                        <TextBox Grid.Column="3" Grid.Row="12" Text="{Binding StudyStatus, Mode=TwoWay}"/>
+                        <CheckBox x:Name="chkIsNursemaid" Grid.Column="1" Grid.Row="13" Margin="0,5" Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IsNursemaid, Mode=TwoWay}"/>
+                    </Grid>
+                    <Expander Grid.Row="1" IsExpanded="False">
+                        <Expander.Header>
+                            <TextBlock Text="بيانات إضافية"  Foreground="Brown"></TextBlock>
+                        </Expander.Header>
+                        <Grid Name="ParentGrid2" Margin="5" Background="#22BCF0FF">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="رقم الهوية" Grid.Column="0" Grid.Row="0" />
+                            <TextBlock Text="مكان القيد" Grid.Column="0" Grid.Row="1" />
+                            <TextBlock Text="رقم القيد" Grid.Column="0" Grid.Row="2" />
+                            <TextBlock Text="تاريخ منح البطاقة" Grid.Column="0" Grid.Row="3" />
+                            <TextBlock Text="هل هو مفقود؟" Grid.Column="2" Grid.Row="0" />
+                            <TextBlock Text="مكان الفقد" Grid.Column="2" Grid.Row="1" />
+                            <TextBlock Text="تاريخ الفقد" Grid.Column="2"  Grid.Row="2" />
+                            <TextBlock Text="تاريخ العودة" Grid.Column="2"  Grid.Row="3"  />
+                            <TextBlock Text="سبب العودة" Grid.Column="2" Grid.Row="4" />
+                            <TextBlock Text="رقم بيان الوفاة" Grid.Column="2" Grid.Row="5"  />
+                            <TextBlock Text="تاريخ بيان الوفاة" Grid.Column="2" Grid.Row="6" />
+                            <TextBlock Grid.Column="0" Grid.Row="4"  Text="الجنسية"/>
+                            <TextBlock Text="الجنس" Grid.Column="0" Grid.Row="5" />
+                            <TextBlock Text="الصورة الشخصية" Grid.Row="6" />
+
+
+                            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding IdentityID, Mode=TwoWay}"/>
+                            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding BondPlace, Mode=TwoWay}"/>
+                            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding BondNumber, Mode=TwoWay}"/>
+                            <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding IdentityGivinDate, Mode=TwoWay}"/>
+
+                            <TextBox Grid.Row="4" Text="{Binding Nationality, Mode=TwoWay}" Grid.Column="1"/>
+                            <TextBox Grid.Column="1" Grid.Row="5" IsReadOnly="True" Text="{Binding Gender, Mode=TwoWay}" FontSize="14" Width="100"></TextBox>
+                            <CheckBox x:Name="chkIsLost" Grid.Column="3" Grid.Row="0" Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IsLost, Mode=TwoWay}"></CheckBox>
+                            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding LostPlace, Mode=TwoWay}" IsEnabled="{Binding ElementName=chkIsLost, Path=IsChecked}"/>
+                            <DatePicker Grid.Column="3" Grid.Row="2" SelectedDate="{Binding LostDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=chkIsLost, Path=IsChecked}"/>
+                            <DatePicker Grid.Column="3" Grid.Row="3" SelectedDate="{Binding BackDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=chkIsLost, Path=IsChecked}"/>
+                            <TextBox Grid.Column="3" Grid.Row="4" Text="{Binding BackDetailes, Mode=TwoWay}" IsEnabled="{Binding ElementName=chkIsLost, Path=IsChecked}"/>
+                            <TextBox Grid.Column="3" Grid.Row="5" Text="{Binding DeathReportID, Mode=TwoWay}"/>
+                            <DatePicker Grid.Column="3" Grid.Row="6" SelectedDate="{Binding DeathReportDate, Mode=TwoWay}"/>
+
+                            <Grid Grid.Row="7" Grid.ColumnSpan="4">
+                                <Grid Name="ParentGrid3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="الطول" Grid.Column="0" Grid.Row="0" />
+                                    <TextBlock Text="الوزن" Grid.Column="0" Grid.Row="1" />
+                                    <TextBlock Text="نمرة الرجل" Grid.Column="0" Grid.Row="2" />
+                                    <TextBlock Text="قياس الخصر" Grid.Column="0" Grid.Row="3" />
+                                    <TextBlock Text="الحالة النفسية" Grid.Column="0" Grid.Row="4" />
+                                    <TextBlock Text="الوضع الأخلاقي" Grid.Column="0" Grid.Row="5" />
+                                    <TextBlock Text="الحالة المادية للأهل" Grid.Column="2" Grid.Row="4" />
+                                    <TextBlock Text="الوضع الأخلاقي للأهل" FontSize="15" Grid.Column="2" Grid.Row="5" />
+                                    <TextBlock Text="صورة بيان الوفاة" Grid.Column="2" Grid.Row="0" />
+                                    <TextBlock Text="صورة الهوية" Grid.Column="2" Grid.Row="1" />
+                                    <TextBlock Text="عمل الأب (الجد)" Grid.Column="2" Grid.Row="2" />
+                                    <TextBlock Text="راتب الأب التقديري" Grid.Column="2" Grid.Row="3"  />
+                                    <TextBlock Text="هل الأب على قيد الحياة" Grid.Column="0" Grid.Row="6" />
+                                    <TextBlock Text="هل الأم على قيد الحياة" Grid.Column="2" Grid.Row="6" />
+
+
+                                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Tall, Mode=TwoWay}"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Weight, Mode=TwoWay}" />
+                                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding FeetSize, Mode=TwoWay}"/>
+                                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding WaistSize, Mode=TwoWay}" />
+                                    <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding PsychicalSituation, Mode=TwoWay}"/>
+                                    <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Ethics, Mode=TwoWay}"/>
+                                    <MainWPF:ImageBoxControl HorizontalAlignment="Center" Grid.Column="3" Grid.Row="0" Value="{Binding DeathReportImage, Mode=TwoWay}"/>
+                                    <MainWPF:ImageBoxControl HorizontalAlignment="Center" Grid.Column="3" Grid.Row="1" Value="{Binding IdentityImage, Mode=TwoWay}"/>
+                                    <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding FatherJob, Mode=TwoWay}"/>
+                                    <TextBox Grid.Column="3" Grid.Row="3" Text="{Binding FatherSalary, Mode=TwoWay}"/>
+                                    <TextBox Grid.Column="3" Grid.Row="4" Text="{Binding GeneralWealthySituation, Mode=TwoWay}"/>
+                                    <TextBox Grid.Column="3" Grid.Row="5" Text="{Binding GeneralEthicalSituation, Mode=TwoWay}"/>
+                                    <CheckBox Grid.Column="1" Grid.Row="6" Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IsFatherAlive, Mode=TwoWay}"></CheckBox>
+                                    <CheckBox Grid.Column="3" Grid.Row="6" Style="{StaticResource LargeCheckBox}" IsChecked="{Binding IsMotherAlive, Mode=TwoWay}"/>
+                                </Grid>
+                            </Grid>
+                            <MainWPF:ImageBoxControl HorizontalAlignment="Center" Grid.Column="1" Grid.Row="6" Value="{Binding PersonalImage, Mode=TwoWay}"/>
+                        </Grid>
+                    </Expander>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+
+        <DockPanel Grid.Row="1" LastChildFill="True" FlowDirection="RightToLeft">
+            <TextBlock Text="ملاحظات"  VerticalAlignment="Top" Margin="5,15,0,0"/>
+            <TextBox Text="{Binding Notes, Mode=TwoWay}" VerticalContentAlignment="Top" AcceptsReturn="True" TextWrapping="WrapWithOverflow" Height="80" VerticalScrollBarVisibility="Auto" />
+        </DockPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+            <Button Height="35" FontSize="15" x:Name="btnTraining" Content="الدورات المقدمة" Width="120" Margin="2" Click="btnTrainigDetails_Click"/>
+            <Button Height="35" FontSize="18" x:Name="btnQualification" Content="المؤهلات" Width="80" Margin="2" Click="btnQualification_Click"/>
+            <Button Height="35" FontSize="15" x:Name="btnHealth" Content="الحالة الصحية" Width="100" Margin="2" Click="btnHealth_Click"/>
+        </StackPanel>
+        <Button x:Name="btnExecute" FontSize="20" Content="إضافة" Click="btnExecute_Click" Grid.Row="2" HorizontalAlignment="Left" Width="150" Margin="5"/>
+        <Button x:Name="btnUpdate" FontSize="20" Content="تعديل"  Click="btnUpdate_Click" Grid.Row="2"  HorizontalAlignment="Left" Width="150" Margin="5" Visibility="Hidden" />
+        <Button Grid.Row="2" HorizontalAlignment="Left" Margin="160,5,0,5" Width="183" FontSize="16" Click="btnDelParent_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/MainWPF;component/Images/DELETE.PNG">
+                </Image>
+                <TextBlock Text="حذف بيانات الوالد" VerticalAlignment="Center" Margin="10,0"></TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

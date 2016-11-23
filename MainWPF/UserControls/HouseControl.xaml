@@ -1,0 +1,169 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainWPF" x:Class="MainWPF.HouseControl" 
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             Name="MyControl" mc:Ignorable="d" Margin="70,10" MinWidth="750">
+
+    <Grid FlowDirection="RightToLeft">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="2" Margin="5" BorderBrush="#FF115737">
+            <ScrollViewer x:Name="svMain">
+                <Grid Name="grdHouse">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="المساحة" TextWrapping="Wrap" Grid.Column="2" Grid.Row="6"/>
+                    <TextBlock Text="حالة المسكن" TextWrapping="Wrap" Grid.Column="0" Grid.Row="6" />
+                    <TextBlock Text="حالة الأثاث" TextWrapping="Wrap" Grid.Column="0" Grid.Row="7" />
+                    <TextBlock Text="قيمة المسكن" TextWrapping="Wrap" Grid.Column="2" Grid.Row="9" />
+                    <TextBlock Text="صاحب الملكية" Grid.Column="2" Grid.Row="2" />
+                    <TextBlock Text="عدد الغرف" Grid.Column="2" Grid.Row="8" />
+                    <TextBlock Text="المدارس القريبة" Grid.Row="11" />
+                    <TextBlock Text="صورة المتزل" Grid.Column="2" Grid.Row="10" />
+                    <TextBlock Text="نقطة علامة" Grid.Column="0" Grid.Row="4" />
+                    <TextBlock Text="دور العبادة القريبة" Grid.Row="12"/>
+                    <TextBlock Text="هاتف المنزل" Grid.Column="2" Grid.Row="7" />
+                    <TextBlock Text="رقم القطاع" Grid.Column="2" Grid.Row="0" />
+                    <TextBlock Text="وضع المسكن" Grid.Column="2" Grid.Row="1" />
+                    <TextBlock Text="السكن الأصلي" Grid.Column="0" Grid.Row="0" />
+                    <TextBlock Text="منطقة السكن" TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" />
+                    <TextBlock Text="شارع السكن" TextWrapping="Wrap" Grid.Column="0" Grid.Row="3"/>
+                    <TextBlock Text="نوع السكن" Grid.Column="0" Grid.Row="1" />
+                    <TextBlock Text="اللإضاءة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="9"/>
+                    <TextBlock Text="التهوية" TextWrapping="Wrap" Grid.Column="0" Grid.Row="10"  />
+                    <TextBlock Text="حجم الغرف" TextWrapping="Wrap" Grid.Column="0" Grid.Row="8" />
+                    <ComboBox x:Name="cmboOldAddress" IsEditable="True" Grid.Column="1" Grid.Row="0" Text="{Binding OldAddress, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                    <ComboBox Grid.Column="3" Grid.Row="0" Margin="10,8" HorizontalAlignment="Left" Width="55" FontSize="15" FontFamily="{StaticResource MyFontFamily}" Text="{Binding SectorPartNum, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3"/>
+                        <ComboBoxItem Content="4"/>
+                        <ComboBoxItem Content="5"/>
+                        <ComboBoxItem Content="6"/>
+                        <ComboBoxItem Content="7"/>
+                        <ComboBoxItem Content="8"/>
+                        <ComboBoxItem Content="9"/>
+                        <ComboBoxItem Content="10"/>
+                    </ComboBox>
+                    <Button x:Name="SectorNum" Content="اختيار قطاع" Grid.Column="3" Grid.Row="0" Width="100" Margin="8,2" HorizontalAlignment="Right" Click="SectorNum_Click"/>
+                    <ComboBox MinWidth="150" Text="{Binding HouseType, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1">
+                        <ComboBoxItem Content="ملك"/>
+                        <ComboBoxItem Content="رهن"/>
+                        <ComboBoxItem Content="ايجار"/>
+                        <ComboBoxItem Content="إعارة"/>
+                        <ComboBoxItem Content="خيمة"/>
+                        <ComboBoxItem Content="تبرع"/>
+                        <ComboBoxItem Content="شقة فندقية"/>
+                        <ComboBoxItem Content="مخيم نازحين"/>
+                        <ComboBoxItem Content="مدرسة"/>
+                        <ComboBoxItem Content="كفيل"/>
+                        <ComboBoxItem Content="مركز إيواء"/>
+                        <ComboBoxItem Content="معرفة"/>
+                        <ComboBoxItem Content="دخول لمكان فارغ"/>
+                        <ComboBoxItem Content="في العراء"/>
+                    </ComboBox>
+                    <ComboBox Grid.Column="3" Grid.Row="1" MinWidth="150" Text="{Binding HouseStatus, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="مفروش"/>
+                        <ComboBoxItem Content="مكسي"/>
+                        <ComboBoxItem Content="هيكلي"/>
+                        <ComboBoxItem Content="قبو"/>
+                        <ComboBoxItem Content="لدى أسرة مضيفة"/>
+                    </ComboBox>
+                    <ComboBox x:Name="cmboHouseSection" IsEditable="True" Grid.Column="1" Grid.Row="2" Text="{Binding HouseSection, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                    <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Owner, Mode=TwoWay}"/>
+                    <ComboBox x:Name="cmboHouseStreet" IsEditable="True" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="10,7" Text="{Binding HouseStreet, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                    <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Text="{Binding Address, Mode=TwoWay, NotifyOnValidationError=True}"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="3" >
+                        <TextBlock Text="بناء رقم" Width="60" TextAlignment="Right" TextWrapping="Wrap" />
+                        <TextBox Width="130" Margin="5,5" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Times New Roman" MaxLength="100" Text="{Binding HouseBuildingNumber, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="4" >
+                        <TextBlock Width="60" TextAlignment="Right" Text="طابق" TextWrapping="Wrap"/>
+                        <TextBox Width="130" Margin="5,5" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Times New Roman" MaxLength="100" Text="{Binding HouseFloor, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <DatePicker Grid.Column="1" Grid.Row="5" SelectedDate="{Binding Date, Mode=TwoWay, StringFormat=d/M/yyyy, ValidatesOnDataErrors=True}" />
+                    <TextBox Grid.Column="3" Grid.Row="5" Text="{Binding EndDate, Mode=TwoWay, StringFormat=d/M/yyyy}" IsReadOnly="True" FontFamily="Arial"/>
+                    <local:EvaluationControl FontFamily="{StaticResource MyFontFamily}" FontSize="11" Grid.Column="1" Grid.Row="6" Margin="8,0,0,0" Value="{Binding HouseSituation, Mode=TwoWay}"/>
+
+                    <TextBox Grid.Column="3" Grid.Row="6" Text="{Binding Area, Mode=TwoWay, ValidatesOnDataErrors=true}" FontFamily="Arail"/>
+                    <local:EvaluationControl FontFamily="{StaticResource MyFontFamily}" FontSize="11" Grid.Column="1" Grid.Row="7" Margin="8,0,0,0" Value="{Binding FurnitureSituation, Mode=TwoWay}"/>
+                    <TextBox Grid.Column="3" Grid.Row="7" Text="{Binding Phone, Mode=TwoWay}" FontFamily="Arial"/>
+                    <local:EvaluationControl FontFamily="{StaticResource MyFontFamily}" FontSize="11" Mode="B" Grid.Column="1" Grid.Row="8" Value="{Binding RoomsSize, Mode=TwoWay}" Margin="8,0,0,0"/>
+                    <TextBox Grid.Column="3" Grid.Row="8" Text="{Binding RoomsCount, Mode=TwoWay}" FontFamily="Arial"/>
+                    <local:EvaluationControl FontFamily="{StaticResource MyFontFamily}" FontSize="11" Grid.Column="1" Grid.Row="9" Value="{Binding Lights, Mode=TwoWay}" Margin="8,0,0,0"/>
+                    <ComboBox Grid.Column="3" Grid.Row="9" Margin="8,6" Text="{Binding Value, Mode=TwoWay}" FontSize="15" FontFamily="{StaticResource MyFontFamily}" IsEditable="True">
+                        <ComboBoxItem Content="أقل من 1 مليون"/>
+                        <ComboBoxItem Content="1 مليون"/>
+                        <ComboBoxItem Content="بين 1 و 2 مليون"/>
+                        <ComboBoxItem Content="أكثر من 2 مليون"/>
+                    </ComboBox>
+                    <local:EvaluationControl FontFamily="{StaticResource MyFontFamily}" FontSize="11" Grid.Column="1" Grid.Row="10" Value="{Binding Airing, Mode=TwoWay}" Margin="8,0,0,0"/>
+                    <local:ImageBoxControl Grid.Column="3" Grid.Row="10" HorizontalAlignment="Center" Value="{Binding Photo, Mode=TwoWay}"/>
+
+                    <TextBox Grid.Column="1" Grid.Row="11" Text="{Binding NeaistSchools, Mode=TwoWay}" FontFamily="Arial" Grid.ColumnSpan="3"/>
+                    <TextBox Grid.Column="1" Grid.Row="12" Text="{Binding NearistJawamea, Mode=TwoWay}" FontFamily="Arial" Grid.ColumnSpan="3"/>
+
+                    <TextBlock Text="تاريخ السكن" Grid.Column="0" Grid.Row="5" />
+                    <TextBlock Text="تاريخ الخروج من السكن" Grid.Column="2" Grid.Row="5"/>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+        <Grid FlowDirection="RightToLeft" Margin="5,0,29,0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnBack" Grid.Column="0" Style="{StaticResource myBtnBack}" Margin="2" ToolTip="السابق" IsEnabled="False" Click="btnBack_Click"/>
+            <TextBox Grid.Column="1" Width="50" Height="30" Margin="5" TextAlignment="Center" FontFamily="Arial" Text="{Binding Place, ElementName=MyControl}" FontSize="20"/>
+            <TextBlock Grid.Column="2" FontFamily="{StaticResource MyFontFamily}" Text="من" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2" FontFamily="Arial" Text="{Binding TotalCount, ElementName=MyControl}" HorizontalAlignment="Right" FontSize="20" VerticalAlignment="Center" Width="35"/>
+            <Button x:Name="btnNext" Grid.Column="3" Style="{StaticResource myBtnNext}" Margin="2" ToolTip="التالي" IsEnabled="False" Click="btnNext_Click"/>
+            <Button x:Name="btnNew" Grid.Column="5" Margin="10,1" ToolTip="جديد" Click="btnNew_Click" Style="{StaticResource TransparentButton}">
+                <Image Source="../Images/play-star.png"/>
+            </Button>
+            <Button x:Name="btnSave" Grid.Column="6" Margin="10,1" ToolTip="حفظ" Click="btnSave_Click" Style="{StaticResource TransparentButton}">
+                <Image Source="../Images/SAVE-ALT.PNG"/>
+            </Button>
+            <Button x:Name="btnDelete" Grid.Column="4" Margin="10,1" ToolTip="حذف" Style="{StaticResource TransparentButton}" Click="btnDelete_Click">
+                <Image Source="../Images/remove.PNG"/>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0">
+            <TextBlock Text="ملاحظات المسكن" Margin="0,5,0,46" HorizontalAlignment="Left"/>
+            <TextBox Text="{Binding Notes, Mode=TwoWay}" VerticalAlignment="Stretch" Height="Auto" VerticalContentAlignment="Top" AcceptsReturn="True" Margin="130,10,10,10" FontFamily="{StaticResource MyFontFamily}" TextWrapping="WrapWithOverflow" />
+        </Grid>
+
+
+    </Grid>
+</UserControl>
