@@ -25,7 +25,6 @@ namespace MainWPF
         public SponsorOrphanControl()
         {
             InitializeComponent();
-            cmboSoonsorType.ItemsSource = Sponsor_Orphan.GetAllSponsorTypes;
         }
 
         int? orphanID;
@@ -35,7 +34,7 @@ namespace MainWPF
             set
             {
                 orphanID = value;
-                OrphanSponsors = Sponsor_Orphan.GetSponsorAllByOrphanID(value);
+                OrphanSponsors = Sponsorship.GetSponsorshipAllByOrphanID(value.Value);
             }
         }
 
@@ -78,8 +77,8 @@ namespace MainWPF
             }
         }
 
-        List<Sponsor_Orphan> orphanSponsors;
-        public List<Sponsor_Orphan> OrphanSponsors
+        List<Sponsorship> orphanSponsors;
+        public List<Sponsorship> OrphanSponsors
         {
             get { return orphanSponsors; }
             set
@@ -89,7 +88,7 @@ namespace MainWPF
                 if (TotalCount == 0)
                 {
                     Place = 0;
-                    Sponsor_Orphan so = new Sponsor_Orphan();
+                    Sponsorship so = new Sponsorship();
                     so.OrphanID = OrphanID;
                     this.DataContext = so;
                 }
@@ -112,7 +111,7 @@ namespace MainWPF
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var x = this.DataContext as Sponsor_Orphan;
+            var x = this.DataContext as Sponsorship;
             if (x.IsValidate())
             {
                 if (x.OrphanID == null)
@@ -124,12 +123,12 @@ namespace MainWPF
                 {
                     if (!BaseDataBase.CurrentUser.CanUpdate)
                         MyMessageBox.Show("لا يوجد لديك صلاحيات للتعديل");
-                    else if (x.UpdateData())
+                    else if (Sponsorship.UpdateData(x))
                         MyMessage.UpdateMessage();
                 }
                 else
                 {
-                    if (x.InsertData())
+                    if (Sponsorship.InsertData(x))
                     {
                         MyMessage.InsertMessage();
                         OrphanSponsors.Add(x);
@@ -142,10 +141,10 @@ namespace MainWPF
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            var x = this.DataContext as Sponsor_Orphan;
+            var x = this.DataContext as Sponsorship;
             if (x.ID != null)
             {
-                var os = new Sponsor_Orphan();
+                var os = new Sponsorship();
                 os.OrphanID = OrphanID;
                 this.DataContext = os;
             }
@@ -153,14 +152,14 @@ namespace MainWPF
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            var x = this.DataContext as Sponsor_Orphan;
+            var x = this.DataContext as Sponsorship;
             if (x.ID != null)
             {
                 if (!BaseDataBase.CurrentUser.CanDelete)
                 {
                     MyMessageBox.Show("لا يوجد لديك صلاحيات للحذف");
                 }
-                else if (MyMessageBox.Show("هل تريد تأكيد حذف البيانات", MessageBoxButton.YesNo) == MessageBoxResult.Yes && x.DeleteData())
+                else if (MyMessageBox.Show("هل تريد تأكيد حذف البيانات", MessageBoxButton.YesNo) == MessageBoxResult.Yes && Sponsorship.DeleteData(x))
                 {
                     MyMessage.DeleteMessage();
                     OrphanID = OrphanID;
@@ -180,7 +179,7 @@ namespace MainWPF
             var w = new SponsorSelectControl();
             if (w.ShowDialog() == true)
             {
-                (this.DataContext as Sponsor_Orphan).SponsorID = (w.dgSupervisor.SelectedItem as Sponsor).SponsorID;
+                (this.DataContext as Sponsorship).SponsorID = (w.dgSupervisor.SelectedItem as Sponsor).SponsorID;
             }
         }
 

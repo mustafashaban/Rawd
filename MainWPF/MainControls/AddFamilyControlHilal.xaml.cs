@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace MainWPF
 {
-    /// <summary>
-    /// Interaction logic for AddFamilyControlHilal.xaml
-    /// </summary>
     public partial class AddFamilyControlHilal : UserControl
     {
         TempFamily tf;
@@ -75,7 +72,7 @@ namespace MainWPF
             cOrders.FamilyID = f.FamilyID;
             cFamily.txtFamilyCode.IsReadOnly = true;
             var lst = cOrders?.lvOrders?.ItemsSource as List<Order>;
-            if (lst != null && lst.Count > 0)
+            if (lst != null && lst.Count > 0 && lst.Where(x => x.NextOrderDate.HasValue).Count() > 0)
             {
                 var MaxNextOrderDate = lst.Where(x => x.NextOrderDate.HasValue).Select(x => x.NextOrderDate.Value).Max();
                 if (MaxNextOrderDate > BaseDataBase.DateNow)
@@ -138,7 +135,6 @@ namespace MainWPF
             foreach (var c in tf.TempChilds)
                 chlds.Add(new FamilyPerson() { FirstName = c.Name, DOB = c.DOB, Gender = c.Gender, RelationShip = c.Gender == "ذكر" ? "ابن" : "ابنة" });
             cFamily.dgChild.ItemsSource = (from x in chlds orderby x.DOB select x).ToList();
-
 
             cFamily.UserControl_Loaded(null, null);
 

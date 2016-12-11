@@ -30,7 +30,7 @@ namespace MainWPF
             Task.Run(() => DBMain.UpdateAllPregnant());
 
             this.MaxHeight = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height;
-            btns = new List<Button>() { btnSearch, btnAddFamily, btnOrphans, btnSystem, btnInventory, btnSettings };
+            btns = new List<Button>() { btnSearch, btnAddFamily, btnOrphans, btnInventory, btnSystem, btnSettings };
             btnUser.Content = BaseDataBase.CurrentUser.Name;
             txtClock.Text = DateTime.Now.ToString("t") + "  " + DateTime.Now.ToString("d");
             DispatcherTimer dt = new DispatcherTimer() { Interval = TimeSpan.FromMinutes(1), IsEnabled = true };
@@ -105,8 +105,8 @@ namespace MainWPF
                     case "إحصائيات وبحث":
                         ti.Content = new StatisticsControl();
                         break;
-                    case "متابعة الأيتام":
-                        ti.Content = new OrphanMainControl();
+                    case "الايتام/طلاب العلم":
+                        ti.Content = new OrphanBaseControl();
                         break;
                     case "بيانات العوائل":
                         ti.Content = new FamilyMainControl();

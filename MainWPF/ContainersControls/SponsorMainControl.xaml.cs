@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
+using System.Windows.Media.Animation;
 
 namespace MainWPF
 {
@@ -35,9 +36,7 @@ namespace MainWPF
                     as BindingListCollectionView;
                 if (view != null)
                 {
-                    view.CustomFilter = string.Format("FirstName like '%{0}%'", txtFirstName.Text);
-                    if (!string.IsNullOrEmpty(txtLastName.Text))
-                        view.CustomFilter += string.Format(" and LastName like '%{0}%'", txtLastName.Text);
+                    view.CustomFilter = string.Format("Name like '%{0}%'", txtName.Text);
                     if (cmboGender.SelectedIndex > 0)
                         view.CustomFilter += string.Format(" and Gender like '{0}'", (cmboGender.Items[cmboGender.SelectedIndex] as ComboBoxItem).Content);
                 }
@@ -52,15 +51,13 @@ namespace MainWPF
 
         private void btnAddNewSponsor_Click(object sender, RoutedEventArgs e)
         {
-            SponsorControl w = new SponsorControl();
-            if (w.ShowDialog() == true)
-            {
-                dgSponsor.ItemsSource = Sponsor.GetAllSponsorTable;
-            }
+            MainWindow m = App.Current.MainWindow as MainWindow;
+            m.SendTabItem(new TabItem() { Header = "اضافة كفيل جديد", Content = new SponsorControl(new MainWPF.Sponsor()) });
         }
 
         private void dgSponsor_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             btnUpdateSponsor_Click(null, null);
         }
 
@@ -68,18 +65,25 @@ namespace MainWPF
         {
             if (dgSponsor.SelectedIndex >= 0)
             {
-                SponsorControl w = new SponsorControl(Sponsor.GetSponsorByID((int)(dgSponsor.Items[dgSponsor.SelectedIndex] as DataRowView)[0]));
-                if (w.ShowDialog() == true)
-                {
-                    dgSponsor.ItemsSource = Sponsor.GetAllSponsorTable;
-                }
+                var s = Sponsor.GetSponsorByID((int)(dgSponsor.Items[dgSponsor.SelectedIndex] as DataRowView)[0]);
+                MainWindow m = App.Current.MainWindow as MainWindow;
+                m.SendTabItem(new TabItem() { Header = s.Name, Content = new SponsorControl(s) });
             }
         }
-
+        bool isWorking = false;
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            dgSponsor.ItemsSource = Sponsor.GetAllSponsorTable;
-            Control_Changed(null, null);
+            if (!isWorking)
+            {
+                isWorking = true;
+                Storyboard sb = (App.Current.Resources["sbRotateButton"] as Storyboard).Clone();
+                sb.SetValue(Storyboard.TargetProperty, sender);
+                sb.Begin();
+                dgSponsor.ItemsSource = Sponsor.GetAllSponsorTable;
+                Control_Changed(null, null);
+                sb.Pause();
+                isWorking = false;
+            }
         }
 
         private void btnDelSupervisor_Click(object sender, RoutedEventArgs e)
@@ -99,7 +103,7 @@ namespace MainWPF
                     }
                     else
                     {
-                        if (s.DeleteSponsorData())
+                        if (Sponsor.DeleteData(s))
                         {
                             dgSponsor.ItemsSource = Sponsor.GetAllSponsorTable;
                             MyMessage.DeleteMessage();
@@ -107,6 +111,11 @@ namespace MainWPF
                     }
                 }
             }
+        }
+
+        private void btnDeleteSponsor_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

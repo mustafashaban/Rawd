@@ -26,14 +26,14 @@ namespace MainWPF
 
         private void btnUpdateGuardian_Click(object sender, RoutedEventArgs e)
         {
-            if (dgSupervisor.SelectedIndex != -1)
-            {
-                SponsorControl w = new SponsorControl(dgSupervisor.SelectedItem as Sponsor);
-                if (w.ShowDialog() == true)
-                {
-                    dgSupervisor.ItemsSource = Sponsor.GetAllSponsors;
-                }
-            }
+            //if (dgSupervisor.SelectedIndex != -1)
+            //{
+            //    SponsorControl w = new SponsorControl(dgSupervisor.SelectedItem as Sponsor);
+            //    if (w.ShowDialog() == true)
+            //    {
+            //        dgSupervisor.ItemsSource = Sponsor.GetAllSponsors;
+            //    }
+            //}
         }
 
         private void Control_Changed(object sender, TextChangedEventArgs e)
@@ -60,11 +60,11 @@ namespace MainWPF
 
         private void btnAddGuardian_Click(object sender, RoutedEventArgs e)
         {
-            SponsorControl s = new SponsorControl();
-            if (s.ShowDialog() == true)
-            {
-                dgSupervisor.ItemsSource = Sponsor.GetAllSponsors;
-            }
+            //SponsorControl s = new SponsorControl(new Sponsor());
+            //if (s.ShowDialog() == true)
+            //{
+            //    dgSupervisor.ItemsSource = Sponsor.GetAllSponsors;
+            //}
         }
 
 

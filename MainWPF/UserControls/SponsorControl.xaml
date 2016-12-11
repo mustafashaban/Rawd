@@ -1,72 +1,103 @@
-﻿<Window x:Class="MainWPF.SponsorControl"
+﻿<UserControl x:Class="MainWPF.SponsorControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Local="clr-namespace:MainWPF"
              xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
-        Height="530" Width="770" x:Name="myWindow" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen">
-
+        MaxWidth="900" x:Name="myWindow" FlowDirection="RightToLeft">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130"/>
-                <ColumnDefinition />
-                <ColumnDefinition Width="153" />
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="الاسم" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" />
-            <TextBlock Text="الكنية" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" />
-            <TextBlock Text="مكان الولادة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" />
-            <TextBlock Text="تاريخ الولادة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="3" />
-            <TextBlock Text="الجنس" TextWrapping="Wrap" Grid.Column="0" Grid.Row="4" />
-            <TextBlock Text="الجنسية" TextWrapping="Wrap" Grid.Column="0" Grid.Row="5" />
-            <TextBlock Text="العمل" TextWrapping="Wrap" Grid.Column="0" Grid.Row="6" />
-            <TextBlock Text="الهاتف" TextWrapping="Wrap" Grid.Column="2" />
-            <TextBlock Text="الموبايل" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" />
-            <TextBlock Text="البريد الإلكتروني" Grid.Column="2" Grid.Row="2"  />
-            <TextBlock Text="المستوى التعليمي" Grid.Row="7" />
-            <TextBlock Text="العنوان" TextWrapping="Wrap" Grid.Column="2" Grid.Row="3" />
-            <TextBlock Text="صورة الهوية" TextWrapping="Wrap" Grid.Column="2" Grid.Row="4" />
-            <TextBlock Text="هل الكفيل منظمة" TextWrapping="Wrap" Grid.Column="2" Grid.Row="5" />
-            <TextBlock Text="الكفالة الرئيسية" TextWrapping="Wrap" Grid.Column="2" Grid.Row="6" />
-            <TextBlock Text="ملاحظات" TextWrapping="Wrap" Grid.Column="0" Grid.Row="8" Margin="0,5,0,46" Grid.RowSpan="2" />
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="153" />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition MinHeight="100" Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="الاسم" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" />
+                <TextBlock Text="تاريخ الولادة" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" />
+                <TextBlock Text="الجنس" TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" />
+                <TextBlock Text="الجنسية" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" />
+                <TextBlock Text="الهاتف" TextWrapping="Wrap" Grid.Column="2" />
+                <TextBlock Text="الموبايل" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1" />
+                <TextBlock Text="البريد الإلكتروني" Grid.Column="0" Grid.Row="3"  />
+                <TextBlock Text="العنوان" TextWrapping="Wrap" Grid.Column="0" Grid.Row="4" />
+                <TextBlock Text="كفيل عام" TextWrapping="Wrap" Grid.Column="0" Grid.Row="5" />
+                <TextBlock Text="كفيل يعوض" TextWrapping="Wrap" Grid.Column="0" Grid.Row="6" />
+                <TextBlock Text="حالة الكفيل" TextWrapping="Wrap" Grid.Column="0" Grid.Row="7" />
+                <TextBlock Text="حد التجاوز" TextWrapping="Wrap" Grid.Column="2" Grid.Row="7" />
+                <TextBlock Text="هل الكفيل منظمة" TextWrapping="Wrap" Grid.Column="2" Grid.Row="5" />
+                <TextBlock Text="الكفالة الرئيسية" TextWrapping="Wrap" Grid.Column="2" Grid.Row="6" />
+                <TextBlock Text="ملاحظات" TextWrapping="Wrap" Grid.Column="0" Grid.Row="8" Margin="0,5,0,46" Grid.RowSpan="2" />
+                <Border Grid.Row="10" Grid.ColumnSpan="4" Background="#99FFA200"/>
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="10" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="الكفالات  ( " />
+                    <TextBlock Text="الكلية : " />
+                    <TextBlock FontFamily="Arial" Text="{Binding AllSponsorships}" FontSize="16"/>
+                    <TextBlock Text="بالانتظار : " Margin="15,0,0,0"/>
+                    <TextBlock FontFamily="Arial" Text="{Binding WaitSponsorships}" FontSize="16"/>
+                    <TextBlock Text="غير منتهية: " Margin="15,0,0,0"/>
+                    <TextBlock FontFamily="Arial" Text="{Binding CurrentSponsorships}" FontSize="16"/>
+                    <TextBlock Text="منتهية: " Margin="15,0,0,0"/>
+                    <TextBlock FontFamily="Arial" Text="{Binding EndedSponsorships}" FontSize="16"/>
+                    <TextBlock Text=" )" FontSize="18"/>
+                </StackPanel>
 
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=true}"/>
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding LastName, Mode=TwoWay}" />
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding BirthPlace, Mode=TwoWay}"/>
-            <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding DOB, Mode=TwoWay}" />
-            <ComboBox Grid.Column="1" Grid.Row="4" Text="{Binding Gender, Mode=TwoWay}" FontSize="14" Width="100">
-                <ComboBoxItem Background="#FFB8DCFF" Content="ذكر"/>
-                <ComboBoxItem Background="#FFFFC0C0" Content="أنثى"/>
-            </ComboBox>
-            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Nationality, Mode=TwoWay}"/>
-            <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Job, Mode=TwoWay}"/>
-            <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding ScientificQualifier, Mode=TwoWay}"/>
-
-            <TextBox Grid.Column="3" Text="{Binding Phone, Mode=TwoWay}"/>
-            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Mobile, Mode=TwoWay}" />
-            <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Email, Mode=TwoWay}"/>
-            <TextBox Grid.Column="3" Grid.Row="3" Text="{Binding PlaceAddress, Mode=TwoWay}"/>
-            <Local:ImageBoxControl HorizontalAlignment="Center" Grid.Column="3" Grid.Row="4" Value="{Binding IdentityImage, Mode=TwoWay}"></Local:ImageBoxControl>
-            <CheckBox Grid.Column="3" Grid.Row="5" IsChecked="{Binding IsGovernment, Mode=TwoWay, ValidatesOnDataErrors=true}" Style="{StaticResource LargeCheckBox}"></CheckBox>
-            <TextBox Grid.Column="3" Grid.Row="6" Text="{Binding MainBail, Mode=TwoWay}"/>
-            <TextBox Grid.Column="1" Grid.Row="8" AcceptsReturn="True" Text="{Binding Notes, Mode=TwoWay}" VerticalAlignment="Stretch" VerticalContentAlignment="Top" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="74" TextWrapping="WrapWithOverflow" />
-        </Grid>
-        <Button x:Name="btnAdd" Grid.Row="1" Width="120" Content="إضافة" FontSize="16" HorizontalAlignment="Right" Click="BtnAdd_Click"></Button>
-        <Button x:Name="btnUpdate" Grid.Row="1" Width="120" Content="تعديل" FontSize="16" HorizontalAlignment="Right" Visibility="Hidden" Click="BtnUpdate_Click"></Button>
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=true}"/>
+                <DatePicker Grid.Column="1" Grid.Row="1" SelectedDate="{Binding DOB, Mode=TwoWay}" />
+                <ComboBox Grid.Column="1" Grid.Row="2" Text="{Binding Gender, Mode=TwoWay}" FontSize="14" Width="100">
+                    <ComboBoxItem Background="#FFB8DCFF" Content="ذكر"/>
+                    <ComboBoxItem Background="#FFFFC0C0" Content="أنثى"/>
+                </ComboBox>
+                <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding Nationality, Mode=TwoWay}"/>
+                <TextBox Grid.Column="3" FontFamily="Arial" Text="{Binding Phone, Mode=TwoWay}"/>
+                <TextBox Grid.Column="3" Grid.Row="1" FontFamily="Arial" Text="{Binding Mobile, Mode=TwoWay}" />
+                <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" FontFamily="Arial" Text="{Binding Email, Mode=TwoWay}"/>
+                <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" Text="{Binding Address, Mode=TwoWay}"/>
+                <CheckBox Grid.Column="3" Grid.Row="5" IsChecked="{Binding IsOrganazation, Mode=TwoWay, ValidatesOnDataErrors=true}" Style="{StaticResource LargeCheckBox}"></CheckBox>
+                <CheckBox Grid.Column="1" Grid.Row="5" IsChecked="{Binding IsGeneral, Mode=TwoWay, ValidatesOnDataErrors=true}" Style="{StaticResource LargeCheckBox}"></CheckBox>
+                <CheckBox Grid.Column="1" Grid.Row="6" IsChecked="{Binding IsCompensated, Mode=TwoWay, ValidatesOnDataErrors=true}" Style="{StaticResource LargeCheckBox}"></CheckBox>
+                <ComboBox Grid.Column="1" Grid.Row="7" SelectedIndex="0" Text="{Binding Status, Mode=TwoWay}" FontSize="14" Width="100">
+                    <ComboBoxItem Content="مفعّل"/>
+                    <ComboBoxItem Content="ملغى"/>
+                    <ComboBoxItem Content="مجمّد"/>
+                </ComboBox>
+                <TextBox Grid.Column="3" Grid.Row="6" Text="{Binding MainSponsorship, Mode=TwoWay}"/>
+                <Local:NumericUpDown Grid.Column="3" Grid.Row="7" Width="170" HorizontalAlignment="Center" Minimum="0" Maximum="100000000" Value="{Binding AllowValue, Mode=TwoWay}"/>
+                <TextBox Grid.Column="1" Grid.Row="8" AcceptsReturn="True" Text="{Binding Notes, Mode=TwoWay}" MaxLength="2000" VerticalAlignment="Stretch" VerticalContentAlignment="Top" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="74" TextWrapping="WrapWithOverflow" />
+                <DataGrid x:Name="dgSponsorship" MaxHeight="300" Grid.Row="11" Grid.ColumnSpan="4" ItemsSource="{Binding Sponsorships}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="اسم اليتيم/طالب العلم" Binding="{Binding OrphanName}"/>
+                        <DataGridTextColumn Header="حالة الكفالة"  Binding="{Binding Status}"/>
+                        <!--<DataGridTextColumn Header="اجمالي الدفعات" FontFamily="Arial" Binding="{Binding Name}"/>-->
+                        <!--<DataGridTextColumn Header="الباقي" FontFamily="Arial" Binding="{Binding Name}"/>-->
+                        <DataGridTextColumn Header="مدة الكفالة" FontFamily="Arial" Binding="{Binding Duration}"/>
+                        <DataGridTextColumn Header="بدء الكفالة" FontFamily="Arial" Binding="{Binding StartDate, StringFormat='dd-MM-yyyy'}"/>
+                        <DataGridTextColumn Header="انتهاء الكفالة" Width="*" FontFamily="Arial" Binding="{Binding EndDate, StringFormat='dd-MM-yyyy'}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Row="11" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <Button x:Name="btnAdd" Style="{StaticResource CUD_Style}" Width="35" Height="35" Click="btnAddNewSponsorship_Click" ToolTip="اضافة كفالة جديدة">
+                        <Path Stretch="Uniform" Fill="#FF424242" StrokeThickness="2" Stroke="#FF686868" Data="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z "/>
+                    </Button>
+                    <Button x:Name="btnDel" Style="{StaticResource CUD_Style}" Width="35" Height="35" Click="btnDeleteSponsorship_Click" ToolTip="حذف كفالة">
+                        <Path Stretch="Uniform" Fill="#FF424242" Data="F1 M 25.3333,23.75L 50.6667,23.75C 51.5411,23.75 51.8541,27.3125 51.8541,27.3125L 24.1458,27.3125C 24.1458,27.3125 24.4589,23.75 25.3333,23.75 Z M 35.625,19.7917L 40.375,19.7917C 40.8122,19.7917 41.9583,20.9378 41.9583,21.375C 41.9583,21.8122 40.8122,22.9584 40.375,22.9584L 35.625,22.9584C 35.1878,22.9584 34.0416,21.8122 34.0416,21.375C 34.0416,20.9378 35.1878,19.7917 35.625,19.7917 Z M 27.7083,28.5L 48.2916,28.5C 49.1661,28.5 49.875,29.2089 49.875,30.0834L 48.2916,53.8334C 48.2916,54.7078 47.5828,55.4167 46.7083,55.4167L 29.2917,55.4167C 28.4172,55.4167 27.7083,54.7078 27.7083,53.8334L 26.125,30.0834C 26.125,29.2089 26.8339,28.5 27.7083,28.5 Z M 30.0833,31.6667L 30.4792,52.25L 33.25,52.25L 32.8542,31.6667L 30.0833,31.6667 Z M 36.4167,31.6667L 36.4167,52.25L 39.5833,52.25L 39.5833,31.6667L 36.4167,31.6667 Z M 43.1458,31.6667L 42.75,52.25L 45.5208,52.25L 45.9167,31.6667L 43.1458,31.6667 Z "/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+        <Button x:Name="btnExecute" VerticalAlignment="Bottom" Height="40" Width="120" Content="حفظ" FontSize="16" HorizontalAlignment="Right" Click="BtnExecute_Click"></Button>
     </Grid>
-</Window>
+</UserControl>

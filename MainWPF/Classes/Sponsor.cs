@@ -10,6 +10,13 @@ namespace MainWPF
 {
     public class Sponsor : Person
     {
+        public Sponsor()
+        {
+            IsOrganazation = false;
+            IsGeneral = false;
+            IsCompensated = false;
+            AllowValue = 0;
+        }
         private int? sponsorid;
         public int? SponsorID
         {
@@ -19,78 +26,41 @@ namespace MainWPF
             { sponsorid = value; }
         }
 
-
-
-        private bool? isgovernment;
-        public bool? IsGovernment
+        private string name;
+        public string Name
         {
             get
-            { return isgovernment; }
+            { return name; }
             set
-            { isgovernment = value; }
+            { name = value; }
         }
 
-
-        private double? slary;
-        public double? Slary
+        private bool isorganazation;
+        public bool IsOrganazation
         {
             get
-            { return slary; }
+            { return isorganazation; }
             set
-            { slary = value; }
+            { isorganazation = value; }
         }
 
-
-
-        private string identityimage;
-        public string IdentityImage
+        private string address;
+        public string Address
         {
             get
-            { return identityimage; }
+            { return address; }
             set
-            {
-                if (value != identityimage)
-                {
-                    identityimage = value;
-                    this.NotifyPropertyChanged("IdentityImage");
-                }
-            }
+            { address = value; }
         }
 
-
-
-        private string placeaddress;
-        public string PlaceAddress
+        private string mainsponsorship;
+        public string MainSponsorship
         {
             get
-            { return placeaddress; }
+            { return mainsponsorship; }
             set
-            { placeaddress = value; }
+            { mainsponsorship = value; }
         }
-
-
-
-        private string scientificqualifier;
-        public string ScientificQualifier
-        {
-            get
-            { return scientificqualifier; }
-            set
-            { scientificqualifier = value; }
-        }
-
-
-
-        private string mainbail;
-        public string MainBail
-        {
-            get
-            { return mainbail; }
-            set
-            { mainbail = value; }
-        }
-
-
 
         private string notes;
         public string Notes
@@ -101,127 +71,126 @@ namespace MainWPF
             { notes = value; }
         }
 
-        public bool InsertSponsorData()
+        private bool isgeneral;
+        public bool IsGeneral
         {
-            IdentityImage = BaseDataBase.CheckImageFile(IdentityImage);
-            
-            SponsorID = BaseDataBase._StoredProcedureReturnable("sp_Add2Sponsor"
-                , new SqlParameter("@SponsorID", System.Data.SqlDbType.Int)
-                , new SqlParameter("@FirstName", FirstName)
-                , new SqlParameter("@LastName", LastName)
-                , new SqlParameter("@Nationality", Nationality)
-                , new SqlParameter("@IsGovernment", IsGovernment)
-                , new SqlParameter("@BirthPlace", BirthPlace)
-                , new SqlParameter("@DOB", DOB)
-                , new SqlParameter("@Gender", Gender)
-                , new SqlParameter("@Phone", Phone)
-                , new SqlParameter("@Mobile", Mobile)
-                , new SqlParameter("@Email", Email)
-                , new SqlParameter("@IdentityImage", IdentityImage)
-                , new SqlParameter("@PlaceAddress", PlaceAddress)
-                , new SqlParameter("@ScientificQualifier", ScientificQualifier)
-                , new SqlParameter("@MainBail", MainBail)
-                , new SqlParameter("@Notes", Notes));
-            return (SponsorID != null);
+            get
+            { return isgeneral; }
+            set
+            { isgeneral = value; }
         }
-        public bool UpdateSponsorData()
+
+        private bool iscompensated;
+        public bool IsCompensated
         {
-            IdentityImage = BaseDataBase.CheckImageFile(IdentityImage, Sponsor.GetSponsorByID(SponsorID).IdentityImage);
-           
-            return BaseDataBase._StoredProcedure("sp_UpdateSponsor"
-                , new SqlParameter("@SponsorID", SponsorID)
-                , new SqlParameter("@FirstName", FirstName)
-                , new SqlParameter("@LastName", LastName)
-                , new SqlParameter("@Nationality", Nationality)
-                , new SqlParameter("@IsGovernment", IsGovernment)
-                , new SqlParameter("@BirthPlace", BirthPlace)
-                , new SqlParameter("@DOB", DOB)
-                , new SqlParameter("@Gender", Gender)
-                , new SqlParameter("@Phone", Phone)
-                , new SqlParameter("@Mobile", Mobile)
-                , new SqlParameter("@Email", Email)
-                , new SqlParameter("@IdentityImage", IdentityImage)
-                , new SqlParameter("@PlaceAddress", PlaceAddress)
-                , new SqlParameter("@ScientificQualifier", ScientificQualifier)
-                , new SqlParameter("@MainBail", MainBail)
-                , new SqlParameter("@Notes", Notes));
+            get
+            { return iscompensated; }
+            set
+            { iscompensated = value; }
         }
-        public bool DeleteSponsorData()
+
+        private double? allowvalue;
+        public double? AllowValue
         {
-            if (BaseDataBase._StoredProcedure("sp_DeleteFromSponsor"
-                , new SqlParameter("@SponsorID", SponsorID)))
+            get
+            { return allowvalue; }
+            set
+            { allowvalue = value; }
+        }
+
+        private string status;
+        public string Status
+        {
+            get
+            { return status; }
+            set
+            { status = value; }
+        }
+
+
+        List<Sponsorship> sponsorships;
+        public List<Sponsorship> Sponsorships
+        {
+            get { return sponsorships; }
+            set { sponsorships = value; }
+        }
+        public int AllSponsorships
+        {
+            get { return Sponsorships == null ? 0 : Sponsorships.Count; }
+        }
+        public int EndedSponsorships
+        {
+            get { return Sponsorships == null ? 0 : Sponsorships.Where(x => x.EndDate.HasValue).Count(); }
+        }
+        public int CurrentSponsorships
+        {
+            get { return Sponsorships == null ? 0 : Sponsorships.Where(x => x.StartDate.HasValue && !x.EndDate.HasValue).Count(); }
+        }
+        public int WaitSponsorships
+        {
+            get { return Sponsorships == null ? 0 : Sponsorships.Where(x => !x.StartDate.HasValue).Count(); }
+        }
+
+
+        public static bool InsertData(Sponsor x)
+        {
+            x.SponsorID = BaseDataBase._StoredProcedureReturnable("sp_Add_Sponsor"
+            , new SqlParameter("@SponsorID", SqlDbType.Int)
+            , new SqlParameter("@Name", x.Name)
+            , new SqlParameter("@Nationality", x.Nationality)
+            , new SqlParameter("@IsOrganazation", x.IsOrganazation)
+            , new SqlParameter("@DOB", x.DOB)
+            , new SqlParameter("@Gender", x.Gender)
+            , new SqlParameter("@Phone", x.Phone)
+            , new SqlParameter("@Mobile", x.Mobile)
+            , new SqlParameter("@Email", x.Email)
+            , new SqlParameter("@Address", x.Address)
+            , new SqlParameter("@MainSponsorship", x.MainSponsorship)
+            , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@IsGeneral", x.IsGeneral)
+            , new SqlParameter("@IsCompensated", x.IsCompensated)
+            , new SqlParameter("@AllowValue", x.AllowValue)
+            , new SqlParameter("@Status", x.Status));
+
+            if (x.SponsorID.HasValue)
             {
-                BaseDataBase.DeleteImageFIle(IdentityImage);
-                return true;
+                Account a = new MainWPF.Account();
+                a.Type = 1;
+                a.Name = x.Name;
             }
-            return false;
+
+            return x.SponsorID.HasValue;
         }
-
-
-        public static List<Sponsor> GetAllSponsors
+        public static bool UpdateData(Sponsor x)
         {
-            get { return GetAllSponsorsMethod(); }
+            return BaseDataBase._StoredProcedure("sp_Update_Sponsor"
+            , new SqlParameter("@SponsorID", x.SponsorID)
+            , new SqlParameter("@Name", x.Name)
+            , new SqlParameter("@Nationality", x.Nationality)
+            , new SqlParameter("@IsOrganazation", x.IsOrganazation)
+            , new SqlParameter("@DOB", x.DOB)
+            , new SqlParameter("@Gender", x.Gender)
+            , new SqlParameter("@Phone", x.Phone)
+            , new SqlParameter("@Mobile", x.Mobile)
+            , new SqlParameter("@Email", x.Email)
+            , new SqlParameter("@Address", x.Address)
+            , new SqlParameter("@MainSponsorship", x.MainSponsorship)
+            , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@IsGeneral", x.IsGeneral)
+            , new SqlParameter("@IsCompensated", x.IsCompensated)
+            , new SqlParameter("@AllowValue", x.AllowValue)
+            , new SqlParameter("@Status", x.Status));
         }
-        public static List<Sponsor> GetAllSponsorsMethod()
+        public static bool DeleteData(Sponsor x)
         {
-            List<Sponsor> ss = new List<Sponsor>();
-            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_GetAllSponsors", con);
-            com.CommandType = System.Data.CommandType.StoredProcedure;
-            try
-            {
-                con.Open();
-                SqlDataReader rd = com.ExecuteReader();
-                while (rd.Read())
-                {
-                    Sponsor x = new Sponsor();
-                    if (!(rd["SponsorID"] is DBNull))
-                        x.SponsorID = System.Int32.Parse(rd["SponsorID"].ToString());
-                    x.FirstName = rd["FirstName"].ToString();
-                    x.LastName = rd["LastName"].ToString();
-                    x.Nationality = rd["Nationality"].ToString();
-                    if (!(rd["IsGovernment"] is DBNull))
-                        x.IsGovernment = System.Boolean.Parse(rd["IsGovernment"].ToString());
-                    x.BirthPlace = rd["BirthPlace"].ToString();
-                    if (!(rd["DOB"] is DBNull))
-                        x.DOB = System.DateTime.Parse(rd["DOB"].ToString());
-                    x.Gender = rd["Gender"].ToString();
-                    x.Phone = rd["Phone"].ToString();
-                    x.Mobile = rd["Mobile"].ToString();
-                    x.Email = rd["Email"].ToString();
-                    x.IdentityImage = rd["IdentityImage"].ToString();
-                    x.PlaceAddress = rd["PlaceAddress"].ToString();
-                    x.ScientificQualifier = rd["ScientificQualifier"].ToString();
-                    x.MainBail = rd["MainBail"].ToString();
-                    x.Notes = rd["Notes"].ToString();
-
-                    ss.Add(x);
-                }
-                rd.Close();
-            }
-            catch
-            {
-                ss = new List<Sponsor>();
-            }
-            finally
-            {
-                con.Close();
-            }
-            return ss;
+            return BaseDataBase._StoredProcedure("sp_Delete_Sponsor"
+            , new SqlParameter("@SponsorID", x.SponsorID));
         }
-        public static DataView GetAllSponsorTable
-        { get { return GetAllSponsorTableMethod(); } }
-        public static DataView GetAllSponsorTableMethod()
-        {
-            return BaseDataBase._TablingStoredProcedure("sp_GetAllSponsorTable").DefaultView;
-        }
-
-
-        public static Sponsor GetSponsorByID(int? id)
+        public static Sponsor GetSponsorByID(int id)
         {
             Sponsor x = new Sponsor();
             SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_GetSponsorByID", con);
+            SqlCommand com = new SqlCommand("sp_Get_ID_Sponsor", con);
             com.CommandType = System.Data.CommandType.StoredProcedure;
             SqlParameter pr = new SqlParameter("@SponsorID", id);
             com.Parameters.Add(pr);
@@ -232,24 +201,29 @@ namespace MainWPF
                 if (rd.Read())
                 {
                     if (!(rd["SponsorID"] is DBNull))
-                        x.SponsorID = System.Int32.Parse(rd["SponsorID"].ToString());
-                    x.FirstName = rd["FirstName"].ToString();
-                    x.LastName = rd["LastName"].ToString();
+                        x.SponsorID = int.Parse(rd["SponsorID"].ToString());
+                    x.Name = rd["Name"].ToString();
                     x.Nationality = rd["Nationality"].ToString();
-                    if (!(rd["IsGovernment"] is DBNull))
-                        x.IsGovernment = System.Boolean.Parse(rd["IsGovernment"].ToString());
-                    x.BirthPlace = rd["BirthPlace"].ToString();
+                    if (!(rd["IsOrganazation"] is DBNull))
+                        x.IsOrganazation = bool.Parse(rd["IsOrganazation"].ToString());
                     if (!(rd["DOB"] is DBNull))
-                        x.DOB = System.DateTime.Parse(rd["DOB"].ToString());
+                        x.DOB = DateTime.Parse(rd["DOB"].ToString());
                     x.Gender = rd["Gender"].ToString();
                     x.Phone = rd["Phone"].ToString();
                     x.Mobile = rd["Mobile"].ToString();
                     x.Email = rd["Email"].ToString();
-                    x.IdentityImage = rd["IdentityImage"].ToString();
-                    x.PlaceAddress = rd["PlaceAddress"].ToString();
-                    x.ScientificQualifier = rd["ScientificQualifier"].ToString();
-                    x.MainBail = rd["MainBail"].ToString();
+                    x.Address = rd["Address"].ToString();
+                    x.MainSponsorship = rd["MainSponsorship"].ToString();
                     x.Notes = rd["Notes"].ToString();
+                    if (!(rd["IsGeneral"] is DBNull))
+                        x.IsGeneral = bool.Parse(rd["IsGeneral"].ToString());
+                    if (!(rd["IsCompensated"] is DBNull))
+                        x.IsCompensated = bool.Parse(rd["IsCompensated"].ToString());
+                    if (!(rd["AllowValue"] is DBNull))
+                        x.AllowValue = double.Parse(rd["AllowValue"].ToString());
+                    x.Status = rd["Status"].ToString();
+
+                    x.Sponsorships = Sponsorship.GetSponsorshipAllBySponsorID(x.SponsorID.Value);
                 }
                 rd.Close();
             }
@@ -263,38 +237,87 @@ namespace MainWPF
             }
             return x;
         }
-        public static List<Sponsor> GetSponsorAllByOrphanID(int OrphanID)
+        public static List<Sponsor> GetAllSponsor()
         {
-            List<Sponsor> b = new List<Sponsor>();
+            List<Sponsor> xx = new List<Sponsor>();
             SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_GetSponsorAllByOrphanID", con);
+            SqlCommand com = new SqlCommand("sp_Get_All_Sponsor", con);
             com.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlParameter pr = new SqlParameter("@OrphanID", OrphanID);
-            com.Parameters.Add(pr);
             try
             {
                 con.Open();
                 SqlDataReader rd = com.ExecuteReader();
                 while (rd.Read())
                 {
-                    b.Add(GetSponsorByID(rd.GetInt32(0)));
+                    Sponsor x = new Sponsor();
+
+                    if (!(rd["SponsorID"] is DBNull))
+                        x.SponsorID = int.Parse(rd["SponsorID"].ToString());
+                    x.Name = rd["Name"].ToString();
+                    x.Nationality = rd["Nationality"].ToString();
+                    if (!(rd["IsOrganazation"] is DBNull))
+                        x.IsOrganazation = bool.Parse(rd["IsOrganazation"].ToString());
+                    if (!(rd["DOB"] is DBNull))
+                        x.DOB = DateTime.Parse(rd["DOB"].ToString());
+                    x.Gender = rd["Gender"].ToString();
+                    x.Phone = rd["Phone"].ToString();
+                    x.Mobile = rd["Mobile"].ToString();
+                    x.Email = rd["Email"].ToString();
+                    x.Address = rd["Address"].ToString();
+                    x.MainSponsorship = rd["MainSponsorship"].ToString();
+                    x.Notes = rd["Notes"].ToString();
+                    if (!(rd["IsGeneral"] is DBNull))
+                        x.IsGeneral = bool.Parse(rd["IsGeneral"].ToString());
+                    if (!(rd["IsCompensated"] is DBNull))
+                        x.IsCompensated = bool.Parse(rd["IsCompensated"].ToString());
+                    if (!(rd["AllowValue"] is DBNull))
+                        x.AllowValue = double.Parse(rd["AllowValue"].ToString());
+                    x.Status = rd["Status"].ToString();
+                    xx.Add(x);
                 }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
             }
             finally
             {
                 con.Close();
             }
-            return b;
+            return xx;
         }
+
+        public static List<Sponsor> GetAllSponsors
+        {
+            get { return GetAllSponsor(); }
+        }
+        public static DataView GetAllSponsorTable
+        { get { return GetAllSponsorTableMethod(); } }
+        public static DataView GetAllSponsorTableMethod()
+        {
+            return BaseDataBase._TablingStoredProcedure("sp_GetAllSponsorTable").DefaultView;
+        }
+
 
         internal bool IsValidate()
         {
             bool isValid = true;
             this.ClearAllErrors();
-            if (string.IsNullOrEmpty(FirstName))
+            if (string.IsNullOrEmpty(Name))
             {
                 isValid = false;
-                this.SetError("FirstName", "يجب إدخال الاسم");
+                this.SetError("Name", "يجب إدخال الاسم");
+            }
+            if (string.IsNullOrEmpty(Status))
+            {
+                isValid = false;
+                this.SetError("Status", "يجب إدخال الحالة");
+            }
+            if (!AllowValue.HasValue)
+            {
+                isValid = false;
+                this.SetError("AllowValue", "يجب إدخال حد التجاوز المسموح به");
             }
             if (!isValid)
             {

@@ -82,7 +82,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="De.TorstenMandelkow.MetroChart">
-      <HintPath>C:\Users\Safi\Desktop\IPHS_Project\IPHS_Project\bin\Debug\De.TorstenMandelkow.MetroChart.dll</HintPath>
+      <HintPath>C:\Users\Safi\Desktop\De.TorstenMandelkow.MetroChart.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>C:\Users\Safi\Desktop\Ionic.Zip.dll</HintPath>
@@ -102,8 +102,9 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Printing" />
-    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
-      <HintPath>C:\Users\Safi\Downloads\DataVisualizationDemos\Toolkit\WPF4\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Controls.DataVisualization.Toolkit.4.0.0.0\lib\net40-Client\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -118,9 +119,29 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.Toolkit, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\Compressed\ExtendedWPFToolkit_Binaries_3\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -128,8 +149,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AccountMainControl.xaml.cs">
+      <DependentUpon>AccountMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Account.cs" />
     <Compile Include="AllInventoryStaControl.xaml.cs">
       <DependentUpon>AllInventoryStaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XXNewControls\NewSponsorshipsWindow.xaml.cs">
+      <DependentUpon>NewSponsorshipsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XXNewControls\OrphanBaseControl.xaml.cs">
+      <DependentUpon>OrphanBaseControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProjectControls\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
@@ -158,6 +189,7 @@
     <Compile Include="Classes\SystemProperties.cs" />
     <Compile Include="Classes\UserForMessage.cs" />
     <Compile Include="Classes\UserMessage.cs" />
+    <Compile Include="Classes\Transition.cs" />
     <Compile Include="XNewControls\UserMessageControl.xaml.cs">
       <DependentUpon>UserMessageControl.xaml</DependentUpon>
     </Compile>
@@ -540,7 +572,7 @@
     <Compile Include="Classes\Qualification.cs" />
     <Compile Include="Classes\Specialty.cs" />
     <Compile Include="Classes\Sponsor.cs" />
-    <Compile Include="Classes\Sponsor_Orphan.cs" />
+    <Compile Include="Classes\Sponsorship.cs" />
     <Compile Include="Classes\StudySide.cs" />
     <Compile Include="Classes\Supervisor.cs" />
     <Compile Include="Classes\Trained.cs" />
@@ -561,7 +593,19 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="AccountMainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AllInventoryStaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XXNewControls\NewSponsorshipsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XXNewControls\OrphanBaseControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -624,6 +668,10 @@
     <Resource Include="Images\Sta.png" />
     <Resource Include="Images\Bill.png" />
     <Resource Include="Images\Excel.png" />
+    <Resource Include="Images\money.png" />
+    <Resource Include="Images\training.png" />
+    <Resource Include="Images\sponsor.png" />
+    <Resource Include="Images\orphan.png" />
     <Content Include="VoucherReportTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1110,6 +1158,7 @@
     <Resource Include="Fonts\GE_SS_Two_Bold.otf" />
     <Resource Include="Fonts\GE_SS_Two_Medium.otf" />
     <Resource Include="Fonts\BarcodeFont.ttf" />
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>

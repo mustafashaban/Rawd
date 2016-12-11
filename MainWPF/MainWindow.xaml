@@ -656,9 +656,9 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="btnSearch" Content="إحصائيات وبحث" DataContext="Images/FIND1.PNG" Grid.Column="0" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
             <Button x:Name="btnAddFamily" Content="بيانات العوائل" DataContext="Images/family.png" Grid.Column="1" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
-            <Button x:Name="btnOrphans" Content="متابعة الأيتام" DataContext="Images/member.png" Grid.Column="2" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="20"></Button>
-            <Button x:Name="btnSystem" Content="بيانات النظام" DataContext="Images/System.png" Grid.Column="3" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
-            <Button x:Name="btnInventory" Content="المواد والمستودعات" DataContext="Images/warehouse.png" Grid.Column="4" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
+            <Button x:Name="btnOrphans" Content="الايتام/طلاب العلم" DataContext="Images/member.png" Grid.Column="2" Style="{StaticResource XStyle}"  Click="btn_Click" FontSize="18"></Button>
+            <Button x:Name="btnInventory" Content="المواد والمستودعات" DataContext="Images/warehouse.png" Grid.Column="3" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
+            <Button x:Name="btnSystem" Content="بيانات النظام" DataContext="Images/System.png" Grid.Column="4" Style="{StaticResource XStyle}" Click="btn_Click" FontSize="19"></Button>
             <Button x:Name="btnSettings" Content="إعدادات" DataContext="Images/Settings.png" Grid.Column="5" Style="{StaticResource XStyle}" Click="btnSettings_Click" FontSize="19"></Button>
         </Grid>
 

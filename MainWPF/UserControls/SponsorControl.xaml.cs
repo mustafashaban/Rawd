@@ -16,47 +16,71 @@ using System.Windows.Shapes;
 
 namespace MainWPF
 {
-    /// <summary>
-    /// Interaction logic for SponsorControl.xaml
-    /// </summary>
-    public partial class SponsorControl : Window
+    public partial class SponsorControl : UserControl
     {
-        public SponsorControl()
-        {
-            InitializeComponent();
-            Sponsor x = new Sponsor();
-            myWindow.DataContext = x;
-        }
-
         public SponsorControl(Sponsor s)
         {
             InitializeComponent();
             myWindow.DataContext = s;
-            btnUpdate.Visibility = System.Windows.Visibility.Visible;
         }
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnExecute_Click(object sender, RoutedEventArgs e)
         {
             var x = (Sponsor)this.DataContext;
             if (x.IsValidate())
             {
-                if (x.InsertSponsorData())
+                if (!x.SponsorID.HasValue)
                 {
-                    MyMessage.InsertMessage();
-                    DialogResult = true;
+                    if (Sponsor.InsertData(x))
+                    {
+                        MyMessage.InsertMessage();
+                    }
+                }
+                else
+                {
+                    if (Sponsor.UpdateData(x))
+                    {
+                        MyMessage.UpdateMessage();
+                    }
                 }
             }
         }
-        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+
+        private void btnAddNewSponsorship_Click(object sender, RoutedEventArgs e)
         {
-            var x = (Sponsor)this.DataContext;
-            if (x.IsValidate())
+            var s = this.DataContext as Sponsor;
+            NewSponsorshipsWindow w = new MainWPF.NewSponsorshipsWindow(s);
+           if( w.ShowDialog() == true)
             {
-                if (x.UpdateSponsorData())
+                dgSponsorship.Items.Refresh();
+                s.NotifyPropertyChanged("AllSponsorships");
+                s.NotifyPropertyChanged("EndedSponsorships");
+                s.NotifyPropertyChanged("WaitSponsorships");
+                s.NotifyPropertyChanged("CurrentSponsorships");
+            }
+        }
+
+        private void btnDeleteSponsorship_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgSponsorship.SelectedIndex >= 0)
+            {
+                var s = this.DataContext as Sponsor;
+                var ss = dgSponsorship.SelectedItem as Sponsorship;
+                if (ss.Status == "بالانتظار")
                 {
-                    MyMessage.UpdateMessage();
-                    DialogResult = true;
+                    if (MyMessageBox.Show("هل تريد تأكيد حذف الكفالة", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        if (Sponsorship.DeleteData(ss))
+                        {
+                            MyMessage.DeleteMessage();
+                            s.Sponsorships.Remove(ss);
+                            dgSponsorship.Items.Refresh();
+                            s.NotifyPropertyChanged("AllSponsorships");
+                            s.NotifyPropertyChanged("EndedSponsorships");
+                            s.NotifyPropertyChanged("WaitSponsorships");
+                            s.NotifyPropertyChanged("CurrentSponsorships");
+                        }
                 }
+                else MyMessageBox.Show("لايمكن حذف الكفالات المنتهية وغير المنتهية");
             }
         }
     }
