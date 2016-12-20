@@ -17,6 +17,7 @@ namespace MainWPF
             set
             { id = value; }
         }
+        public Account MainAccount { get; set; }
 
         private Account rightaccount;
         public Account RightAccount
@@ -43,6 +44,14 @@ namespace MainWPF
             { return value; }
             set
             { this.value = value; }
+        }
+        public double? LeftValue
+        {
+            get { return MainAccount.Id.Value == LeftValue.Value && MainAccount.Type == 0 ? value : null;  }
+        }
+        public double? Rightvalue
+        {
+            get { return MainAccount.Id.Value == LeftValue.Value && MainAccount.Type > 0 ? value : null; }
         }
 
         private DateTime? createdate;
@@ -195,5 +204,52 @@ namespace MainWPF
             }
             return xx;
         }
+        public static List<Transition> GetAllTransitionByAccount(Account a)
+        {
+            List<Transition> xx = new List<Transition>();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_AccountID_Transition", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@ID", a.Id));
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                while (rd.Read())
+                {
+                    Transition x = new Transition();
+
+                    if (!(rd["Id"] is DBNull))
+                        x.Id = int.Parse(rd["Id"].ToString());
+                    x.MainAccount = a;
+                    if (!(rd["RightAccount"] is DBNull))
+                        x.RightAccount = rd["RightAccount"].ToString() == a.Id.ToString() ? a : Account.GetAccountByID(int.Parse(rd["RightAccount"].ToString()));
+                    if (!(rd["LeftAccount"] is DBNull))
+                        x.LeftAccount = rd["LeftAccount"].ToString() == a.Id.ToString() ? a : Account.GetAccountByID(int.Parse(rd["LeftAccount"].ToString()));
+                    if (!(rd["Value"] is DBNull))
+                        x.Value = double.Parse(rd["Value"].ToString());
+                    if (!(rd["CreateDate"] is DBNull))
+                        x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
+                    x.Details = rd["Details"].ToString();
+                    if (!(rd["LastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    if (!(rd["SponsorshipID"] is DBNull))
+                        x.SponsorshipID = int.Parse(rd["SponsorshipID"].ToString());
+
+                    xx.Add(x);
+                }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return xx;
+        }
+
     }
 }

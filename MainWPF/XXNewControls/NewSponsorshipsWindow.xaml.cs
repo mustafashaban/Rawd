@@ -16,67 +16,36 @@ namespace MainWPF
 {
     public partial class NewSponsorshipsWindow : Window
     {
-        Sponsor s;
-        public NewSponsorshipsWindow(Sponsor s)
+        public NewSponsorshipsWindow(AvailableSponsorship a)
         {
             InitializeComponent();
-            this.s = s;
+            this.DataContext = a;
+            if (!a.ID.HasValue)
+                a.SponsorType = "كفالة خاصة";
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (s != null && s.SponsorID.HasValue)
+            var a = this.DataContext as AvailableSponsorship;
+            if (a != null)
             {
-                if (checkValues())
+                if (a.IsValidate())
                 {
-                    for (int i = 0; i < nudNumberofBenef.Value; i++)
+                    if (AvailableSponsorship.InsertData(a))
                     {
-                        Sponsorship ss = new MainWPF.Sponsorship();
-                        ss.SponsorID = s.SponsorID;
-                        ss.Duration = nudDuration.Value;
-                        ss.SponsorValue = nudSponsorvalue.Value;
-                        ss.SponsorType = (cmboSponsorshipType.SelectedItem as ComboBoxItem).Content.ToString();
-
-                        Sponsorship.InsertData(ss);
-                        s.Sponsorships.Add(ss);
+                        MyMessage.InsertMessage();
+                        DialogResult = true;
                     }
-                    MyMessage.InsertMessage();
-                    DialogResult = true;
                 }
             }
         }
 
-        private bool checkValues()
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            if (nudNumberofBenef.Value.HasValue && nudNumberofBenef.Value > 0 &&
-                nudDuration.Value.HasValue && nudDuration.Value > 0 &&
-                nudSponsorvalue.Value.HasValue && nudSponsorvalue.Value > 0 && cmboSponsorshipType.SelectedIndex != -1)
-                return true;
-            if (cmboSponsorshipType.SelectedIndex == -1)
-                MyMessageBox.Show("يجب اختيار نوع الكفالة");
-            else MyMessageBox.Show("القيم يجب ان يكون اكبر من الصفر");
-            return false;
-        }
-
-        private void nud_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (nudNumberofBenef.Value.HasValue && nudDuration.Value.HasValue && nudSponsorvalue.Value.HasValue)
+            if (IsLoaded)
             {
-                txtTotal.Text = (nudNumberofBenef.Value * nudDuration.Value * nudSponsorvalue.Value).ToString();
-                nudPaidAmount.Maximum = (int)(nudNumberofBenef.Value * nudDuration.Value * nudSponsorvalue.Value);
-                nudPaidAmount.Value = 0;
-            }
-            else txtTotal.Text = "0";
-        }
-
-        private void cmboPayType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cmboPayType.SelectedIndex == 1)
-                nudPaidAmount.IsEnabled = true;
-            else
-            {
-                nudPaidAmount.IsEnabled = false;
-                nudPaidAmount.Value = cmboPayType.SelectedIndex == 0 ? int.Parse(txtTotal.Text) : 0;
+                var a = this.DataContext as AvailableSponsorship;
+                a.SponsorType = radClearSponsor.IsChecked == true ? radClearSponsor.Content.ToString() : radNotClearSponsor.Content.ToString();
             }
         }
     }

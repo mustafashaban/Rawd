@@ -143,13 +143,13 @@ namespace MainWPF
             var r = sender as RadioButton;
             if (r.Content == null)
             {
-                dgTemp.ItemsSource = Orphan.GetOrphanAll();
+                dgTemp.ItemsSource = Orphan.GetAllOrphan();
                 return;
             }
             switch (r.Content.ToString())
             {
                 case "أيتام":
-                    dgTemp.ItemsSource = Orphan.GetOrphanAll();
+                    dgTemp.ItemsSource = Orphan.GetAllOrphan();
                     Control_Changed(null, null);
                     break;
                 case "أمهات":

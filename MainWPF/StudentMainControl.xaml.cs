@@ -17,9 +17,9 @@ using System.Windows.Shapes;
 
 namespace MainWPF
 {
-    public partial class OrphanMainControl : UserControl
+    public partial class StudentMainControl : UserControl
     {
-        public OrphanMainControl()
+        public StudentMainControl()
         {
             InitializeComponent();
         }
@@ -36,8 +36,6 @@ namespace MainWPF
                     view.CustomFilter = string.Format("FirstName like '%{0}%'", txtFirstName.Text);
                     if (cmboGender.SelectedIndex > 0)
                         view.CustomFilter += string.Format(" and Gender like '{0}'", (cmboGender.Items[cmboGender.SelectedIndex] as ComboBoxItem).Content);
-                    if (cmboType.SelectedIndex > 0)
-                        view.CustomFilter += string.Format(" and FamilyType like '{0}'", (cmboType.Items[cmboType.SelectedIndex] as ComboBoxItem).Content);
                 }
             }
             catch { }
@@ -54,22 +52,6 @@ namespace MainWPF
             btnUpdate_Click(null, null);
         }
 
-        private void btnOrphanFamilyData_Click(object sender, RoutedEventArgs e)
-        {
-            if (dgOrphans.SelectedIndex != -1)
-            {
-                string Header = "تعديل عائلة";
-                MainWindow m = App.Current.MainWindow as MainWindow;
-                if (m.CheckTabControl(Header))
-                {
-                    TabItem ti = new TabItem();
-                    ti.Header = Header;
-                    ti.Content = new AddFamilyControl((Orphan.GetOrphanByID((int)((dgOrphans.SelectedItem as DataRowView)[0])).FamilyID.Value));
-                    m.SendTabItem(ti);
-                }
-            }
-        }
-
         bool isWorking = false;
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -79,7 +61,7 @@ namespace MainWPF
                 Storyboard sb = (App.Current.Resources["sbRotateButton"] as Storyboard).Clone();
                 sb.SetValue(Storyboard.TargetProperty, sender);
                 sb.Begin();
-                dgOrphans.ItemsSource = BaseDataBase._TablingStoredProcedure("sp_GetOrphansAll").DefaultView;
+                dgOrphans.ItemsSource = BaseDataBase._TablingStoredProcedure("sp_GetStudentsTable").DefaultView;
                 Control_Changed(null, null);
                 sb.Pause();
                 isWorking = false;
@@ -88,19 +70,24 @@ namespace MainWPF
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            var drv = dgOrphans.SelectedItem as DataRowView;
+            MainWindow m = App.Current.MainWindow as MainWindow;
+            m.SendTabItem(new TabItem() { Header = "إضافة عائلة طالب علم", Content = new OrphanDetailsControl(new Family() { FamilyType = "طلاب علم" }) });
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (dgOrphans.SelectedIndex != -1)
+            if (radStudents.IsChecked == true && dgOrphans.SelectedIndex != -1)
             {
-                if (Orphan.GetOrphanByID((int)(dgOrphans.SelectedItem as DataRowView)[0]).DeathDate != null)
-                    if (MyMessageBox.Show("هذا اليتيم تم إلغاؤه.\n هل تريد المتابعة على أي حال", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-                        return;
                 var drv = dgOrphans.SelectedItem as DataRowView;
                 MainWindow m = App.Current.MainWindow as MainWindow;
-                m.SendTabItem(new TabItem() { Header = drv[1].ToString() + " " + drv[2].ToString(), Content = new OrphanDetailsControl((int)drv[0]) });
+                m.SendTabItem(new TabItem() { Header = drv[1].ToString(), Content = new OrphanDetailsControl(Orphan.GetOrphanByID((int)drv[0])) });
+            }
+            else if (radFamilies.IsChecked == true && dgFamily.SelectedIndex != -1)
+            {
+                var drv = dgFamily.SelectedItem as DataRowView;
+                MainWindow m = App.Current.MainWindow as MainWindow;
+                m.SendTabItem(new TabItem() { Header = drv["FamilyName"].ToString(), Content = new OrphanDetailsControl(Family.GetFamilyByID((int)drv[0])) });
             }
         }
 
@@ -152,6 +139,39 @@ namespace MainWPF
             //    }
             //}
         }
-
+        private void Control1_Changed(object sender, TextChangedEventArgs e)
+        {
+            var dv = dgFamily.ItemsSource as DataView;
+            try
+            {
+                dv.RowFilter = string.Format("FamilyCode like '{0}*'", txtFamilyCode.Text);
+                if (!string.IsNullOrEmpty(txtFamilyName.Text))
+                    dv.RowFilter += string.Format(" and (FamilyName like '*{0}*' or Father like '*{0}*' or Mother Like '*{0}*' or Father like '*{1}*' or Mother Like '*{1}*' or Father like '*{2}*' or Mother Like '*{2}*' or Father like '*{3}*' or Mother Like '*{3}*' or Father like '*{4}*' or Mother Like '*{4}*' or Father like '*{5}*' or Mother Like '*{5}*' or Father like '*{6}*' or Mother Like '*{6}*' or Father like '*{7}*' or Mother Like '*{7}*' or Father like '*{8}*' or Mother Like '*{8}*' )", txtFamilyName.Text, txtFamilyName.Text.Replace('أ', 'ا'), txtFamilyName.Text.Replace('ا', 'أ'), txtFamilyName.Text.Replace('ى', 'ا'), txtFamilyName.Text.Replace('ا', 'ى'), txtFamilyName.Text.Replace('آ', 'ا'), txtFamilyName.Text.Replace('ا', 'آ'), txtFamilyName.Text.Replace('ة', 'ه'), txtFamilyName.Text.Replace('ه', 'ة'));
+                if (!string.IsNullOrEmpty(txtPID.Text))
+                    dv.RowFilter += string.Format(" and (FatherNa like '{0}*' or MotherNa Like '{0}*')", txtPID.Text);
+            }
+            catch { dv.RowFilter = ""; }
+        }
+        bool isWorking2 = false;
+        private async void btnSearch2_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isWorking2)
+            {
+                isWorking2 = true;
+                Storyboard sb = (App.Current.Resources["sbRotateButton"] as Storyboard).Clone();
+                sb.SetValue(Storyboard.TargetProperty, sender);
+                sb.Begin();
+                var dt = await BaseDataBase._TablingStoredProcedureAsync("sp_GetStudentFamilyAllTable");
+                dgFamily.ItemsSource = dt.DefaultView;
+                sb.Pause();
+                Control_Changed(null, null);
+                isWorking2 = false;
+            }
+        }
+        private void dgFamily_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            btnUpdate_Click(null, null);
+        }
     }
 }

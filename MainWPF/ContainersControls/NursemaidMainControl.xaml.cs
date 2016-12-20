@@ -111,7 +111,7 @@ namespace MainWPF
                     }
                     else
                     {
-                        if (g.DeleteGuardianData())
+                        if (Guardian.DeleteData(g))
                         {
                             dgGuardians.ItemsSource = Guardian.GetAllNursemaidTable;
                             MyMessage.DeleteMessage();

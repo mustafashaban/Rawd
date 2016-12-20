@@ -40,7 +40,8 @@ namespace MainWPF
 
         private void btnFinance_Click(object sender, RoutedEventArgs e)
         {
-
+            var main = App.Current.MainWindow as MainWindow;
+            main.SendTabItem(new TabItem() { Header = "الحسابات", Content = new AccountMainControl() });
         }
 
         private void btnSponsor_Click(object sender, RoutedEventArgs e)
@@ -51,13 +52,14 @@ namespace MainWPF
 
         private void btnOrphan_Click(object sender, RoutedEventArgs e)
         {
-            //if (!BaseDataBase.CurrentUser.ReportCreator)
-            //{
-            //    MyMessageBox.Show("ليس لديك صلاحية دخول");
-            //    return;
-            //}
             var main = App.Current.MainWindow as MainWindow;
-            main.SendTabItem(new TabItem() { Header = "بيانات الايتام/طلاب العلم", Content = new OrphanMainControl() });
+            main.SendTabItem(new TabItem() { Header = "بيانات الايتام", Content = new OrphanMainControl() });
+        }
+
+        private void btnStudent_Click(object sender, RoutedEventArgs e)
+        {
+            var main = App.Current.MainWindow as MainWindow;
+            main.SendTabItem(new TabItem() { Header = "بيانات طلاب العلم", Content = new StudentMainControl() });
         }
     }
 }

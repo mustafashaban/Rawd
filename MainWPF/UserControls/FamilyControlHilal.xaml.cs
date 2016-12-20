@@ -143,19 +143,11 @@ namespace MainWPF
                     var fps = dgChild.ItemsSource as List<FamilyPerson>;
                     if (fp != null)
                     {
+                        dgChild.ItemsSource = null;
                         if (fp.FamilyPersonID.HasValue)
-                        {
-                            dgChild.ItemsSource = null;
                             DBMain.DeleteData(fp);
-                            fps.Remove(fp);
-                            dgChild.ItemsSource = fps;
-                        }
-                        else
-                        {
-                            dgChild.ItemsSource = null;
-                            fps.Remove(fp);
-                            dgChild.ItemsSource = fps;
-                        }
+                        fps.Remove(fp);
+                        dgChild.ItemsSource = fps;
                     }
                 }
             }

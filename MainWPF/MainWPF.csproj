@@ -149,12 +149,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AccountMainControl.xaml.cs">
+    <Compile Include="StudentMainControl.xaml.cs">
+      <DependentUpon>StudentMainControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XXNewControls\AccountControl.xaml.cs">
+      <DependentUpon>AccountControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XXNewControls\AccountMainControl.xaml.cs">
       <DependentUpon>AccountMainControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\AvailableSponsorship.cs" />
     <Compile Include="Classes\Account.cs" />
-    <Compile Include="AllInventoryStaControl.xaml.cs">
+    <Compile Include="XNewControls\AllInventoryStaControl.xaml.cs">
       <DependentUpon>AllInventoryStaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XXNewControls\OrphanFamilyDetails.xaml.cs">
+      <DependentUpon>OrphanFamilyDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XXNewControls\OrphanWindow.xaml.cs">
+      <DependentUpon>OrphanWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XXNewControls\SelectAvailableSponsorshipControl.xaml.cs">
+      <DependentUpon>SelectAvailableSponsorshipControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="XXNewControls\NewSponsorshipsWindow.xaml.cs">
       <DependentUpon>NewSponsorshipsWindow.xaml</DependentUpon>
@@ -386,7 +402,7 @@
     <Compile Include="ContainersControls\TrainingMainControl.xaml.cs">
       <DependentUpon>TrainingMainControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ContainersControls\SponsorMainControl.xaml.cs">
+    <Compile Include="XXNewControls\SponsorMainControl.xaml.cs">
       <DependentUpon>SponsorMainControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ContainersControls\SupervisorMainControl.xaml.cs">
@@ -407,7 +423,7 @@
     <Compile Include="UserControls\HouseSector.xaml.cs">
       <DependentUpon>HouseSector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainControls\OrphanDetailsControl.xaml.cs">
+    <Compile Include="XXNewControls\OrphanDetailsControl.xaml.cs">
       <DependentUpon>OrphanDetailsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainControls\SettingsControl.xaml.cs">
@@ -426,10 +442,10 @@
     <Compile Include="UserControls\TempFamilyControl.xaml.cs">
       <DependentUpon>TempFamilyControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SponsorSelectControl.xaml.cs">
+    <Compile Include="XXNewControls\SponsorSelectControl.xaml.cs">
       <DependentUpon>SponsorSelectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SponsorOrphanControl.xaml.cs">
+    <Compile Include="XXNewControls\SponsorOrphanControl.xaml.cs">
       <DependentUpon>SponsorOrphanControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SupervisorSelectControl.xaml.cs">
@@ -465,7 +481,7 @@
     <Compile Include="Classes\AdminEvaluation.cs" />
     <Compile Include="Classes\Impeding.cs" />
     <Compile Include="Classes\SystemClasses\MyMessage.cs" />
-    <Compile Include="MainControls\OrphanMainControl.xaml.cs">
+    <Compile Include="XXNewControls\OrphanMainControl.xaml.cs">
       <DependentUpon>OrphanMainControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\AgeConverter.cs" />
@@ -494,9 +510,6 @@
     <Compile Include="UserControls\ListerGroupControl.xaml.cs">
       <DependentUpon>ListerGroupControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainControls\AddFamilyControl.xaml.cs">
-      <DependentUpon>AddFamilyControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\QualificationConverter.cs" />
     <Compile Include="ContainersControls\QualificationContainerWindow.xaml.cs">
       <DependentUpon>QualificationContainerWindow.xaml</DependentUpon>
@@ -507,7 +520,7 @@
     <Compile Include="ProjectControls\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\OrphanControl.xaml.cs">
+    <Compile Include="XXNewControls\OrphanControl.xaml.cs">
       <DependentUpon>OrphanControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\FamilyControl.xaml.cs">
@@ -593,11 +606,31 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Page Include="AccountMainControl.xaml">
+    <Page Include="StudentMainControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AllInventoryStaControl.xaml">
+    <Page Include="XXNewControls\AccountControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XXNewControls\AccountMainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XNewControls\AllInventoryStaControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XXNewControls\OrphanFamilyDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XXNewControls\OrphanWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XXNewControls\SelectAvailableSponsorshipControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -672,6 +705,7 @@
     <Resource Include="Images\training.png" />
     <Resource Include="Images\sponsor.png" />
     <Resource Include="Images\orphan.png" />
+    <Resource Include="Images\student.png" />
     <Content Include="VoucherReportTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -869,7 +903,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ContainersControls\SponsorMainControl.xaml">
+    <Page Include="XXNewControls\SponsorMainControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -889,7 +923,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainControls\OrphanDetailsControl.xaml">
+    <Page Include="XXNewControls\OrphanDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -913,11 +947,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\SponsorSelectControl.xaml">
+    <Page Include="XXNewControls\SponsorSelectControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\SponsorOrphanControl.xaml">
+    <Page Include="XXNewControls\SponsorOrphanControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -969,7 +1003,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainControls\OrphanMainControl.xaml">
+    <Page Include="XXNewControls\OrphanMainControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1009,10 +1043,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainControls\AddFamilyControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ContainersControls\QualificationContainerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1025,7 +1055,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\OrphanControl.xaml">
+    <Page Include="XXNewControls\OrphanControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1085,7 +1115,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\SponsorControl.xaml">
+    <Page Include="XXNewControls\SponsorControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1096,7 +1126,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SponsorControl.xaml.cs">
+    <Compile Include="XXNewControls\SponsorControl.xaml.cs">
       <DependentUpon>SponsorControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

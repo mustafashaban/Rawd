@@ -14,28 +14,16 @@ namespace MainWPF.Converters
             if (value != null && value != DBNull.Value)
             {
                 string s = " يوم ";
-                DateTime? DOB = (DateTime?)value;
-                int? Age = null;
-                int? Age1 = 0;
-                if (DOB != null)
-                {
-                    Age = ((TimeSpan)(DateTime.Today - DOB)).Days;
-                    if (Age > 30)
-                    {
-                        Age1 = Age % 365;
-                        Age1 /= 30;
-                        s = " شهر ";
-                        Age /= 30;
-                        if (Age > 12)
-                        {
-                            s = " عام ";
-                            Age /= 12;
-                        }
-                    }
-                }
-                if (s == " عام " && Age1!=0)
-                    return Age + s + "-" + Age1 + " شهر "; 
-                 else   return Age + s;
+                var DOB = (DateTime)value;
+                int AgeDays = (DateTime.Today - DOB).Days;
+                int years = AgeDays / 365;
+                int months = (AgeDays - 365 * years) / 30;
+                int days = AgeDays - 365 * years - 30 * months;
+                if (years > 0)
+                    return months > 0 ? years + " عام" + " - " + months + " شهر" : years + " عام";
+                else if (months > 0)
+                    return  days > 0 ? months + " شهر" + " - " + days + " يوم" : months + " شهر";
+                else return days + " يوم";
             }
             return "";
         }

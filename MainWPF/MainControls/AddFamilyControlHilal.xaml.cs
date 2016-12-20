@@ -24,7 +24,6 @@ namespace MainWPF
         {
             InitializeComponent();
             DisableTabs();
-
             Family f = new Family();
             f.FamilyType = "نازحين";
             f.ApplyDate = BaseDataBase.DateNow;

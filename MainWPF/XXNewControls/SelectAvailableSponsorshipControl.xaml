@@ -1,0 +1,65 @@
+﻿<Window x:Class="MainWPF.SelectAvailableSponsorshipControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:Local="clr-namespace:MainWPF"
+        Height="450" Width="900"
+        WindowStartupLocation="CenterScreen" Style="{StaticResource MyWindowStyle}">
+    <Grid>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="41"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Margin="30,0">
+                <TextBlock Text="اسم الكفيل :" ></TextBlock>
+                <TextBox Name="txtName" Width="131" TextChanged="Control_Changed"></TextBox>
+                <TextBlock Text="التعويض :" ></TextBlock>
+                <ComboBox Name="cmboIsCompensated" Width="144" SelectionChanged="cmboSelection_Changed">
+                    <ComboBoxItem Content="الكل"/>
+                    <ComboBoxItem Content="يعوض"/>
+                    <ComboBoxItem Content="لايعوض"/>
+                </ComboBox>
+                <TextBlock Text="تصنيف الكفالة :" ></TextBlock>
+                <ComboBox Name="cmboIsGeneral" Width="144" SelectionChanged="cmboSelection_Changed">
+                    <ComboBoxItem Content="الكل"/>
+                    <ComboBoxItem Content="كفالة خاصة"/>
+                    <ComboBoxItem Content="كفالة عامة"/>
+                </ComboBox>
+            </StackPanel>
+            <DataGrid x:Name="dgAvailableSponsorships" MouseDoubleClick="dgAvailableSponsorships_MouseDoubleClick" Grid.Row="1" Margin="5,0" FontSize="16">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="اسم الكفيل" Binding="{Binding RelatedSponsor.Name}"/>
+                    <Local:MyDataGridTemplateColumn Header="يعوض" SortMemberPath="IsCompensated">
+                        <Local:MyDataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox FlowDirection="LeftToRight" IsEnabled="False" Margin="2,0" IsChecked="{Binding IsCompensated}" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </Local:MyDataGridTemplateColumn.CellTemplate>
+                    </Local:MyDataGridTemplateColumn>
+                    <DataGridTextColumn Header="تصنيف الكفالة" Binding="{Binding SponsorType}"/>
+                    <DataGridTextColumn Header="نوع الكفالة" Binding="{Binding SponsorshipType}"/>
+                    <DataGridTextColumn Header="عدد المستفيدين"  Binding="{Binding NOB}" FontFamily="Arial"/>
+                    <DataGridTextColumn Header="مدة الكفالة" FontFamily="Arial" Binding="{Binding Duration}"/>
+                    <DataGridTextColumn Header="قيمة الكفالة" Width="*" FontFamily="Arial" Binding="{Binding SponsorshipValue}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="2" HorizontalAlignment="Right" Width="150" Content="اختيار الكفالة" x:Name="btnAdd" Click="btnAdd_Click" FontSize="20"/>
+            <Button Grid.Row="2" Margin="155,0" HorizontalAlignment="Right" Width="120" Content="إلغاء" x:Name="btnCancel" Click="btnCancel_Click" FontSize="20"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Left" >
+                <TextBlock Text="تاريخ بداية الكفالة"/>
+                <DatePicker x:Name="dtpStartDate"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
+
+
+

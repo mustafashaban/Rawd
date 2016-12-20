@@ -38,13 +38,16 @@ namespace MainWPF
 
         private void Control_Changed(object sender, TextChangedEventArgs e)
         {
-            ListCollectionView view = (ListCollectionView)CollectionViewSource.GetDefaultView(dgSupervisor.ItemsSource);
-            view.Filter = delegate(object item)
+            Filter();
+        }
+
+        private void Filter()
+        {
+            ListCollectionView view = (ListCollectionView)CollectionViewSource.GetDefaultView(dgSponsor.ItemsSource);
+            view.Filter = delegate (object item)
             {
                 Sponsor S = (Sponsor)item;
-                if ((txtFirstName.Text != "" && !S.FirstName.Contains(txtFirstName.Text)))
-                { return false; }
-                if ((txtLastName.Text != "" && !S.LastName.Contains(txtLastName.Text)))
+                if ((txtName.Text != "" && !S.Name.Contains(txtName.Text)))
                 { return false; }
                 return true;
             };
@@ -52,7 +55,7 @@ namespace MainWPF
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (dgSupervisor.SelectedIndex != -1)
+            if (dgSponsor.SelectedIndex != -1)
             {
                 DialogResult = true;
             }
@@ -73,12 +76,17 @@ namespace MainWPF
             DialogResult = false;
         }
 
-        private void dgGuardian_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void dgSponsor_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (dgSupervisor.SelectedIndex != -1)
+            if (dgSponsor.SelectedIndex != -1)
             {
                 DialogResult = true;
             }
+        }
+
+        private void cmboSelection_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            Filter();
         }
     }
 }

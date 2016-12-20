@@ -11,6 +11,9 @@ namespace MainWPF
 {
     public class Family : ModelViewContext
     {
+        public Guardian OrphanNursemaid { get; set; }
+        public Guardian OrphanGuardian { get; set; }
+
         public Family()
         {
             FamilyMother = new Mother();

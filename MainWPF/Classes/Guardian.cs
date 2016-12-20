@@ -133,63 +133,58 @@ namespace MainWPF
         { get { return GetGuardianAll("أنثى"); } }
 
 
-        public bool InsertGuardianData()
+        public static bool InsertData(Guardian x)
         {
-            IdentityImage = BaseDataBase.CheckImageFile(IdentityImage);
-
-            GuardianID = BaseDataBase._StoredProcedureReturnable("sp_Add2Guardian"
+            x.GuardianID = BaseDataBase._StoredProcedureReturnable("sp_Add2Guardian"
                 , new SqlParameter("@GuardianID", SqlDbType.Int)
-                , new SqlParameter("@FirstName", FirstName)
-                , new SqlParameter("@LastName", LastName)
-                , new SqlParameter("@Gender", Gender)
-                , new SqlParameter("@BirthPlace", BirthPlace)
-                , new SqlParameter("@DOB", DOB)
-                , new SqlParameter("@Job", Job)
-                , new SqlParameter("@Slary", Slary)
-                , new SqlParameter("@SalaryCurrency", SalaryCurrency)
-                , new SqlParameter("@Phone", Phone)
-                , new SqlParameter("@Mobile", Mobile)
-                , new SqlParameter("@Email", Email)
-                , new SqlParameter("@HealthSituation", HealthSituation)
-                , new SqlParameter("@EthicalSituation", EthicalSituation)
-                , new SqlParameter("@MaritalStatus", MaritalStatus)
-                , new SqlParameter("@ChildCount", ChildCount)
-                , new SqlParameter("@PlaceAddress", PlaceAddress)
-                , new SqlParameter("@IdentityImage", IdentityImage)
-                , new SqlParameter("@Notes", Notes));
-            return GuardianID != null;
+                , new SqlParameter("@FirstName", x.FirstName)
+                , new SqlParameter("@LastName", x.LastName)
+                , new SqlParameter("@Gender", x.Gender)
+                , new SqlParameter("@BirthPlace", x.BirthPlace)
+                , new SqlParameter("@DOB", x.DOB)
+                , new SqlParameter("@Job", x.Job)
+                , new SqlParameter("@Slary", x.Slary)
+                , new SqlParameter("@SalaryCurrency", x.SalaryCurrency)
+                , new SqlParameter("@Phone", x.Phone)
+                , new SqlParameter("@Mobile", x.Mobile)
+                , new SqlParameter("@Email", x.Email)
+                , new SqlParameter("@HealthSituation", x.HealthSituation)
+                , new SqlParameter("@EthicalSituation", x.EthicalSituation)
+                , new SqlParameter("@MaritalStatus", x.MaritalStatus)
+                , new SqlParameter("@ChildCount", x.ChildCount)
+                , new SqlParameter("@PlaceAddress", x.PlaceAddress)
+                , new SqlParameter("@IdentityImage", x.IdentityImage)
+                , new SqlParameter("@Notes", x.Notes));
+            return x.GuardianID != null;
         }
-        public bool UpdateGuardianData()
+        public static bool UpdateData(Guardian x)
         {
-            IdentityImage = BaseDataBase.CheckImageFile(IdentityImage, Guardian.GetGuardianByID(GuardianID).IdentityImage);
-
             return BaseDataBase._StoredProcedure("sp_UpdateGuardian"
-                , new SqlParameter("@GuardianID", GuardianID)
-                , new SqlParameter("@FirstName", FirstName)
-                , new SqlParameter("@LastName", LastName)
-                , new SqlParameter("@Gender", Gender)
-                , new SqlParameter("@BirthPlace", BirthPlace)
-                , new SqlParameter("@DOB", DOB)
-                , new SqlParameter("@Job", Job)
-                , new SqlParameter("@Slary", Slary)
-                , new SqlParameter("@SalaryCurrency", SalaryCurrency)
-                , new SqlParameter("@Phone", Phone)
-                , new SqlParameter("@Mobile", Mobile)
-                , new SqlParameter("@Email", Email)
-                , new SqlParameter("@HealthSituation", HealthSituation)
-                , new SqlParameter("@EthicalSituation", EthicalSituation)
-                , new SqlParameter("@MaritalStatus", MaritalStatus)
-                , new SqlParameter("@ChildCount", ChildCount)
-                , new SqlParameter("@PlaceAddress", PlaceAddress)
-                , new SqlParameter("@IdentityImage", IdentityImage)
-                , new SqlParameter("@Notes", Notes));
+                , new SqlParameter("@GuardianID", x.GuardianID)
+                 , new SqlParameter("@FirstName", x.FirstName)
+                , new SqlParameter("@LastName", x.LastName)
+                , new SqlParameter("@Gender", x.Gender)
+                , new SqlParameter("@BirthPlace", x.BirthPlace)
+                , new SqlParameter("@DOB", x.DOB)
+                , new SqlParameter("@Job", x.Job)
+                , new SqlParameter("@Slary", x.Slary)
+                , new SqlParameter("@SalaryCurrency", x.SalaryCurrency)
+                , new SqlParameter("@Phone", x.Phone)
+                , new SqlParameter("@Mobile", x.Mobile)
+                , new SqlParameter("@Email", x.Email)
+                , new SqlParameter("@HealthSituation", x.HealthSituation)
+                , new SqlParameter("@EthicalSituation", x.EthicalSituation)
+                , new SqlParameter("@MaritalStatus", x.MaritalStatus)
+                , new SqlParameter("@ChildCount", x.ChildCount)
+                , new SqlParameter("@PlaceAddress", x.PlaceAddress)
+                , new SqlParameter("@IdentityImage", x.IdentityImage)
+                , new SqlParameter("@Notes", x.Notes));
         }
-        public bool DeleteGuardianData()
+        public static bool DeleteData(Guardian x)
         {
             if (BaseDataBase._StoredProcedure("sp_DeleteFromGuardian"
-                , new SqlParameter("@GuardianID", GuardianID)))
+                , new SqlParameter("@GuardianID", x.GuardianID)))
             {
-                BaseDataBase.DeleteImageFIle(IdentityImage);
                 return true;
             }
             return false;

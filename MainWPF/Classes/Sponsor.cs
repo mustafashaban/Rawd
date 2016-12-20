@@ -13,9 +13,6 @@ namespace MainWPF
         public Sponsor()
         {
             IsOrganazation = false;
-            IsGeneral = false;
-            IsCompensated = false;
-            AllowValue = 0;
         }
         private int? sponsorid;
         public int? SponsorID
@@ -71,33 +68,6 @@ namespace MainWPF
             { notes = value; }
         }
 
-        private bool isgeneral;
-        public bool IsGeneral
-        {
-            get
-            { return isgeneral; }
-            set
-            { isgeneral = value; }
-        }
-
-        private bool iscompensated;
-        public bool IsCompensated
-        {
-            get
-            { return iscompensated; }
-            set
-            { iscompensated = value; }
-        }
-
-        private double? allowvalue;
-        public double? AllowValue
-        {
-            get
-            { return allowvalue; }
-            set
-            { allowvalue = value; }
-        }
-
         private string status;
         public string Status
         {
@@ -114,21 +84,23 @@ namespace MainWPF
             get { return sponsorships; }
             set { sponsorships = value; }
         }
+        List<AvailableSponsorship> availableSponsorships;
+        public List<AvailableSponsorship> AvailableSponsorships
+        {
+            get { return availableSponsorships; }
+            set { availableSponsorships = value; }
+        }
         public int AllSponsorships
         {
-            get { return Sponsorships == null ? 0 : Sponsorships.Count; }
+            get { return Sponsorships == null || Sponsorships.Count == 0 ? 0 : Sponsorships.Count; }
         }
         public int EndedSponsorships
         {
-            get { return Sponsorships == null ? 0 : Sponsorships.Where(x => x.EndDate.HasValue).Count(); }
+            get { return Sponsorships == null || Sponsorships.Count  == 0? 0 : Sponsorships.Where(x => x.EndDate.HasValue).Count(); }
         }
         public int CurrentSponsorships
         {
-            get { return Sponsorships == null ? 0 : Sponsorships.Where(x => x.StartDate.HasValue && !x.EndDate.HasValue).Count(); }
-        }
-        public int WaitSponsorships
-        {
-            get { return Sponsorships == null ? 0 : Sponsorships.Where(x => !x.StartDate.HasValue).Count(); }
+            get { return Sponsorships == null || Sponsorships.Count == 0 ? 0 : Sponsorships.Where(x => x.StartDate.HasValue && !x.EndDate.HasValue).Count(); }
         }
 
 
@@ -147,9 +119,6 @@ namespace MainWPF
             , new SqlParameter("@Address", x.Address)
             , new SqlParameter("@MainSponsorship", x.MainSponsorship)
             , new SqlParameter("@Notes", x.Notes)
-            , new SqlParameter("@IsGeneral", x.IsGeneral)
-            , new SqlParameter("@IsCompensated", x.IsCompensated)
-            , new SqlParameter("@AllowValue", x.AllowValue)
             , new SqlParameter("@Status", x.Status));
 
             if (x.SponsorID.HasValue)
@@ -176,9 +145,6 @@ namespace MainWPF
             , new SqlParameter("@Address", x.Address)
             , new SqlParameter("@MainSponsorship", x.MainSponsorship)
             , new SqlParameter("@Notes", x.Notes)
-            , new SqlParameter("@IsGeneral", x.IsGeneral)
-            , new SqlParameter("@IsCompensated", x.IsCompensated)
-            , new SqlParameter("@AllowValue", x.AllowValue)
             , new SqlParameter("@Status", x.Status));
         }
         public static bool DeleteData(Sponsor x)
@@ -215,15 +181,11 @@ namespace MainWPF
                     x.Address = rd["Address"].ToString();
                     x.MainSponsorship = rd["MainSponsorship"].ToString();
                     x.Notes = rd["Notes"].ToString();
-                    if (!(rd["IsGeneral"] is DBNull))
-                        x.IsGeneral = bool.Parse(rd["IsGeneral"].ToString());
-                    if (!(rd["IsCompensated"] is DBNull))
-                        x.IsCompensated = bool.Parse(rd["IsCompensated"].ToString());
-                    if (!(rd["AllowValue"] is DBNull))
-                        x.AllowValue = double.Parse(rd["AllowValue"].ToString());
                     x.Status = rd["Status"].ToString();
 
-                    x.Sponsorships = Sponsorship.GetSponsorshipAllBySponsorID(x.SponsorID.Value);
+                    x.Account = Account.GetAccountByOwnerID(1, x.SponsorID.Value);
+                    x.Sponsorships = Sponsorship.GetSponsorshipAllBySponsorID(x);
+                    x.AvailableSponsorships = AvailableSponsorship.GetAllAvailableSponsorshipBySponsorID(x);
                 }
                 rd.Close();
             }
@@ -266,12 +228,6 @@ namespace MainWPF
                     x.Address = rd["Address"].ToString();
                     x.MainSponsorship = rd["MainSponsorship"].ToString();
                     x.Notes = rd["Notes"].ToString();
-                    if (!(rd["IsGeneral"] is DBNull))
-                        x.IsGeneral = bool.Parse(rd["IsGeneral"].ToString());
-                    if (!(rd["IsCompensated"] is DBNull))
-                        x.IsCompensated = bool.Parse(rd["IsCompensated"].ToString());
-                    if (!(rd["AllowValue"] is DBNull))
-                        x.AllowValue = double.Parse(rd["AllowValue"].ToString());
                     x.Status = rd["Status"].ToString();
                     xx.Add(x);
                 }
@@ -294,6 +250,9 @@ namespace MainWPF
         }
         public static DataView GetAllSponsorTable
         { get { return GetAllSponsorTableMethod(); } }
+
+        public Account Account { get; set; }
+
         public static DataView GetAllSponsorTableMethod()
         {
             return BaseDataBase._TablingStoredProcedure("sp_GetAllSponsorTable").DefaultView;
@@ -313,11 +272,6 @@ namespace MainWPF
             {
                 isValid = false;
                 this.SetError("Status", "يجب إدخال الحالة");
-            }
-            if (!AllowValue.HasValue)
-            {
-                isValid = false;
-                this.SetError("AllowValue", "يجب إدخال حد التجاوز المسموح به");
             }
             if (!isValid)
             {

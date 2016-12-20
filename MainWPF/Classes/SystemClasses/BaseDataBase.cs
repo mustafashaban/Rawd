@@ -45,12 +45,6 @@ namespace MainWPF
         }
 
         public static User CurrentUser;
-        public static bool isHilal = true;
-        public static bool IsHilal
-        {
-            get { return isHilal; }
-            set { isHilal = value; }
-        }
         //============================Retern Server DateTime.Now=============================================================
         public static DateTime DateNow
         {

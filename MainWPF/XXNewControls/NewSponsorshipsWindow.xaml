@@ -5,50 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainWPF"
         mc:Ignorable="d"
-        Title="NewSponsorshipsWindow" Height="380" Width="450" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen">
+        Title="NewSponsorshipsWindow" Height="400" Width="460" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="165"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Text="اضافة كفالات جديدة"/>
-        <TextBlock Grid.Row="1" Text="نوع الكفالة"/>
-        <TextBlock Grid.Row="2" Text="عدد المستفيدين"/>
-        <TextBlock Grid.Row="3" Text="مدة الكفالة / عدد الاشهر"/>
-        <TextBlock Grid.Row="4" Text="مبلغ الكفالة في الشهر"/>
-        <TextBlock Grid.Row="5" Text="المبلغ الاجمالي"/>
-        <TextBlock Grid.Row="6" Text="طريقة الدفع"/>
-        <TextBlock Grid.Row="7" Text="المبلغ المدفوع"/>
-        <ComboBox x:Name="cmboSponsorshipType" Grid.Column="1" Grid.Row="1">
-            <ComboBoxItem Content="كفالة يتيم"/>
-            <ComboBoxItem Content="كفالة يتيم غير طالب"/>
-            <ComboBoxItem Content="كفالة يتيم طالب"/>
-            <ComboBoxItem Content="كفالة طالب علم"/>
-            <ComboBoxItem Content="كفالة غير محددة"/>
-        </ComboBox>
-        <local:NumericUpDown x:Name="nudNumberofBenef" ValueChanged="nud_ValueChanged" Grid.Column="1" Grid.Row="2" Minimum="0" Maximum="1000000" />
-        <local:NumericUpDown x:Name="nudDuration" ValueChanged="nud_ValueChanged" Grid.Column="1" Grid.Row="3" Minimum="0" Maximum="48"/>
-        <local:NumericUpDown x:Name="nudSponsorvalue" ValueChanged="nud_ValueChanged" Grid.Column="1" Grid.Row="4" Minimum="0" Maximum="100000000" Width="200"/>
-        <TextBlock x:Name="txtTotal" Grid.Row="5" Grid.Column="1" FontWeight="Bold" Foreground="Yellow" Text="0" FontFamily="Arial" HorizontalAlignment="Center"/>
-        <ComboBox x:Name="cmboPayType" SelectionChanged="cmboPayType_SelectionChanged" Grid.Column="1" Grid.Row="6">
-            <ComboBoxItem Content="دفع كل المبلغ"/>
-            <ComboBoxItem Content="دفع جزء من المبلغ"/>
-            <ComboBoxItem Content="دفع آجل"/>
-        </ComboBox>
-        <local:NumericUpDown x:Name="nudPaidAmount" IsEnabled="False" Grid.Column="1" Grid.Row="7" Minimum="0" Width="200"/>
-
-        <StackPanel Grid.Row="8" HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="2">
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource MyFontFamilyMedium}" Text="اضافة كفالة جديدة"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <RadioButton x:Name="radClearSponsor" Checked="RadioButton_Checked" IsThreeState="False" GroupName="A" Content="كفالة خاصة" IsChecked="True" FontSize="18" FontFamily="{StaticResource MyFontFamily}"/>
+            <RadioButton x:Name="radNotClearSponsor" Checked="RadioButton_Checked" IsThreeState="False" GroupName="A" Content="كفالة عامة" FontSize="18" Margin="10,0" FontFamily="{StaticResource MyFontFamily}"/>
+        </StackPanel>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FF208F49">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Text="نوع الكفالة"/>
+            <TextBlock Grid.Row="1" Text="الحد الاعلى للمستفيدين"/>
+            <TextBlock Grid.Row="2" Text="مدة الكفالة / عدد الاشهر"/>
+            <TextBlock Grid.Row="3" Text="مبلغ الكفالة في الشهر"/>
+            <TextBlock Grid.Row="4" Text="الكفيل يعوض"/>
+            <TextBlock Grid.Row="5" Text="عدد الاشهر الممكن تجاوزها"/>
+            <ComboBox x:Name="cmboSponsorshipType" Grid.Column="1" Grid.Row="0" Text="{Binding SponsorshipType, Mode=TwoWay}">
+                <ComboBoxItem Content="كفالة يتيم"/>
+                <ComboBoxItem Content="كفالة يتيم غير طالب"/>
+                <ComboBoxItem Content="كفالة يتيم طالب"/>
+                <ComboBoxItem Content="كفالة طالب علم"/>
+                <ComboBoxItem Content="كفالة غير محددة"/>
+            </ComboBox>
+            <local:NumericUpDown Value="{Binding NOB, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" Minimum="1" Maximum="1000000" />
+            <local:NumericUpDown IsEnabled="{Binding ElementName=radClearSponsor, Path=IsChecked}" Value="{Binding Duration, Mode=TwoWay, ValidatesOnDataErrors=True}"  Grid.Column="1" Grid.Row="2" Minimum="1" Maximum="48"/>
+            <local:NumericUpDown Value="{Binding SponsorshipValue, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="100000000" Width="180"/>
+            <CheckBox HorizontalAlignment="Left" Margin="8,0" IsChecked="{Binding IsCompensated, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="4" Style="{StaticResource LargeCheckBox}"/>
+            <local:NumericUpDown Value="{Binding OverMonths, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="5" Minimum="0" Maximum="100000000" Width="120"/>
+        </Grid>
+        <StackPanel Grid.Row="6" HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Button Width="120" Content="الغاء" IsCancel="True"/>
             <Button Width="120" Content="اضافة" Click="btnAdd_Click"/>
         </StackPanel>

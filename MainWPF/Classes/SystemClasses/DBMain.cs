@@ -288,15 +288,15 @@ namespace MainWPF
             x.DeathReportImage = DBMain.CheckImageFile(x.DeathReportImage);
             x.IdentityImage = DBMain.CheckImageFile(x.IdentityImage);
 
-            if (!x.FamilyPersonID.HasValue && x.MaritalStatus == "يتيم")
-            {
-                try
-                {
-                    Orphan o = new Orphan(x);
-                    o.InsertOrphanData();
-                }
-                catch { }
-            }
+            //if (!x.FamilyPersonID.HasValue && x.MaritalStatus == "يتيم")
+            //{
+            //    try
+            //    {
+            //        Orphan o = new Orphan(x);
+            //        o.InsertOrphanData();
+            //    }
+            //    catch { }
+            //}
 
             x.FamilyPersonID = DBMain._StoredProcedureReturnable("sp_Add2FamilyPerson"
                     , new SqlParameter("@FamilyPersonID", SqlDbType.Int)

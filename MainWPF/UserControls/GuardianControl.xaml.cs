@@ -41,7 +41,7 @@ namespace MainWPF
             Guardian x = (Guardian)this.DataContext;
             if (x.IsValidate())
             {
-                x.InsertGuardianData();
+                Guardian.InsertData(x);
                 MyMessage.InsertMessage();
                 DialogResult = true;
             }
@@ -51,7 +51,7 @@ namespace MainWPF
             Guardian x = (Guardian)this.DataContext;
             if (x.IsValidate())
             {
-                x.UpdateGuardianData();
+                Guardian.UpdateData(x);
                 MyMessage.UpdateMessage();
                 DialogResult = true;
             }

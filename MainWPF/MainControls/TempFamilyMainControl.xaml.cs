@@ -115,11 +115,7 @@ namespace MainWPF
                         {
                             TabItem ti = new TabItem();
                             ti.Header = Header;
-                            if (BaseDataBase.IsHilal)
-                                ti.Content = new AddFamilyControlHilal(f.FamilyID.Value);
-                            else
-                                ti.Content = new AddFamilyControl(f.FamilyID.Value);
-
+                            ti.Content = new AddFamilyControlHilal(f.FamilyID.Value);
                             m.SendTabItem(ti);
                         }
                     }
@@ -226,11 +222,7 @@ namespace MainWPF
                         {
                             TabItem ti = new TabItem();
                             ti.Header = Header;
-                            if (BaseDataBase.IsHilal)
-                                ti.Content = new AddFamilyControlHilal(f.FamilyID.Value);
-                            else
-                                ti.Content = new AddFamilyControl(f.FamilyID.Value);
-
+                            ti.Content = new AddFamilyControlHilal(f.FamilyID.Value);
                             m.SendTabItem(ti);
                         }
                     }

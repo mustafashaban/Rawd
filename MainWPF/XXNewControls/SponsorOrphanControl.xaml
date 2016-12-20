@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="MainWPF.SponsorOrphanControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:LocalConverter="clr-namespace:MainWPF.Converters" Name="MyControl"
+             mc:Ignorable="d" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <LocalConverter:SponsorIDConverter x:Key="SponsorConverter"></LocalConverter:SponsorIDConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <DataGrid x:Name="dgAvailableSponsorship" Grid.Row="0" Grid.ColumnSpan="4" ItemsSource="{Binding AvailableSponsorships}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="اسم الكفيل" Binding="{Binding AvailableSponsorship.RelatedSponsor.Name}"/>
+                <DataGridTextColumn Header="تصنيف الكفالة" Binding="{Binding AvailableSponsorship.SponsorType}"/>
+                <DataGridTextColumn Header="نوع الكفالة" Binding="{Binding AvailableSponsorship.SponsorshipType}"/>
+                <DataGridTextColumn Header="مدة الكفالة" FontFamily="Arial" Binding="{Binding AvailableSponsorship.Duration,StringFormat='{}{0} شهر'}"/>
+                <DataGridTextColumn Header="قيمة الكفالة" FontFamily="Arial" Binding="{Binding AvailableSponsorship.SponsorshipValue}"/>
+                <DataGridTemplateColumn Width="105" Header="الكفيل يعوض" SortMemberPath="IsCompensated">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid Width="100">
+                                <CheckBox FlowDirection="LeftToRight" HorizontalAlignment="Center" IsChecked="{Binding AvailableSponsorship.IsCompensated}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="بداية الكفالة" FontFamily="Arial" Binding="{Binding StartDate, StringFormat='dd-MM-yyy'}"/>
+                <DataGridTextColumn Header="نهاية الكفالة" FontFamily="Arial" Binding="{Binding EndDate, StringFormat='dd-MM-yyy'}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="NewSponsorship_Click" Width="150" HorizontalAlignment="Left" Grid.Row="1" Content="اضافة كفالة جديدة"/>
+    </Grid>
+</UserControl>

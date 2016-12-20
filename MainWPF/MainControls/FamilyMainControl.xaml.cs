@@ -179,14 +179,7 @@ namespace MainWPF
                 {
                     TabItem ti = new TabItem();
                     ti.Header = Header;
-                    if (BaseDataBase.IsHilal)
-                    {
-                        var x = new AddFamilyControlHilal();
-                        x.Margin = new Thickness(-25);
-                        ti.Content = x;
-                    }
-                    else
-                        ti.Content = new AddFamilyControl();
+                    ti.Content = new AddFamilyControlHilal();
                     m.SendTabItem(ti);
                 }
             }

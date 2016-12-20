@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -103,6 +104,9 @@ namespace MainWPF
             set
             { code = value; }
         }
+
+        public List<Transition> Transitions { get; set; }
+
         public static bool InsertData(Account x)
         {
             x.Id = BaseDataBase._StoredProcedureReturnable("sp_Add_Account"
@@ -168,6 +172,8 @@ namespace MainWPF
                     x.Notes = rd["Notes"].ToString();
                     if (!(rd["Code"] is DBNull))
                         x.Code = int.Parse(rd["Code"].ToString());
+
+                    //x.Transitions = Transition.GetAllTransitionByAccount(x);
                 }
                 rd.Close();
             }
@@ -181,6 +187,53 @@ namespace MainWPF
             }
             return x;
         }
+        public static Account GetAccountByOwnerID(int Type, int OwnerID)
+        {
+            Account x = new Account();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_OwnerID_Account", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@Type", Type));
+            com.Parameters.Add(new SqlParameter("@OwnerID", OwnerID));
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                if (rd.Read())
+                {
+                    if (!(rd["Id"] is DBNull))
+                        x.Id = int.Parse(rd["Id"].ToString());
+                    x.Name = rd["Name"].ToString();
+                    if (!(rd["Type"] is DBNull))
+                        x.Type = int.Parse(rd["Type"].ToString());
+                    if (!(rd["CurrentBalance"] is DBNull))
+                        x.CurrentBalance = double.Parse(rd["CurrentBalance"].ToString());
+                    if (!(rd["CreateDate"] is DBNull))
+                        x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
+                    if (!(rd["OwnerID"] is DBNull))
+                        x.OwnerID = int.Parse(rd["OwnerID"].ToString());
+                    x.Status = rd["Status"].ToString();
+                    if (!(rd["LastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    x.Notes = rd["Notes"].ToString();
+                    if (!(rd["Code"] is DBNull))
+                        x.Code = int.Parse(rd["Code"].ToString());
+
+                    x.Transitions = Transition.GetAllTransitionByAccount(x);
+                }
+                rd.Close();
+            }
+            catch
+            {
+                x = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return x;
+        }
+
         public static List<Account> GetAllAccount()
         {
             List<Account> xx = new List<Account>();
@@ -226,5 +279,11 @@ namespace MainWPF
             }
             return xx;
         }
+
+        public static DataTable GetAllAccountTable
+        {
+            get { return BaseDataBase._Tabling("sp_GetAllAccountTable"); }
+        }
+
     }
 }

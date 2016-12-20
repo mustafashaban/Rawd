@@ -37,8 +37,6 @@ namespace MainWPF
                 if (view != null)
                 {
                     view.CustomFilter = string.Format("Name like '%{0}%'", txtName.Text);
-                    if (cmboGender.SelectedIndex > 0)
-                        view.CustomFilter += string.Format(" and Gender like '{0}'", (cmboGender.Items[cmboGender.SelectedIndex] as ComboBoxItem).Content);
                 }
             }
             catch { }

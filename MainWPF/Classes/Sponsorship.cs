@@ -18,14 +18,7 @@ namespace MainWPF
             { id = value; }
         }
 
-        private int? sponsorid;
-        public int? SponsorID
-        {
-            get
-            { return sponsorid; }
-            set
-            { sponsorid = value; }
-        }
+        public AvailableSponsorship AvailableSponsorship { get; set; }
 
         private int? orphanid;
         public int? OrphanID
@@ -54,23 +47,6 @@ namespace MainWPF
             { enddate = value; }
         }
 
-        private string sponsortype;
-        public string SponsorType
-        {
-            get
-            { return sponsortype; }
-            set
-            { sponsortype = value; }
-        }
-
-        private double? sponsorvalue;
-        public double? SponsorValue
-        {
-            get
-            { return sponsorvalue; }
-            set
-            { sponsorvalue = value; }
-        }
 
         private string notes;
         public string Notes
@@ -81,19 +57,7 @@ namespace MainWPF
             { notes = value; }
         }
 
-        private double? duration;
-        public double? Duration
-        {
-            get
-            { return duration; }
-            set
-            { duration = value; }
-        }
-
-        public string Status
-        {
-            get{ return !StartDate.HasValue ? "بالانتظار" : EndDate.HasValue ? "منتهية" : "غير منتهية"; }
-        }
+        public string OrphanName { get; set; }
 
         private int lastuserid;
         public int LastUserID
@@ -103,34 +67,29 @@ namespace MainWPF
             set
             { lastuserid = value; }
         }
+
         public static bool InsertData(Sponsorship x)
         {
             x.ID = BaseDataBase._StoredProcedureReturnable("sp_Add_Sponsorship"
             , new SqlParameter("@ID", System.Data.SqlDbType.Int)
-            , new SqlParameter("@SponsorID", x.SponsorID)
             , new SqlParameter("@OrphanID", x.OrphanID)
             , new SqlParameter("@StartDate", x.StartDate)
             , new SqlParameter("@EndDate", x.EndDate)
-            , new SqlParameter("@SponsorType", x.SponsorType)
-            , new SqlParameter("@SponsorValue", x.SponsorValue)
             , new SqlParameter("@Notes", x.Notes)
-            , new SqlParameter("@Duration", x.Duration)
-            , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID));
+            , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
+            , new SqlParameter("@AvailableSponsorshipID", x.AvailableSponsorship.ID));
             return x.ID.HasValue;
         }
         public static bool UpdateData(Sponsorship x)
         {
             return BaseDataBase._StoredProcedure("sp_Update_Sponsorship"
             , new SqlParameter("@ID", x.ID)
-            , new SqlParameter("@SponsorID", x.SponsorID)
             , new SqlParameter("@OrphanID", x.OrphanID)
             , new SqlParameter("@StartDate", x.StartDate)
             , new SqlParameter("@EndDate", x.EndDate)
-            , new SqlParameter("@SponsorType", x.SponsorType)
-            , new SqlParameter("@SponsorValue", x.SponsorValue)
             , new SqlParameter("@Notes", x.Notes)
-            , new SqlParameter("@Duration", x.Duration)
-            , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID));
+            , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
+            , new SqlParameter("@AvailableSponsorshipID", x.AvailableSponsorship.ID));
         }
         public static bool DeleteData(Sponsorship x)
         {
@@ -153,22 +112,17 @@ namespace MainWPF
                 {
                     if (!(rd["ID"] is DBNull))
                         x.ID = int.Parse(rd["ID"].ToString());
-                    if (!(rd["SponsorID"] is DBNull))
-                        x.SponsorID = int.Parse(rd["SponsorID"].ToString());
                     if (!(rd["OrphanID"] is DBNull))
                         x.OrphanID = int.Parse(rd["OrphanID"].ToString());
                     if (!(rd["StartDate"] is DBNull))
                         x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
                     if (!(rd["EndDate"] is DBNull))
                         x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
-                    x.SponsorType = rd["SponsorType"].ToString();
-                    if (!(rd["SponsorValue"] is DBNull))
-                        x.SponsorValue = double.Parse(rd["SponsorValue"].ToString());
                     x.Notes = rd["Notes"].ToString();
-                    if (!(rd["Duration"] is DBNull))
-                        x.Duration = double.Parse(rd["Duration"].ToString());
                     if (!(rd["LastUserID"] is DBNull))
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    if (!(rd["AvailableSponsorshipID"] is DBNull))
+                        x.AvailableSponsorship = AvailableSponsorship.GetAvailableSponsorshipByID(int.Parse(rd["AvailableSponsorshipID"].ToString()));
                 }
                 rd.Close();
             }
@@ -198,22 +152,17 @@ namespace MainWPF
 
                     if (!(rd["ID"] is DBNull))
                         x.ID = int.Parse(rd["ID"].ToString());
-                    if (!(rd["SponsorID"] is DBNull))
-                        x.SponsorID = int.Parse(rd["SponsorID"].ToString());
                     if (!(rd["OrphanID"] is DBNull))
                         x.OrphanID = int.Parse(rd["OrphanID"].ToString());
                     if (!(rd["StartDate"] is DBNull))
                         x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
                     if (!(rd["EndDate"] is DBNull))
                         x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
-                    x.SponsorType = rd["SponsorType"].ToString();
-                    if (!(rd["SponsorValue"] is DBNull))
-                        x.SponsorValue = double.Parse(rd["SponsorValue"].ToString());
                     x.Notes = rd["Notes"].ToString();
-                    if (!(rd["Duration"] is DBNull))
-                        x.Duration = double.Parse(rd["Duration"].ToString());
                     if (!(rd["LastUserID"] is DBNull))
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    if (!(rd["AvailableSponsorshipID"] is DBNull))
+                        x.AvailableSponsorship = AvailableSponsorship.GetAvailableSponsorshipByID(int.Parse(rd["AvailableSponsorshipID"].ToString()));
                     xx.Add(x);
                 }
                 rd.Close();
@@ -228,117 +177,15 @@ namespace MainWPF
             }
             return xx;
         }
-
-
-
-
-        public static List<Sponsorship> GetSponsorshipAllByOrphanID(int OrphanID)
+        public string Status
         {
-            List<Sponsorship> xx = new List<Sponsorship>();
-            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_Get_OrphanID_Sponsorship", con);
-            com.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlParameter pr = new SqlParameter("@OrphanID", OrphanID);
-            com.Parameters.Add(pr);
-            try
-            {
-                con.Open();
-                SqlDataReader rd = com.ExecuteReader();
-                while (rd.Read())
-                {
-                    Sponsorship x = new Sponsorship();
-
-                    if (!(rd["ID"] is DBNull))
-                        x.ID = int.Parse(rd["ID"].ToString());
-                    if (!(rd["SponsorID"] is DBNull))
-                        x.SponsorID = int.Parse(rd["SponsorID"].ToString());
-                    if (!(rd["OrphanID"] is DBNull))
-                        x.OrphanID = int.Parse(rd["OrphanID"].ToString());
-                    if (!(rd["StartDate"] is DBNull))
-                        x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
-                    if (!(rd["EndDate"] is DBNull))
-                        x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
-                    x.SponsorType = rd["SponsorType"].ToString();
-                    if (!(rd["SponsorValue"] is DBNull))
-                        x.SponsorValue = double.Parse(rd["SponsorValue"].ToString());
-                    x.Notes = rd["Notes"].ToString();
-                    if (!(rd["Duration"] is DBNull))
-                        x.Duration = double.Parse(rd["Duration"].ToString());
-                    if (!(rd["LastUserID"] is DBNull))
-                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
-                    xx.Add(x);
-                }
-                rd.Close();
-            }
-            catch
-            {
-                xx = null;
-            }
-            finally
-            {
-                con.Close();
-            }
-            return xx;
-        }
-
-        public static List<Sponsorship> GetSponsorshipAllBySponsorID(int SponsorID)
-        {
-            List<Sponsorship> xx = new List<Sponsorship>();
-            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_Get_SponsorID_Sponsorship", con);
-            com.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlParameter pr = new SqlParameter("@SponsorID", SponsorID);
-            com.Parameters.Add(pr);
-            try
-            {
-                con.Open();
-                SqlDataReader rd = com.ExecuteReader();
-                while (rd.Read())
-                {
-                    Sponsorship x = new Sponsorship();
-
-                    if (!(rd["ID"] is DBNull))
-                        x.ID = int.Parse(rd["ID"].ToString());
-                    if (!(rd["SponsorID"] is DBNull))
-                        x.SponsorID = int.Parse(rd["SponsorID"].ToString());
-                    if (!(rd["OrphanID"] is DBNull))
-                        x.OrphanID = int.Parse(rd["OrphanID"].ToString());
-                    if (!(rd["StartDate"] is DBNull))
-                        x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
-                    if (!(rd["EndDate"] is DBNull))
-                        x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
-                    x.SponsorType = rd["SponsorType"].ToString();
-                    if (!(rd["SponsorValue"] is DBNull))
-                        x.SponsorValue = double.Parse(rd["SponsorValue"].ToString());
-                    x.Notes = rd["Notes"].ToString();
-                    if (!(rd["Duration"] is DBNull))
-                        x.Duration = double.Parse(rd["Duration"].ToString());
-                    if (!(rd["LastUserID"] is DBNull))
-                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
-                    xx.Add(x);
-                }
-                rd.Close();
-            }
-            catch
-            {
-                xx = null;
-            }
-            finally
-            {
-                con.Close();
-            }
-            return xx;
+            get { return !StartDate.HasValue ? "بالانتظار" : EndDate.HasValue ? "منتهية" : "غير منتهية"; }
         }
 
         internal bool IsValidate()
         {
             bool isValid = true;
             this.ClearAllErrors();
-            if (SponsorID == null)
-            {
-                isValid = false;
-                this.SetError("SponsorID", "يجب إختيار كفيل");
-            }
             if (!isValid)
             {
                 string s = "";
@@ -350,5 +197,124 @@ namespace MainWPF
             }
             return isValid;
         }
+
+        public static List<Sponsorship> GetSponsorshipAllBySponsorID(Sponsor s)
+        {
+            List<Sponsorship> xx = new List<Sponsorship>();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_SponsorID_Sponsorship", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@SponsorID", s.SponsorID));
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                while (rd.Read())
+                {
+                    Sponsorship x = new Sponsorship();
+
+                    if (!(rd["SponsorshipID"] is DBNull))
+                        x.ID = int.Parse(rd["SponsorshipID"].ToString());
+                    if (!(rd["OrphanID"] is DBNull))
+                        x.OrphanID = int.Parse(rd["OrphanID"].ToString());
+                    if (!(rd["StartDate"] is DBNull))
+                        x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
+                    if (!(rd["EndDate"] is DBNull))
+                        x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
+                    x.Notes = rd["SponsorshipNotes"].ToString();
+                    x.OrphanName = rd["OrphanName"].ToString();
+                    if (!(rd["SponsorshipLastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["SponsorshipLastUserID"].ToString());
+
+                    x.AvailableSponsorship = new AvailableSponsorship();
+                    x.AvailableSponsorship.RelatedSponsor = s;
+                    if (!(rd["AvailableSponsorshipID"] is DBNull))
+                        x.AvailableSponsorship.ID = int.Parse(rd["AvailableSponsorshipID"].ToString());
+                    if (!(rd["NOB"] is DBNull))
+                        x.AvailableSponsorship.NOB = int.Parse(rd["NOB"].ToString());
+                    if (!(rd["Duration"] is DBNull))
+                        x.AvailableSponsorship.Duration = double.Parse(rd["Duration"].ToString());
+                    if (!(rd["SponsorshipValue"] is DBNull))
+                        x.AvailableSponsorship.SponsorshipValue = double.Parse(rd["SponsorshipValue"].ToString());
+                    x.AvailableSponsorship.SponsorshipType = rd["SponsorshipType"].ToString();
+                    x.AvailableSponsorship.SponsorType = rd["SponsorType"].ToString();
+                    x.AvailableSponsorship.Notes = rd["AvailableSponsorshipNotes"].ToString();
+                    if (!(rd["AvailableSponsorshipLastUserID"] is DBNull))
+                        x.AvailableSponsorship.LastUserID = int.Parse(rd["AvailableSponsorshipLastUserID"].ToString());
+
+                    xx.Add(x);
+                }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return xx;
+        }
+        public static List<Sponsorship> GetSponsorshipAllByOrphanID(int OrphanID)
+        {
+            List<Sponsorship> xx = new List<Sponsorship>();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_OrphanID_Sponsorship", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@OrphanID", OrphanID));
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                while (rd.Read())
+                {
+                    Sponsorship x = new Sponsorship();
+
+                    if (!(rd["SponsorshipID"] is DBNull))
+                        x.ID = int.Parse(rd["SponsorshipID"].ToString());
+                    if (!(rd["OrphanID"] is DBNull))
+                        x.OrphanID = int.Parse(rd["OrphanID"].ToString());
+                    if (!(rd["StartDate"] is DBNull))
+                        x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
+                    if (!(rd["EndDate"] is DBNull))
+                        x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
+                    x.Notes = rd["SponsorshipNotes"].ToString();
+                    if (!(rd["SponsorshipLastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["SponsorshipLastUserID"].ToString());
+
+                    x.AvailableSponsorship = new AvailableSponsorship();
+                    if (!(rd["SponsorID"] is DBNull))
+                        x.AvailableSponsorship.RelatedSponsor = new Sponsor() { SponsorID = int.Parse(rd["SponsorID"].ToString()), Name = rd["SponsorName"].ToString() };
+                    if (!(rd["AvailableSponsorshipID"] is DBNull))
+                        x.AvailableSponsorship.ID = int.Parse(rd["AvailableSponsorshipID"].ToString());
+                    if (!(rd["NOB"] is DBNull))
+                        x.AvailableSponsorship.NOB = int.Parse(rd["NOB"].ToString());
+                    if (!(rd["Duration"] is DBNull))
+                        x.AvailableSponsorship.Duration = double.Parse(rd["Duration"].ToString());
+                    if (!(rd["SponsorshipValue"] is DBNull))
+                        x.AvailableSponsorship.SponsorshipValue = double.Parse(rd["SponsorshipValue"].ToString());
+                    x.AvailableSponsorship.SponsorType = rd["SponsorType"].ToString();
+                    x.AvailableSponsorship.SponsorshipType = rd["SponsorshipType"].ToString();
+                    x.AvailableSponsorship.IsCompensated = (bool)rd["IsCompensated"];
+                    x.AvailableSponsorship.Notes = rd["AvailableSponsorshipNotes"].ToString();
+                    if (!(rd["AvailableSponsorshipLastUserID"] is DBNull))
+                        x.AvailableSponsorship.LastUserID = int.Parse(rd["AvailableSponsorshipLastUserID"].ToString());
+
+                    xx.Add(x);
+                }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return xx;
+        }
+
     }
 }
