@@ -34,18 +34,18 @@ namespace MainWPF
             set
             {
                 orphanID = value;
-                OrphanSponsors = Sponsorship.GetSponsorshipAllByOrphanID(value.Value);
+                OrphanSponsorships = Sponsorship.GetSponsorshipAllByOrphanID(value.Value);
             }
         }
 
 
-        List<Sponsorship> orphanSponsors;
-        public List<Sponsorship> OrphanSponsors
+        List<Sponsorship> orphanSponsorships;
+        public List<Sponsorship> OrphanSponsorships
         {
-            get { return orphanSponsors; }
+            get { return orphanSponsorships; }
             set
             {
-                orphanSponsors = value;
+                orphanSponsorships = value;
                 dgAvailableSponsorship.ItemsSource = null;
                 dgAvailableSponsorship.ItemsSource = value;
             }
@@ -74,7 +74,7 @@ namespace MainWPF
                 if (Sponsorship.InsertData(ss))
                 {
                     MyMessage.InsertMessage();
-                    OrphanSponsors.Add(ss);
+                    OrphanSponsorships.Add(ss);
                     dgAvailableSponsorship.Items.Refresh();
                 }
             }

@@ -33,11 +33,11 @@ namespace MainWPF
                     as BindingListCollectionView;
                 if (view != null)
                 {
-                    view.CustomFilter = string.Format("FirstName like '%{0}%'", txtFirstName.Text);
+                    view.CustomFilter = string.Format("Name like '%{0}%'", txtFirstName.Text);
                     if (cmboGender.SelectedIndex > 0)
                         view.CustomFilter += string.Format(" and Gender like '{0}'", (cmboGender.Items[cmboGender.SelectedIndex] as ComboBoxItem).Content);
                     if (cmboType.SelectedIndex > 0)
-                        view.CustomFilter += string.Format(" and FamilyType like '{0}'", (cmboType.Items[cmboType.SelectedIndex] as ComboBoxItem).Content);
+                        view.CustomFilter += string.Format(" and Type like '{0}'", (cmboType.Items[cmboType.SelectedIndex] as ComboBoxItem).Content);
                 }
             }
             catch { }

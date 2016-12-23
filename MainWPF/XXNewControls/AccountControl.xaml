@@ -5,34 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Local="clr-namespace:MainWPF"
              xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
-             mc:Ignorable="d" Height="500"
+             mc:Ignorable="d"
         FlowDirection="RightToLeft">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="130"/>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="153" />
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Border Grid.Row="0" Grid.ColumnSpan="4" Background="#99FFA200"/>
-                <StackPanel Grid.ColumnSpan="4" Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="تفاصيل الحساب" />
-                </StackPanel>
-                <DataGrid x:Name="dgTransitions" Margin="0,5" Grid.Row="1" Grid.ColumnSpan="4" ItemsSource="{Binding Transitions}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn MinWidth="100" Header="مدين" FontFamily="Arial" Binding="{Binding LeftValue}"/>
-                        <DataGridTextColumn MinWidth="100" Header="دائن" FontFamily="Arial" Binding="{Binding Rightvalue}"/>
-                        <DataGridTextColumn MinWidth="100" Header="التاريخ" FontFamily="Arial" Binding="{Binding CreateDate, StringFormat='dd-MM-yyyy'}"/>
-                        <DataGridTextColumn MinWidth="100" Header="البيان" Width="*" Binding="{Binding Details}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-        </ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition />
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Grid.ColumnSpan="4" Background="#99FF6969"/>
+        <StackPanel Grid.ColumnSpan="4" Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="تفاصيل الحساب" />
+        </StackPanel>
+        <DataGrid x:Name="dgTransitions" Margin="0,5" Grid.Row="1" Grid.ColumnSpan="4" ItemsSource="{Binding Transitions}">
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="100" Header="مدين" FontFamily="Arial" Binding="{Binding Rightvalue}"/>
+                <DataGridTextColumn MinWidth="100" Header="دائن" FontFamily="Arial" Binding="{Binding LeftValue}"/>
+                <DataGridTextColumn MinWidth="100" Header="الحساب" Binding="{Binding RelateAccountName}"/>
+                <DataGridTextColumn MinWidth="100" Header="التاريخ" FontFamily="Arial" Binding="{Binding CreateDate, StringFormat='dd-MM-yyyy'}"/>
+                <DataGridTextColumn MinWidth="100" Header="البيان" Width="*" Binding="{Binding Details}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <TextBox x:Name="txtRight" TextAlignment="Center" FontFamily="Arial" Background="#FF80FF6B" Margin="1,0" Width="{Binding ElementName=dgTransitions,Path=Columns[0].ActualWidth}" IsReadOnly="True"/>
+            <TextBox x:Name="txtLeft" TextAlignment="Center" FontFamily="Arial" Margin="1,0" Width="{Binding ElementName=dgTransitions,Path=Columns[1].ActualWidth}" IsReadOnly="True" Background="#FFFFCBBC"/>
+            <TextBox x:Name="txtTotal" TextAlignment="Center" Foreground="White" FontFamily="Arial" Margin="1,0" Width="120" IsReadOnly="True" Background="Black"/>
+        </StackPanel>
     </Grid>
 </UserControl>

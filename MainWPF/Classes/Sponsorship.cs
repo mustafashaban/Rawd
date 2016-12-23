@@ -136,6 +136,47 @@ namespace MainWPF
             }
             return x;
         }
+        public static Sponsorship GetCurrentSponsorshipByOrphanID(int OrphanId)
+        {
+            Sponsorship x = new Sponsorship();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_Current_Sponsorship", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter pr = new SqlParameter("@OrphanId", OrphanId);
+            com.Parameters.Add(pr);
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                if (rd.Read())
+                {
+                    if (!(rd["ID"] is DBNull))
+                        x.ID = int.Parse(rd["ID"].ToString());
+                    if (!(rd["OrphanID"] is DBNull))
+                        x.OrphanID = int.Parse(rd["OrphanID"].ToString());
+                    if (!(rd["StartDate"] is DBNull))
+                        x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
+                    if (!(rd["EndDate"] is DBNull))
+                        x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
+                    x.Notes = rd["Notes"].ToString();
+                    if (!(rd["LastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    if (!(rd["AvailableSponsorshipID"] is DBNull))
+                        x.AvailableSponsorship = AvailableSponsorship.GetAvailableSponsorshipByID(int.Parse(rd["AvailableSponsorshipID"].ToString()));
+                }
+                rd.Close();
+            }
+            catch
+            {
+                x = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return x;
+        }
+        
         public static List<Sponsorship> GetAllSponsorship()
         {
             List<Sponsorship> xx = new List<Sponsorship>();

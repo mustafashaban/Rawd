@@ -21,7 +21,7 @@ namespace MainWPF
 
             FamilyStatus = "نازح";
         }
-
+        public List<Orphan> FamilyOrphans { get; set; }
         private int? familyid;
         public int? FamilyID
         {

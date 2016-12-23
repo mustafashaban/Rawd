@@ -24,6 +24,18 @@ namespace MainWPF
         {
             InitializeComponent();
         }
-        public Account Account { set { this.DataContext = value; } }
+        public Account Account
+        {
+            set
+            {
+                this.DataContext = value;
+                if (value.Transitions != null)
+                {
+                    txtRight.Text = value.Transitions.Sum(x => x.Rightvalue).ToString();
+                    txtLeft.Text = value.Transitions.Sum(x => x.LeftValue).ToString();
+                    txtTotal.Text = (double.Parse(txtRight.Text) - double.Parse(txtLeft.Text)).ToString();
+                }
+            }
+        }
     }
 }

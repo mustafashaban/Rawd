@@ -136,61 +136,20 @@ namespace MainWPF
             { type = value; }
         }
 
-        internal bool IsValidate()
+        private Sponsorship ss;
+        public Sponsorship CurrentSponsorship
         {
-            bool isValid = true;
-            this.ClearAllErrors();
-            if (string.IsNullOrEmpty(FirstName))
+            get
             {
-                isValid = false;
-                this.SetError("FirstName", "يجب إدخال الاسم");
-            }
-            if (string.IsNullOrEmpty(Status))
-            {
-                isValid = false;
-                this.SetError("Status", "يجب إدخال الحالة");
-            }
-            if (string.IsNullOrEmpty(Type))
-            {
-                isValid = false;
-                this.SetError("Type", "يجب إدخال التصنيف");
-            }
-            if (string.IsNullOrEmpty(LastName))
-            {
-                isValid = false;
-                this.SetError("LastName", "يجب إدخال الكنية");
-            }
-            if (string.IsNullOrEmpty(Gender))
-            {
-                isValid = false;
-                this.SetError("Gender", "يجب إدخال الجنس");
-            }
-            if (!DOB.HasValue)
-            {
-                isValid = false;
-                this.SetError("DOB", "يجب إدخال تاريخ الولادة");
-            }
-            if (DOB.HasValue)
-            {
-                var diff = BaseDataBase.DateNow - DOB.Value;
-                if (diff.Days < 0 || diff.Days / 30 / 12 > 120)
+                if (ss == null && OrphanID.HasValue)
                 {
-                    isValid = false;
-                    this.SetError("DOB", "التاريخ غير صالح يجب ادخال عمر صحيح");
+                    ss = Sponsorship.GetCurrentSponsorshipByOrphanID(OrphanID.Value);
+                    if (!ss.ID.HasValue)
+                        ss = null;
                 }
+                return ss;
             }
-            if (!isValid)
-            {
-                string s = "";
-                foreach (var item in errors)
-                {
-                    s += item.Value + "\n";
-                }
-                MyMessageBox.Show(s);
-            }
-            return isValid;
         }
-
 
         public static bool InsertData(Orphan x)
         {
@@ -352,7 +311,7 @@ namespace MainWPF
         }
 
 
-        public static Task<List<Orphan>> GetAllOrphanByFamily(Family f, Orphan o = null)
+        public static Task<List<Orphan>> GetAllOrphanByFamily(Family f, Orphan o = null, bool IncludeAccount = false)
         {
             List<Orphan> xx = new List<Orphan>();
             Task.Run(() =>
@@ -396,6 +355,9 @@ namespace MainWPF
                             x.WaistSize = int.Parse(rd["WaistSize"].ToString());
                         x.Status = rd["Status"].ToString();
                         x.Type = rd["Type"].ToString();
+
+                        if (IncludeAccount)
+                            x.Account = Account.GetAccountByOwnerID(x.Type == "يتيم" ? Account.AccountType.Orphan : x.Type == "طالب علم" ? Account.AccountType.Student : Account.AccountType.OrphanStudent, x.OrphanID.Value, false);
                         xx.Add(x);
                     }
                     rd.Close();
@@ -411,6 +373,61 @@ namespace MainWPF
             });
 
             return Task.FromResult<List<Orphan>>(xx);
+        }
+
+        internal bool IsValidate()
+        {
+            bool isValid = true;
+            this.ClearAllErrors();
+            if (string.IsNullOrEmpty(FirstName))
+            {
+                isValid = false;
+                this.SetError("FirstName", "يجب إدخال الاسم");
+            }
+            if (string.IsNullOrEmpty(Status))
+            {
+                isValid = false;
+                this.SetError("Status", "يجب إدخال الحالة");
+            }
+            if (string.IsNullOrEmpty(Type))
+            {
+                isValid = false;
+                this.SetError("Type", "يجب إدخال التصنيف");
+            }
+            if (string.IsNullOrEmpty(LastName))
+            {
+                isValid = false;
+                this.SetError("LastName", "يجب إدخال الكنية");
+            }
+            if (string.IsNullOrEmpty(Gender))
+            {
+                isValid = false;
+                this.SetError("Gender", "يجب إدخال الجنس");
+            }
+            if (!DOB.HasValue)
+            {
+                isValid = false;
+                this.SetError("DOB", "يجب إدخال تاريخ الولادة");
+            }
+            if (DOB.HasValue)
+            {
+                var diff = BaseDataBase.DateNow - DOB.Value;
+                if (diff.Days < 0 || diff.Days / 30 / 12 > 120)
+                {
+                    isValid = false;
+                    this.SetError("DOB", "التاريخ غير صالح يجب ادخال عمر صحيح");
+                }
+            }
+            if (!isValid)
+            {
+                string s = "";
+                foreach (var item in errors)
+                {
+                    s += item.Value + "\n";
+                }
+                MyMessageBox.Show(s);
+            }
+            return isValid;
         }
     }
 }

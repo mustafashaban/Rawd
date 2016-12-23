@@ -142,7 +142,7 @@
                 <ColumnDefinition Width="90"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button x:Name="btnSave" Grid.Column="5" Margin="10,1" ToolTip="حفظ" Click="btnSave_Click" Style="{StaticResource TransparentButton}">
-                <Image Source="./Images/SAVE-ALT.PNG"></Image>
+                <Image Source="../Images/SAVE-ALT.PNG"></Image>
             </Button>
         </Grid>
 

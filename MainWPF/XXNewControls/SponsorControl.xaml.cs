@@ -38,11 +38,12 @@ namespace MainWPF
 
                         x.Account = new MainWPF.Account();
                         x.Account.Name = x.Name;
-                        x.Account.Type = 1;
+                        x.Account.Type = Account.AccountType.Sponsor;
                         x.Account.CurrentBalance = 0;
                         x.Account.CreateDate = BaseDataBase.DateNow;
                         x.Account.OwnerID = x.SponsorID;
                         x.Account.Status = "مفعل";
+                        x.Account.IsDebit = true;
                         Account.InsertData(x.Account);
                     }
                 }
@@ -94,6 +95,54 @@ namespace MainWPF
                 //}
                 //else MyMessageBox.Show("لايمكن حذف الكفالات المنتهية وغير المنتهية");
             }
+        }
+
+
+        private void btnDeposit1_Click(object sender, RoutedEventArgs e)
+        {
+            var s = this.DataContext as Sponsor;
+            if (s != null && s.Account != null)
+            {
+                if (s.AvailableSponsorships == null || s.AvailableSponsorships.Count == 0)
+                {
+                    MyMessageBox.Show("الكفيل الحالي ليس لديه اي كفالات مدخلة\nيجب ادخال كفالات أولاً");
+                    return;
+                }
+                Transition_SponsorWindow w = new Transition_SponsorWindow(s, Transition_SponsorWindow.FundType.Private);
+                if (w.ShowDialog() == true) ;//refresh
+            }
+        }
+
+        private void btnDeposit2_Click(object sender, RoutedEventArgs e)
+        {
+            var s = this.DataContext as Sponsor;
+            if (s != null && s.Account != null)
+            {
+                if (Keyboard.IsKeyDown(Key.LeftShift) && Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftAlt))
+                {
+                    Transition_SponsorWindow w = new Transition_SponsorWindow(s, Transition_SponsorWindow.FundType.GeneralHidden);
+                    if (w.ShowDialog() == true) ;//No Refresh
+                }
+                else
+                {
+                    Transition_SponsorWindow w = new Transition_SponsorWindow(s, Transition_SponsorWindow.FundType.General);
+                    if (w.ShowDialog() == true)
+                    {
+                        s.Account = Account.GetAccountByOwnerID(Account.AccountType.Sponsor, s.SponsorID.Value);
+                        cAccount.Account = s.Account;
+                    }
+                }
+            }
+        }
+
+        private void btnWithdrawn_Click(object sender, RoutedEventArgs e)
+        {
+            //var a = this.DataContext as Sponsor;
+            //if (a != null && a.Account != null)
+            //{
+            //    MyMessageBox.Show("الكفيل الحالي ليس لديه اي كفالات مدخلة\nيجب ادخال كفالات أولاً");
+            //    return;
+            //}
         }
     }
 }

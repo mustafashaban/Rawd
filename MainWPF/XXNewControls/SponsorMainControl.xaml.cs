@@ -63,7 +63,7 @@ namespace MainWPF
         {
             if (dgSponsor.SelectedIndex >= 0)
             {
-                var s = Sponsor.GetSponsorByID((int)(dgSponsor.Items[dgSponsor.SelectedIndex] as DataRowView)[0]);
+                var s = Sponsor.GetSponsorByID((int)(dgSponsor.Items[dgSponsor.SelectedIndex] as DataRowView)[0], true);
                 MainWindow m = App.Current.MainWindow as MainWindow;
                 m.SendTabItem(new TabItem() { Header = s.Name, Content = new SponsorControl(s) });
             }
@@ -86,29 +86,29 @@ namespace MainWPF
 
         private void btnDelSupervisor_Click(object sender, RoutedEventArgs e)
         {
-            if (dgSponsor.SelectedIndex != -1)
-            {
-                if (!BaseDataBase.CurrentUser.CanDelete)
-                {
-                    MyMessageBox.Show("ليس لديك صلاحيات للحذف");
-                }
-                else
-                {
-                    Sponsor s = Sponsor.GetSponsorByID((int)(dgSponsor.Items[dgSponsor.SelectedIndex] as DataRowView)[0]);
-                    if (int.Parse(BaseDataBase._Scalar("select dbo.fn_SponsorOrphansCount(" + s.SponsorID + ")")) > 0)
-                    {
-                        MyMessageBox.Show("لا يمكن حذف الكفيل \nبسبب وجود بيانات كفالة سابقة له");
-                    }
-                    else
-                    {
-                        if (Sponsor.DeleteData(s))
-                        {
-                            dgSponsor.ItemsSource = Sponsor.GetAllSponsorTable;
-                            MyMessage.DeleteMessage();
-                        }
-                    }
-                }
-            }
+            //if (dgSponsor.SelectedIndex != -1)
+            //{
+            //    if (!BaseDataBase.CurrentUser.CanDelete)
+            //    {
+            //        MyMessageBox.Show("ليس لديك صلاحيات للحذف");
+            //    }
+            //    else
+            //    {
+            //        Sponsor s = Sponsor.GetSponsorByID((int)(dgSponsor.Items[dgSponsor.SelectedIndex] as DataRowView)[0]);
+            //        if (int.Parse(BaseDataBase._Scalar("select dbo.fn_SponsorOrphansCount(" + s.SponsorID + ")")) > 0)
+            //        {
+            //            MyMessageBox.Show("لا يمكن حذف الكفيل \nبسبب وجود بيانات كفالة سابقة له");
+            //        }
+            //        else
+            //        {
+            //            if (Sponsor.DeleteData(s))
+            //            {
+            //                dgSponsor.ItemsSource = Sponsor.GetAllSponsorTable;
+            //                MyMessage.DeleteMessage();
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void btnDeleteSponsor_Click(object sender, RoutedEventArgs e)

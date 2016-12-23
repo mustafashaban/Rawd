@@ -1152,7 +1152,8 @@
                                     <Grid Margin="5,8">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="120"/>
-                                            <RowDefinition Height="35"/>
+                                            <RowDefinition Height="25"/>
+                                            <RowDefinition Height="25"/>
                                         </Grid.RowDefinitions>
                                         <Image >
                                             <Image.Source>
@@ -1163,6 +1164,7 @@
                                             <TextBlock Text="{Binding FirstName}"/>
                                             <TextBlock Text="{Binding LastName, StringFormat='{} {0}'}"/>
                                         </StackPanel>
+                                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Type}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

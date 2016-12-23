@@ -242,7 +242,7 @@ namespace MainWPF
         private void btnAddNewOrphan_Click(object sender, RoutedEventArgs e)
         {
             var f = DataContext as Family;
-            Orphan o = new MainWPF.Orphan() { OrphanFamily = f };
+            Orphan o = new Orphan() { OrphanFamily = f };
             OrphanWindow w = new MainWPF.OrphanWindow(o);
             if (w.ShowDialog() == true)
             {
@@ -250,7 +250,24 @@ namespace MainWPF
                 if (Orphans == null)
                     Orphans = new List<Orphan>();
                 Orphans.Add(o);
-                lvOrphans.Items.Refresh();
+                if (f.FamilyID.HasValue)
+                {
+                    if (Orphan.InsertData(o))
+                    {
+                        o.Account = new Account();
+                        o.Account.Name = o.FirstName + o.LastName;
+                        o.Account.Type = o.Type == "يتيم" ? Account.AccountType.Orphan : o.Type == "يتيم طالب علم" ? Account.AccountType.OrphanStudent : Account.AccountType.Student;
+                        o.Account.CurrentBalance = 0;
+                        o.Account.CreateDate = BaseDataBase.DateNow;
+                        o.Account.OwnerID = o.OrphanID;
+                        o.Account.Status = "مفعل";
+                        o.Account.IsDebit = true;
+
+                        Account.InsertData(o.Account);
+                    }
+                }
+                f.FamilyOrphans = Orphans;
+                lvOrphans.ItemsSource = Orphans;
             }
         }
 

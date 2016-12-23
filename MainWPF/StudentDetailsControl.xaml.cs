@@ -15,17 +15,15 @@ using System.Windows.Shapes;
 
 namespace MainWPF
 {
-    public partial class OrphanDetailsControl : UserControl
+    public partial class StudentDetailsControl : UserControl
     {
-        //public enum OrphanFamilyType { Orphan, OrphanStudent, Student };
-        public OrphanDetailsControl(Orphan o)
+        public StudentDetailsControl(Orphan o)
         {
             InitializeComponent();
             this.DataContext = o;
-            tcm.Items.RemoveAt(tcm.Items.Count - 1);
             FillData(o);
         }
-        public OrphanDetailsControl(Family f)
+        public StudentDetailsControl(Family f)
         {
             InitializeComponent();
             tcm.Items.RemoveAt(0);
@@ -67,16 +65,13 @@ namespace MainWPF
                 cSponsor.OrphanID = o.OrphanID;
             cOrders.FamilyID = f.FamilyID;
             cOrphanFamily.txtFamilyCode.IsReadOnly = true;
+
             if (o.OrphanID.HasValue)
-                o.Account = Account.GetAccountByOwnerID(Account.AccountType.Orphan, o.OrphanID.Value);
+                o.Account = Account.GetAccountByOwnerID(Account.AccountType.Student, o.OrphanID.Value);
 
             //var gs = Guardian
 
-            if (!o.OrphanID.HasValue)
-                cOrphansAccounts.lvInvoices.ItemsSource = Invoice.GetAllInvoiceByFamilyID(o.OrphanFamily.FamilyID.Value);
-            cOrphansAccounts.FamilyID = o.OrphanFamily.FamilyID.Value;
-            f.FamilyOrphans = await Orphan.GetAllOrphanByFamily(f, o, true);
-            cOrphanFamily.Orphans = f.FamilyOrphans;
+            cOrphanFamily.Orphans = await Orphan.GetAllOrphanByFamily(f, o);
         }
 
         private void btnShowDetails_Click(object sender, RoutedEventArgs e)
@@ -88,7 +83,9 @@ namespace MainWPF
             }
             var sb = cOrphanFamily.FindResource("sbShowDetails") as Storyboard;
             if (sb != null)
+            {
                 sb.Begin(cOrphanFamily);
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -173,30 +170,30 @@ namespace MainWPF
                     DBMain.DeleteData(f.FamilyMother);
                 }
 
-                //if (!(string.IsNullOrEmpty(f.OrphanNursemaid?.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid?.LastName)))
+                //if (!(string.IsNullOrEmpty(f.OrphanNursemaid.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid.LastName)))
                 //{
-                //    if (f.OrphanNursemaid?.GuardianID!=null)
+                //    if (f.OrphanNursemaid.GuardianID.HasValue)
                 //        Guardian.UpdateData(f.OrphanNursemaid);
                 //    else
                 //    {
                 //        Guardian.InsertData(f.OrphanNursemaid);
                 //    }
                 //}
-                //else if (f.OrphanNursemaid?.GuardianID !=null)
+                //else if (f.OrphanNursemaid.GuardianID.HasValue)
                 //{
                 //    Guardian.DeleteData(f.OrphanNursemaid);
                 //}
 
-                //if (!(string.IsNullOrEmpty(f.OrphanGuardian?.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian?.LastName)))
+                //if (!(string.IsNullOrEmpty(f.OrphanGuardian.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian.LastName)))
                 //{
-                //    if (f.OrphanGuardian?.GuardianID != null)
+                //    if (f.OrphanGuardian.GuardianID.HasValue)
                 //        Guardian.UpdateData(f.OrphanGuardian);
                 //    else
                 //    {
                 //        Guardian.InsertData(f.OrphanGuardian);
                 //    }
                 //}
-                //else if (f.OrphanGuardian?.GuardianID!= null)
+                //else if (f.OrphanGuardian.GuardianID.HasValue)
                 //{
                 //    Guardian.DeleteData(f.OrphanGuardian);
                 //}
@@ -228,7 +225,7 @@ namespace MainWPF
                     {
                         if (Orphan.InsertData(o))
                         {
-                            o.Account = new Account();
+                            o.Account = new MainWPF.Account();
                             o.Account.Name = o.FirstName + o.LastName;
                             o.Account.Type = o.Type == "يتيم" ? Account.AccountType.Orphan : o.Type == "يتيم طالب علم" ? Account.AccountType.OrphanStudent : Account.AccountType.Student;
                             o.Account.CurrentBalance = 0;
@@ -248,6 +245,26 @@ namespace MainWPF
                 cOrders.FamilyID = f.FamilyID;
 
                 f.UpdateFamilyPersonCount();
+            }
+        }
+
+
+        private void btnWithdrawn_Click(object sender, RoutedEventArgs e)
+        {
+            var o = DataContext as Orphan;
+            if (o != null && o.Account != null)
+            {
+                if (o.CurrentSponsorship == null)
+                {
+                    MyMessageBox.Show("الطالب الحالي ليس مكفولا بعد\nيجب اختيار كفالة للطالب أولا");
+                    return;
+                }
+                Transition_StudentWindow w = new Transition_StudentWindow(o);
+                if (w.ShowDialog() == true)
+                {
+                    if (o.OrphanID.HasValue)
+                        o.Account = Account.GetAccountByOwnerID(Account.AccountType.Student, o.OrphanID.Value);
+                }
             }
         }
     }

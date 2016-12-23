@@ -10,7 +10,8 @@ namespace MainWPF
 {
     public class Account : ModelViewContext
     {
-        public static Dictionary<int, string> AccountTypes = new Dictionary<int, string>()
+        public enum AccountType { Fund = 0, Sponsor, Orphan, OrphanStudent, Student };
+        public static Dictionary<int, string> accountTypes = new Dictionary<int, string>()
         { { 0, "صندوق" },{ 1, "كفيل" },{ 2, "يتيم غير طالب" },{ 3, "يتيم طالب" },{ 4, "طالب علم" } };
 
         private int? id;
@@ -30,8 +31,8 @@ namespace MainWPF
             { name = value; }
         }
 
-        private int type;
-        public int Type
+        private AccountType type;
+        public AccountType Type
         {
             get
             { return type; }
@@ -40,7 +41,7 @@ namespace MainWPF
         }
         public string TypeText
         {
-            get{ return AccountTypes[type]; }
+            get { return accountTypes[(int)type]; }
         }
         private double currentbalance;
         public double CurrentBalance
@@ -104,6 +105,14 @@ namespace MainWPF
             set
             { code = value; }
         }
+        private bool isDebit;
+        public bool IsDebit
+        {
+            get
+            { return isDebit; }
+            set
+            { isDebit = value; }
+        }
 
         public List<Transition> Transitions { get; set; }
 
@@ -112,13 +121,14 @@ namespace MainWPF
             x.Id = BaseDataBase._StoredProcedureReturnable("sp_Add_Account"
             , new SqlParameter("@Id", System.Data.SqlDbType.Int)
             , new SqlParameter("@Name", x.Name)
-            , new SqlParameter("@Type", x.Type)
+            , new SqlParameter("@Type", (int)x.Type)
             , new SqlParameter("@CurrentBalance", x.CurrentBalance)
             , new SqlParameter("@CreateDate", x.CreateDate)
             , new SqlParameter("@OwnerID", x.OwnerID)
             , new SqlParameter("@Status", x.Status)
             , new SqlParameter("@LastUserID", x.LastUserID)
             , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@IsDebit", x.IsDebit)
             , new SqlParameter("@Code", x.Code));
             return x.Id.HasValue;
         }
@@ -127,13 +137,14 @@ namespace MainWPF
             return BaseDataBase._StoredProcedure("sp_Update_Account"
             , new SqlParameter("@Id", x.Id)
             , new SqlParameter("@Name", x.Name)
-            , new SqlParameter("@Type", x.Type)
+            , new SqlParameter("@Type", (int)x.Type)
             , new SqlParameter("@CurrentBalance", x.CurrentBalance)
             , new SqlParameter("@CreateDate", x.CreateDate)
             , new SqlParameter("@OwnerID", x.OwnerID)
             , new SqlParameter("@Status", x.Status)
             , new SqlParameter("@LastUserID", x.LastUserID)
             , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@IsDebit", x.IsDebit)
             , new SqlParameter("@Code", x.Code));
         }
         public static bool DeleteData(Account x)
@@ -159,7 +170,7 @@ namespace MainWPF
                         x.Id = int.Parse(rd["Id"].ToString());
                     x.Name = rd["Name"].ToString();
                     if (!(rd["Type"] is DBNull))
-                        x.Type = int.Parse(rd["Type"].ToString());
+                        x.Type = (AccountType)rd["Type"];
                     if (!(rd["CurrentBalance"] is DBNull))
                         x.CurrentBalance = double.Parse(rd["CurrentBalance"].ToString());
                     if (!(rd["CreateDate"] is DBNull))
@@ -172,6 +183,7 @@ namespace MainWPF
                     x.Notes = rd["Notes"].ToString();
                     if (!(rd["Code"] is DBNull))
                         x.Code = int.Parse(rd["Code"].ToString());
+                    x.IsDebit = (bool)rd["IsDebit"];
 
                     //x.Transitions = Transition.GetAllTransitionByAccount(x);
                 }
@@ -187,13 +199,13 @@ namespace MainWPF
             }
             return x;
         }
-        public static Account GetAccountByOwnerID(int Type, int OwnerID)
+        public static Account GetAccountByOwnerID(Account.AccountType Type, int OwnerID, bool bringDetails = true)
         {
             Account x = new Account();
             SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
             SqlCommand com = new SqlCommand("sp_Get_OwnerID_Account", con);
             com.CommandType = System.Data.CommandType.StoredProcedure;
-            com.Parameters.Add(new SqlParameter("@Type", Type));
+            com.Parameters.Add(new SqlParameter("@Type", (int)Type));
             com.Parameters.Add(new SqlParameter("@OwnerID", OwnerID));
             try
             {
@@ -205,7 +217,7 @@ namespace MainWPF
                         x.Id = int.Parse(rd["Id"].ToString());
                     x.Name = rd["Name"].ToString();
                     if (!(rd["Type"] is DBNull))
-                        x.Type = int.Parse(rd["Type"].ToString());
+                        x.Type = (AccountType)rd["Type"];
                     if (!(rd["CurrentBalance"] is DBNull))
                         x.CurrentBalance = double.Parse(rd["CurrentBalance"].ToString());
                     if (!(rd["CreateDate"] is DBNull))
@@ -218,8 +230,9 @@ namespace MainWPF
                     x.Notes = rd["Notes"].ToString();
                     if (!(rd["Code"] is DBNull))
                         x.Code = int.Parse(rd["Code"].ToString());
-
-                    x.Transitions = Transition.GetAllTransitionByAccount(x);
+                    x.IsDebit = (bool)rd["IsDebit"];
+                    if (bringDetails)
+                        x.Transitions = Transition.GetAllTransitionByAccount(x);
                 }
                 rd.Close();
             }
@@ -252,7 +265,7 @@ namespace MainWPF
                         x.Id = int.Parse(rd["Id"].ToString());
                     x.Name = rd["Name"].ToString();
                     if (!(rd["Type"] is DBNull))
-                        x.Type = int.Parse(rd["Type"].ToString());
+                        x.Type = (AccountType)rd["Type"];
                     if (!(rd["CurrentBalance"] is DBNull))
                         x.CurrentBalance = double.Parse(rd["CurrentBalance"].ToString());
                     if (!(rd["CreateDate"] is DBNull))
@@ -265,6 +278,7 @@ namespace MainWPF
                     x.Notes = rd["Notes"].ToString();
                     if (!(rd["Code"] is DBNull))
                         x.Code = int.Parse(rd["Code"].ToString());
+                    x.IsDebit = (bool)rd["IsDebit"];
                     xx.Add(x);
                 }
                 rd.Close();

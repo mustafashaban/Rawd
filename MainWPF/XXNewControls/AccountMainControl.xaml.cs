@@ -25,8 +25,7 @@ namespace MainWPF
         public AccountMainControl()
         {
             InitializeComponent();
-            var lst = new List<string>(Account.AccountTypes.Select(x => x.Value));
-            lst.Insert(0, "الكل");
+            var lst = new List<string>() { "الكل", "صندوق", "كفيل", "يتيم غير طالب", "يتيم طالب", "طالب علم" };
             cmboType.ItemsSource = lst;
         }
 
@@ -50,8 +49,10 @@ namespace MainWPF
         {
             if (dgAccounts.SelectedIndex != -1)
             {
+                e.Handled = true;
                 var a = dgAccounts.SelectedItem as Account;
                 var w = App.Current.MainWindow as MainWindow;
+                a.Transitions = Transition.GetAllTransitionByAccount(a);
                 w.SendTabItem(new TabItem() { Header = "حساب " + a.Name, Content = new AccountControl() { Account = a } });
             }
         }
@@ -81,7 +82,7 @@ namespace MainWPF
                 return false;
             if (BaseDataBase.IsStringNumber(txtCode.Text) && a.Code != (int.Parse(txtCode.Text)))
                 return false;
-            if (cmboType.SelectedIndex > 0 && a.Type != cmboType.SelectedIndex - 1)
+            if (cmboType.SelectedIndex > 0 && (int)a.Type != cmboType.SelectedIndex - 1)
                 return false;
             return true;
         }

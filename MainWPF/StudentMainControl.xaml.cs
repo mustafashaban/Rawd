@@ -72,7 +72,7 @@ namespace MainWPF
         {
             var drv = dgOrphans.SelectedItem as DataRowView;
             MainWindow m = App.Current.MainWindow as MainWindow;
-            m.SendTabItem(new TabItem() { Header = "إضافة عائلة طالب علم", Content = new OrphanDetailsControl(new Family() { FamilyType = "طلاب علم" }) });
+            m.SendTabItem(new TabItem() { Header = "إضافة عائلة طالب علم", Content = new StudentDetailsControl(new Family() { FamilyType = "طلاب علم" }) });
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -81,13 +81,13 @@ namespace MainWPF
             {
                 var drv = dgOrphans.SelectedItem as DataRowView;
                 MainWindow m = App.Current.MainWindow as MainWindow;
-                m.SendTabItem(new TabItem() { Header = drv[1].ToString(), Content = new OrphanDetailsControl(Orphan.GetOrphanByID((int)drv[0])) });
+                m.SendTabItem(new TabItem() { Header = drv[1].ToString(), Content = new StudentDetailsControl(Orphan.GetOrphanByID((int)drv[0])) });
             }
             else if (radFamilies.IsChecked == true && dgFamily.SelectedIndex != -1)
             {
                 var drv = dgFamily.SelectedItem as DataRowView;
                 MainWindow m = App.Current.MainWindow as MainWindow;
-                m.SendTabItem(new TabItem() { Header = drv["FamilyName"].ToString(), Content = new OrphanDetailsControl(Family.GetFamilyByID((int)drv[0])) });
+                m.SendTabItem(new TabItem() { Header = drv["FamilyName"].ToString(), Content = new StudentDetailsControl(Family.GetFamilyByID((int)drv[0])) });
             }
         }
 

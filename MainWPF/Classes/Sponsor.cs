@@ -76,6 +76,22 @@ namespace MainWPF
             set
             { status = value; }
         }
+        private string mediatorName;
+        public string MediatorName
+        {
+            get
+            { return mediatorName; }
+            set
+            { mediatorName = value; }
+        }
+        private string mediatorMobile;
+        public string MediatorMobile
+        {
+            get
+            { return mediatorMobile; }
+            set
+            { mediatorMobile = value; }
+        }
 
 
         List<Sponsorship> sponsorships;
@@ -96,12 +112,13 @@ namespace MainWPF
         }
         public int EndedSponsorships
         {
-            get { return Sponsorships == null || Sponsorships.Count  == 0? 0 : Sponsorships.Where(x => x.EndDate.HasValue).Count(); }
+            get { return Sponsorships == null || Sponsorships.Count == 0 ? 0 : Sponsorships.Where(x => x.EndDate.HasValue).Count(); }
         }
         public int CurrentSponsorships
         {
             get { return Sponsorships == null || Sponsorships.Count == 0 ? 0 : Sponsorships.Where(x => x.StartDate.HasValue && !x.EndDate.HasValue).Count(); }
         }
+        public Account Account { get; set; }
 
 
         public static bool InsertData(Sponsor x)
@@ -119,14 +136,9 @@ namespace MainWPF
             , new SqlParameter("@Address", x.Address)
             , new SqlParameter("@MainSponsorship", x.MainSponsorship)
             , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@MediatorName", x.MediatorName)
+            , new SqlParameter("@MediatorMobile", x.MediatorMobile)
             , new SqlParameter("@Status", x.Status));
-
-            if (x.SponsorID.HasValue)
-            {
-                Account a = new MainWPF.Account();
-                a.Type = 1;
-                a.Name = x.Name;
-            }
 
             return x.SponsorID.HasValue;
         }
@@ -145,6 +157,8 @@ namespace MainWPF
             , new SqlParameter("@Address", x.Address)
             , new SqlParameter("@MainSponsorship", x.MainSponsorship)
             , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@MediatorName", x.MediatorName)
+            , new SqlParameter("@MediatorMobile", x.MediatorMobile)
             , new SqlParameter("@Status", x.Status));
         }
         public static bool DeleteData(Sponsor x)
@@ -152,7 +166,7 @@ namespace MainWPF
             return BaseDataBase._StoredProcedure("sp_Delete_Sponsor"
             , new SqlParameter("@SponsorID", x.SponsorID));
         }
-        public static Sponsor GetSponsorByID(int id)
+        public static Sponsor GetSponsorByID(int id, bool bringDetails = false)
         {
             Sponsor x = new Sponsor();
             SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
@@ -180,12 +194,17 @@ namespace MainWPF
                     x.Email = rd["Email"].ToString();
                     x.Address = rd["Address"].ToString();
                     x.MainSponsorship = rd["MainSponsorship"].ToString();
+                    x.MediatorName = rd["MediatorName"].ToString();
+                    x.MediatorMobile = rd["MediatorMobile"].ToString();
                     x.Notes = rd["Notes"].ToString();
                     x.Status = rd["Status"].ToString();
 
-                    x.Account = Account.GetAccountByOwnerID(1, x.SponsorID.Value);
-                    x.Sponsorships = Sponsorship.GetSponsorshipAllBySponsorID(x);
-                    x.AvailableSponsorships = AvailableSponsorship.GetAllAvailableSponsorshipBySponsorID(x);
+                    if (bringDetails)
+                    {
+                        x.Account = Account.GetAccountByOwnerID(Account.AccountType.Sponsor, x.SponsorID.Value);
+                        x.Sponsorships = Sponsorship.GetSponsorshipAllBySponsorID(x);
+                        x.AvailableSponsorships = AvailableSponsorship.GetAllAvailableSponsorshipBySponsorID(x);
+                    }
                 }
                 rd.Close();
             }
@@ -227,6 +246,8 @@ namespace MainWPF
                     x.Email = rd["Email"].ToString();
                     x.Address = rd["Address"].ToString();
                     x.MainSponsorship = rd["MainSponsorship"].ToString();
+                    x.MediatorName = rd["MediatorName"].ToString();
+                    x.MediatorMobile = rd["MediatorMobile"].ToString();
                     x.Notes = rd["Notes"].ToString();
                     x.Status = rd["Status"].ToString();
                     xx.Add(x);
@@ -251,7 +272,6 @@ namespace MainWPF
         public static DataView GetAllSponsorTable
         { get { return GetAllSponsorTableMethod(); } }
 
-        public Account Account { get; set; }
 
         public static DataView GetAllSponsorTableMethod()
         {

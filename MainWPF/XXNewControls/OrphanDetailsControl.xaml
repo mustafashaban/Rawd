@@ -127,6 +127,9 @@
             <TabItem Header="حساب اليتيم">
                 <MainWPF:AccountControl x:Name="cAccount" DataContext="{Binding Account}"/>
             </TabItem>
+            <TabItem Header="حسابات الايتام">
+                <MainWPF:OrphansAccountsFamilyControl x:Name="cOrphansAccounts"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

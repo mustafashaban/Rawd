@@ -42,11 +42,9 @@
             <TextBlock Grid.Row="4" Text="الكفيل يعوض"/>
             <TextBlock Grid.Row="5" Text="عدد الاشهر الممكن تجاوزها"/>
             <ComboBox x:Name="cmboSponsorshipType" Grid.Column="1" Grid.Row="0" Text="{Binding SponsorshipType, Mode=TwoWay}">
-                <ComboBoxItem Content="كفالة يتيم"/>
-                <ComboBoxItem Content="كفالة يتيم غير طالب"/>
-                <ComboBoxItem Content="كفالة يتيم طالب"/>
-                <ComboBoxItem Content="كفالة طالب علم"/>
-                <ComboBoxItem Content="كفالة غير محددة"/>
+                <ComboBoxItem Content="يتيم"/>
+                <ComboBoxItem Content="يتيم طالب علم"/>
+                <ComboBoxItem Content="طالب علم"/>
             </ComboBox>
             <local:NumericUpDown Value="{Binding NOB, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" Minimum="1" Maximum="1000000" />
             <local:NumericUpDown IsEnabled="{Binding ElementName=radClearSponsor, Path=IsChecked}" Value="{Binding Duration, Mode=TwoWay, ValidatesOnDataErrors=True}"  Grid.Column="1" Grid.Row="2" Minimum="1" Maximum="48"/>

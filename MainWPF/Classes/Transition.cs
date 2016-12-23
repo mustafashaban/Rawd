@@ -37,6 +37,8 @@ namespace MainWPF
             { leftaccount = value; }
         }
 
+        public string RelateAccountName { get { return MainAccount.Id.Value == LeftAccount.Id.Value ? RightAccount.Name : LeftAccount.Name; } }
+
         private double? value;
         public double? Value
         {
@@ -47,11 +49,31 @@ namespace MainWPF
         }
         public double? LeftValue
         {
-            get { return MainAccount.Id.Value == LeftValue.Value && MainAccount.Type == 0 ? value : null;  }
+            get
+            {
+                if (MainAccount.IsDebit)
+                {
+                    if (MainAccount.Id.Value == RightAccount.Id.Value)
+                        return null;
+                }
+                else if (MainAccount.Id.Value != LeftAccount.Id.Value)
+                        return null;
+                return value;
+            }
         }
         public double? Rightvalue
         {
-            get { return MainAccount.Id.Value == LeftValue.Value && MainAccount.Type > 0 ? value : null; }
+            get
+            {
+                if (!MainAccount.IsDebit)
+                {
+                    if (MainAccount.Id.Value != RightAccount.Id.Value)
+                        return null;
+                }
+                else if (MainAccount.Id.Value == LeftAccount.Id.Value)
+                        return null;
+                return value;
+            }
         }
 
         private DateTime? createdate;
@@ -80,7 +102,7 @@ namespace MainWPF
             set
             { lastuserid = value; }
         }
-
+        public Sponsorship RelatedSponsorship { get; set; }
         private int? sponsorshipid;
         public int? SponsorshipID
         {
@@ -88,6 +110,37 @@ namespace MainWPF
             { return sponsorshipid; }
             set
             { sponsorshipid = value; }
+        }
+
+        private int? invoiceID;
+        public int? InvoiceID
+        {
+            get
+            {
+                if (invoiceID.HasValue) return invoiceID;
+                return TransitionInvoice == null ? null : TransitionInvoice.ID;
+            }
+            set
+            { invoiceID = value; }
+        }
+        public Invoice TransitionInvoice { get; set; }
+
+
+        private bool isHidden;
+        public bool IsHidden
+        {
+            get
+            { return isHidden; }
+            set
+            { isHidden = value; }
+        }
+        private Account.AccountType accountType;
+        public Account.AccountType AccountType
+        {
+            get
+            { return accountType; }
+            set
+            { accountType = value; }
         }
         public static bool InsertData(Transition x)
         {
@@ -98,7 +151,10 @@ namespace MainWPF
             , new SqlParameter("@Value", x.Value)
             , new SqlParameter("@CreateDate", x.CreateDate)
             , new SqlParameter("@Details", x.Details)
-            , new SqlParameter("@LastUserID", x.LastUserID)
+            , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
+            , new SqlParameter("@IsHidden", x.IsHidden)
+            , new SqlParameter("@AccountType", (int)x.AccountType)
+            , new SqlParameter("@InvoiceID", x.InvoiceID)
             , new SqlParameter("@SponsorshipID", x.SponsorshipID));
             return x.Id.HasValue;
         }
@@ -111,7 +167,9 @@ namespace MainWPF
             , new SqlParameter("@Value", x.Value)
             , new SqlParameter("@CreateDate", x.CreateDate)
             , new SqlParameter("@Details", x.Details)
-            , new SqlParameter("@LastUserID", x.LastUserID)
+            , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
+            , new SqlParameter("@IsHidden", x.IsHidden)
+            , new SqlParameter("@InvoiceID", x.InvoiceID)
             , new SqlParameter("@SponsorshipID", x.SponsorshipID));
         }
         public static bool DeleteData(Transition x)
@@ -148,6 +206,9 @@ namespace MainWPF
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     if (!(rd["SponsorshipID"] is DBNull))
                         x.SponsorshipID = int.Parse(rd["SponsorshipID"].ToString());
+                    if (!(rd["InvoiceID"] is DBNull))
+                        x.InvoiceID = int.Parse(rd["InvoiceID"].ToString());
+                    x.IsHidden = (bool)rd["IsHidden"];
                 }
                 rd.Close();
             }
@@ -190,6 +251,9 @@ namespace MainWPF
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     if (!(rd["SponsorshipID"] is DBNull))
                         x.SponsorshipID = int.Parse(rd["SponsorshipID"].ToString());
+                    if (!(rd["InvoiceID"] is DBNull))
+                        x.InvoiceID = int.Parse(rd["InvoiceID"].ToString());
+                    x.IsHidden = (bool)rd["IsHidden"];
                     xx.Add(x);
                 }
                 rd.Close();
@@ -235,6 +299,58 @@ namespace MainWPF
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     if (!(rd["SponsorshipID"] is DBNull))
                         x.SponsorshipID = int.Parse(rd["SponsorshipID"].ToString());
+                    if (!(rd["InvoiceID"] is DBNull))
+                        x.InvoiceID = int.Parse(rd["InvoiceID"].ToString());
+                    x.IsHidden = (bool)rd["IsHidden"];
+
+                    xx.Add(x);
+                }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return xx;
+        }
+        public static List<Transition> GetAllTransitionByInvoice(Invoice i)
+        {
+            List<Transition> xx = new List<Transition>();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_InvoiceID_Transition", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@InvoiceID", i.ID));
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                while (rd.Read())
+                {
+                    Transition x = new Transition();
+                    x.TransitionInvoice = i;
+                    x.InvoiceID = i.ID;
+
+                    if (!(rd["Id"] is DBNull))
+                        x.Id = int.Parse(rd["Id"].ToString());
+                    if (!(rd["RightAccount"] is DBNull))
+                        x.RightAccount = Account.GetAccountByID(int.Parse(rd["RightAccount"].ToString()));
+                    if (!(rd["LeftAccount"] is DBNull))
+                        x.LeftAccount = Account.GetAccountByID(int.Parse(rd["LeftAccount"].ToString()));
+                    x.MainAccount = x.LeftAccount.Type == Account.AccountType.Orphan || x.LeftAccount.Type == Account.AccountType.OrphanStudent ? x.LeftAccount : x.RightAccount;
+                    if (!(rd["Value"] is DBNull))
+                        x.Value = double.Parse(rd["Value"].ToString());
+                    if (!(rd["CreateDate"] is DBNull))
+                        x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
+                    x.Details = rd["Details"].ToString();
+                    if (!(rd["LastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    if (!(rd["SponsorshipID"] is DBNull))
+                        x.SponsorshipID = int.Parse(rd["SponsorshipID"].ToString());
+                    x.IsHidden = (bool)rd["IsHidden"];
 
                     xx.Add(x);
                 }
@@ -251,5 +367,35 @@ namespace MainWPF
             return xx;
         }
 
+        internal bool IsValidate()
+        {
+            bool isValid = true;
+            this.ClearAllErrors();
+            if (RightAccount == null || LeftAccount == null)
+            {
+                isValid = false;
+                this.SetError("RightAccount", "يجب اختيار الحساب");
+            }
+            if (!Value.HasValue)
+            {
+                isValid = false;
+                this.SetError("Value", "يجب إدخال المبلغ");
+            }
+            if (string.IsNullOrEmpty(Details))
+            {
+                isValid = false;
+                this.SetError("Description", "يجب إدخال البيان");
+            }
+            if (!isValid)
+            {
+                string s = "";
+                foreach (var item in errors)
+                {
+                    s += item.Value + "\n";
+                }
+                MyMessageBox.Show(s);
+            }
+            return isValid;
+        }
     }
 }
