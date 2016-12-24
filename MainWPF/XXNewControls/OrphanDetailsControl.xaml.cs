@@ -68,13 +68,16 @@ namespace MainWPF
             cOrders.FamilyID = f.FamilyID;
             cOrphanFamily.txtFamilyCode.IsReadOnly = true;
             if (o.OrphanID.HasValue)
+            {
                 o.Account = Account.GetAccountByOwnerID(Account.AccountType.Orphan, o.OrphanID.Value);
-
+                cAccount.Account = o.Account;
+            }
             //var gs = Guardian
 
             if (!o.OrphanID.HasValue)
                 cOrphansAccounts.lvInvoices.ItemsSource = Invoice.GetAllInvoiceByFamilyID(o.OrphanFamily.FamilyID.Value);
             cOrphansAccounts.FamilyID = o.OrphanFamily.FamilyID.Value;
+
             f.FamilyOrphans = await Orphan.GetAllOrphanByFamily(f, o, true);
             cOrphanFamily.Orphans = f.FamilyOrphans;
         }

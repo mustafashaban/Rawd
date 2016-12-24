@@ -52,6 +52,7 @@ namespace MainWPF
                     tt.Value = i.Transitions[0].Value;
                     tt.AccountType = Account.AccountType.Student;
                     Transition.InsertData(tt);
+                    PrintTicket.printInvoiceA6(i, 2);
                     MyMessage.InsertMessage();
                     DialogResult = true;
                 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainWPF"
         mc:Ignorable="d" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen"
-        Title="Transition_SponsorWindow" Height="400" Width="600">
+        Title="Transition_SponsorWindow" Height="425" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -24,6 +24,7 @@
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
@@ -31,16 +32,18 @@
                 <ColumnDefinition Width="190"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="تسليم من حساب"/>
-            <TextBlock Grid.Row="1" Text="المبلغ"/>
-            <TextBlock Grid.Row="2" Text="الكفيل"/>
-            <TextBlock Grid.Row="3" Text="البيان"/>
-            <TextBlock Grid.Row="4" Text="المستلم"/>
-            <TextBox Text="صندوق طالب العلم" IsReadOnly="True" Grid.Row="0" Grid.Column="1"/>
-            <local:NumericUpDown IsEnabled="False" Value="{Binding Transitions[0].Value, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" Width="200" Minimum="1" Maximum="1000000"/>
-            <TextBox x:Name="txtSponsor" IsReadOnly="True" Grid.Row="2" Grid.Column="1"/>
-            <TextBox MaxLength="1000" Margin="8,2" Text="{Binding Transitions[0].Details, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" Height="Auto"/>
-            <TextBox Text="{Binding Receiver, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="4"/>
+            <TextBlock Grid.Row="0" Text="رقم الايصال"/>
+            <TextBlock Grid.Row="1" Text="تسليم من حساب"/>
+            <TextBlock Grid.Row="2" Text="المبلغ"/>
+            <TextBlock Grid.Row="3" Text="الكفيل"/>
+            <TextBlock Grid.Row="4" Text="البيان"/>
+            <TextBlock Grid.Row="5" Text="المستلم"/>
+            <TextBox Text="{Binding Serial, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial" Grid.Column="1" Grid.Row="0"/>
+            <TextBox Text="صندوق طالب العلم" IsReadOnly="True" Grid.Row="1" Grid.Column="1"/>
+            <local:NumericUpDown IsEnabled="False" Value="{Binding Transitions[0].Value, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="2" Width="200" Minimum="1" Maximum="1000000"/>
+            <TextBox x:Name="txtSponsor" IsReadOnly="True" Grid.Row="3" Grid.Column="1"/>
+            <TextBox MaxLength="1000" Margin="8,2" Text="{Binding Transitions[0].Details, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" Height="Auto"/>
+            <TextBox Text="{Binding Receiver, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="5"/>
         </Grid>
         <StackPanel Grid.Row="6" HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Button Width="120" Content="الغاء" IsCancel="True"/>

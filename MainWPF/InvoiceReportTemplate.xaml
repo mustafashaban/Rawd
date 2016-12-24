@@ -1,0 +1,120 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainWPF"
+             mc:Ignorable="d"
+             Height="10.5cm" Width="15cm">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid FlowDirection="RightToLeft" VerticalAlignment="Center" Margin="30,30,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="img" Grid.ColumnSpan="2" Grid.RowSpan="4" Height="7cm" Opacity="0.5"/>
+        <TextBlock Text="{Binding Barcode, StringFormat='{}*{0}*'}" FontSize="20" SnapsToDevicePixels="True" FontFamily="{StaticResource BarCodeFont}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="txtHeader" Grid.Column="2" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid x:Name="grdSponsor" Grid.Row="1" Grid.ColumnSpan="2" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" Text="ايصال قبض" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="رقم الايصال" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
+            <TextBlock Text="{Binding Serial}" Grid.Column="1" FontSize="18" Grid.Row="1"/>
+            <TextBlock Text="الكفيل" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="2"/>
+            <TextBlock Text="{Binding SponsorName}" Grid.Column="1" FontSize="18" Grid.Row="2"/>
+            <TextBlock Text="المبلغ" Grid.Row="3" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="{Binding TotalValue}" Grid.Column="1" Grid.Row="3" FontSize="18"/>
+            <TextBlock Text="المستلم" Grid.Row="4" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Receiver}" Grid.Column="1" Grid.Row="4" FontSize="18"/>
+            <TextBlock Text="البيان" Grid.Row="5" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Description}" Grid.Column="1" Grid.Row="5" TextWrapping="WrapWithOverflow" FontSize="18"/>
+        </Grid>
+        <Grid x:Name="grdOrphan" Grid.Row="1" Grid.ColumnSpan="2" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" Text="ايصال دفع" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="رقم الايصال" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="1"/>
+            <TextBlock Text="{Binding Serial}" Grid.Column="1" FontSize="18" Grid.Row="1"/>
+            <Border Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="1">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="الاسم" Grid.Column="0" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="التصنيف" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="الكفيل" Grid.Column="2" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="المبلغ" Grid.Column="3" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                    </Grid>
+                    <ItemsControl x:Name="icOrphans">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="80"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding OrphanName}" FontSize="18" FontFamily="Arial" Grid.Column="0" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Type}" FontSize="18" FontFamily="Arial" Grid.Column="1" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding SponsorName}" FontSize="18" FontFamily="Arial" Grid.Column="2" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Value}" FontSize="18" FontFamily="Arial" Grid.Column="3" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="المبلغ الاجمالي" Grid.Row="3" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="{Binding TotalValue}" Grid.Column="1" Grid.Row="3" FontSize="18"/>
+            <TextBlock Text="المستلم" Grid.Row="4" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Receiver}" Grid.Column="1" Grid.Row="4" FontSize="18"/>
+            <TextBlock Text="البيان" Grid.Row="5" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Description}" Grid.Column="1" Grid.Row="5" TextWrapping="WrapWithOverflow" FontSize="18"/>
+        </Grid>
+
+        <Grid Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,5,0,0">
+            <TextBlock HorizontalAlignment="Left" Margin="25,0,0,0" FontSize="15" FontWeight="Bold" FlowDirection="LeftToRight" Text="{Binding CreateDate, StringFormat='dd/MM/yyyy hh:mm'}"/>
+            <TextBlock HorizontalAlignment="Right" Margin="50,0,50,0" Text="{Binding UserName}"/>
+        </Grid>
+    </Grid>
+</UserControl>
+

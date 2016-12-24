@@ -67,6 +67,7 @@ namespace MainWPF
                             return;
                         }
                     }
+                    PrintTicket.printInvoiceA6(i, 2);
                     MyMessage.InsertMessage();
                     DialogResult = true;
                 }

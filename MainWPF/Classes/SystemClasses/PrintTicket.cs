@@ -401,6 +401,77 @@ namespace MainWPF
                 MyMessageBox.Show(ex.Message);
             }
         }
+
+        internal static void printInvoiceA6(Invoice i, int Type)
+        {
+            try
+            {
+                var uc = LoadTemplate(Path.Combine(Environment.CurrentDirectory, "InvoiceReportTemplate.xaml")) as UserControl;
+                (uc.FindName("txtHeader") as TextBlock).Text = Properties.Settings.Default.VoucherHeaderText;
+                var img = uc.FindName("img") as Image;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(Properties.Settings.Default.AssociationLogoPath, UriKind.RelativeOrAbsolute);
+                bitmap.EndInit();
+                img.Source = bitmap;
+
+                if (Type == 1)
+                {
+                    uc.DataContext = BaseDataBase._Tabling($@"select Description, Barcode, TotalValue, Serial, Receiver, dbo.GetUserByID(LastUserID) UserName, CreateDate, (select Name from Account where ID = {i.Transitions[0].LeftAccount.Id.Value}) SponsorName
+                                         from Invoice where Id = {i.ID.Value}");
+
+                    (uc.FindName("grdSponsor") as Grid).Visibility = Visibility.Visible;
+                }
+                else if (Type == 2)
+                {
+                    uc.DataContext = BaseDataBase._Tabling($@"select Description, Barcode, TotalValue, Serial, Receiver, dbo.GetUserByID(LastUserID) UserName, CreateDate from Invoice where Id = {i.ID.Value}");
+                    (uc.FindName("icOrphans") as ItemsControl).ItemsSource = BaseDataBase._Tabling($@"select FirstName + ' ' + ISNULL(LastName,'') OrphanName, orphan.Type, Value, Sponsor.Name SponsorName from orphan
+                                            inner join Account on Account.Type >= 2 and OwnerID = OrphanID
+                                            inner join Transition on InvoiceID = {i.ID.Value} and Account.Id = RightAccount
+                                            inner join (select * from Sponsorship where ID in (select Max(ID) from Sponsorship group by OrphanID)) Sponsorship on Sponsorship.OrphanID = Orphan.OrphanID
+                                            inner join AvailableSponsorship on AvailableSponsorship.Id = Sponsorship.AvailableSponsorshipID
+                                            inner join Sponsor on AvailableSponsorship.SponsorID = Sponsor.SponsorID").DefaultView;
+
+                    (uc.FindName("grdOrphan") as Grid).Visibility = Visibility.Visible;
+                }
+
+                // Create the print dialog object and set options
+                PrintDialog pDialog = new PrintDialog();
+                pDialog.PageRangeSelection = PageRangeSelection.AllPages;
+                pDialog.UserPageRangeEnabled = true;
+                pDialog.PrintQueue = System.Printing.LocalPrintServer.GetDefaultPrintQueue();
+                pDialog.PrintTicket = pDialog.PrintQueue.DefaultPrintTicket;
+                pDialog.PrintTicket.PageScalingFactor = 1;
+
+                System.Printing.PrintCapabilities capabilities = null;
+                try
+                {
+                    capabilities = pDialog.PrintQueue.GetPrintCapabilities(pDialog.PrintTicket);
+                }
+                catch
+                {
+                    capabilities = null;
+                }
+                Viewbox vb = new Viewbox();
+                vb.Child = uc;
+
+                System.Windows.Size sz = new Size(520, 380);
+                vb.MinWidth = 1;
+                vb.MinHeight = 1;
+                vb.Measure(sz);
+                vb.Arrange(new System.Windows.Rect(new System.Windows.Point(capabilities.PageImageableArea.OriginWidth, capabilities.PageImageableArea.OriginHeight), sz));
+
+                double scale = 1;
+                vb.LayoutTransform = new ScaleTransform(scale, scale);
+
+                pDialog.PrintVisual(vb, "MyViewBox");
+            }
+            catch (Exception ex)
+            {
+                MyMessageBox.Show(ex.Message);
+            }
+        }
+
         public static object LoadTemplate(string templatePath)
         {
             object template;

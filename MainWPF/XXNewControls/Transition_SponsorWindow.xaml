@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainWPF"
         mc:Ignorable="d" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen"
-        Title="Transition_SponsorWindow" Height="360" Width="600">
+        Title="Transition_SponsorWindow" Height="385" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -23,6 +23,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
@@ -30,14 +31,17 @@
                 <ColumnDefinition Width="190"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="ايداع في حساب"/>
-            <TextBlock Grid.Row="1" Text="المبلغ"/>
-            <TextBlock Grid.Row="2" Text="البيان"/>
-            <TextBlock Grid.Row="3" Text="المستلم"/>
-            <ComboBox x:Name="cmboAccounts" SelectionChanged="cmboAccounts_SelectionChanged" SelectedValuePath="Id" DisplayMemberPath="Name" Grid.Row="0" Grid.Column="1"/>
-            <local:NumericUpDown Value="{Binding Transitions[0].Value, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" Width="200" Minimum="1" Maximum="1000000"/>
-            <TextBox MaxLength="1000" Margin="8,2" Text="{Binding Transitions[0].Details, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" Height="Auto"/>
-            <TextBox Text="{Binding Receiver, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3"/>
+            <TextBlock Grid.Row="0" Text="رقم الايصال"/>
+            <TextBlock Grid.Row="1" Text="ايداع في حساب"/>
+            <TextBlock Grid.Row="2" Text="المبلغ"/>
+            <TextBlock Grid.Row="3" Text="البيان"/>
+            <TextBlock Grid.Row="4" Text="المستلم"/>
+
+            <TextBox Text="{Binding Serial, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial" Grid.Column="1" Grid.Row="0"/>
+            <ComboBox x:Name="cmboAccounts" SelectionChanged="cmboAccounts_SelectionChanged" SelectedValuePath="Id" DisplayMemberPath="Name" Grid.Row="1" Grid.Column="1"/>
+            <local:NumericUpDown Value="{Binding Transitions[0].Value, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="2" Width="200" Minimum="1" Maximum="1000000"/>
+            <TextBox MaxLength="1000" Margin="8,2" Text="{Binding Transitions[0].Details, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" Height="Auto"/>
+            <TextBox Text="{Binding Receiver, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="4"/>
         </Grid>
         <StackPanel HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal">
             <TextBlock FontSize="12" Text="الرصيد الحالي في هذا الحساب: "/>

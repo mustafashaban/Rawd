@@ -82,6 +82,16 @@ namespace MainWPF
             { description = value; }
         }
 
+        private string serial;
+        public string Serial
+        {
+            get
+            { return serial; }
+            set
+            { serial = value; }
+        }
+        
+
         List<Transition> transitions;
         public List<Transition> Transitions
         {
@@ -97,6 +107,7 @@ namespace MainWPF
             , new SqlParameter("@Receiver", x.Receiver)
             , new SqlParameter("@TotalValue", x.TotalValue)
             , new SqlParameter("@Barcode", x.Barcode)
+            , new SqlParameter("@Serial", x.Serial)
             , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
             , new SqlParameter("@Description", x.Description));
             return x.ID.HasValue;
@@ -112,8 +123,6 @@ namespace MainWPF
             , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
             , new SqlParameter("@Description", x.Description));
         }
-
-
 
         public static bool DeleteData(Invoice x)
         {
@@ -142,6 +151,7 @@ namespace MainWPF
                     if (!(rd["TotalValue"] is DBNull))
                         x.TotalValue = double.Parse(rd["TotalValue"].ToString());
                     x.Barcode = rd["Barcode"].ToString();
+                    x.Serial = rd["Serial"].ToString();
                     if (!(rd["LastUserID"] is DBNull))
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     x.Description = rd["Description"].ToString();
@@ -180,6 +190,7 @@ namespace MainWPF
                     if (!(rd["TotalValue"] is DBNull))
                         x.TotalValue = double.Parse(rd["TotalValue"].ToString());
                     x.Barcode = rd["Barcode"].ToString();
+                    x.Serial = rd["Serial"].ToString();
                     if (!(rd["LastUserID"] is DBNull))
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     x.Description = rd["Description"].ToString();
@@ -221,6 +232,7 @@ namespace MainWPF
                     if (!(rd["TotalValue"] is DBNull))
                         x.TotalValue = double.Parse(rd["TotalValue"].ToString());
                     x.Barcode = rd["Barcode"].ToString();
+                    x.Serial = rd["Serial"].ToString();
                     if (!(rd["LastUserID"] is DBNull))
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     x.Description = rd["Description"].ToString();
@@ -254,6 +266,11 @@ namespace MainWPF
             {
                 isValid = false;
                 this.SetError("Description", "يجب إدخال البيان");
+            }
+            if (string.IsNullOrEmpty(Serial))
+            {
+                isValid = false;
+                this.SetError("Serial", "يجب إدخال رقم الايصال");
             }
             foreach (var item in Transitions)
             {

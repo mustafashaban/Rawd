@@ -149,23 +149,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Invoice.cs" />
-    <Compile Include="OrphansAccountsFamilyControl.xaml.cs">
+    <Compile Include="Classes\Invoice.cs" />
+    <Compile Include="XXNewControls\OrphansAccountsFamilyControl.xaml.cs">
       <DependentUpon>OrphansAccountsFamilyControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StudentDetailsControl.xaml.cs">
+    <Compile Include="XXNewControls\StudentDetailsControl.xaml.cs">
       <DependentUpon>StudentDetailsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StudentMainControl.xaml.cs">
+    <Compile Include="XXNewControls\StudentMainControl.xaml.cs">
       <DependentUpon>StudentMainControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Transition_OrphanFamilyWindow.xaml.cs">
+    <Compile Include="XXNewControls\Transition_OrphanFamilyWindow.xaml.cs">
       <DependentUpon>Transition_OrphanFamilyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Transition_SponsorWindow.xaml.cs">
+    <Compile Include="XXNewControls\Transition_SponsorWindow.xaml.cs">
       <DependentUpon>Transition_SponsorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Transition_StudentWindow.xaml.cs">
+    <Compile Include="XXNewControls\Transition_StudentWindow.xaml.cs">
       <DependentUpon>Transition_StudentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="XXNewControls\AccountControl.xaml.cs">
@@ -622,27 +622,32 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Page Include="OrphansAccountsFamilyControl.xaml">
+    <Content Include="InvoiceReportTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="XXNewControls\OrphansAccountsFamilyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StudentDetailsControl.xaml">
+    <Page Include="XXNewControls\StudentDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StudentMainControl.xaml">
+    <Page Include="XXNewControls\StudentMainControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Transition_OrphanFamilyWindow.xaml">
+    <Page Include="XXNewControls\Transition_OrphanFamilyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Transition_SponsorWindow.xaml">
+    <Page Include="XXNewControls\Transition_SponsorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Transition_StudentWindow.xaml">
+    <Page Include="XXNewControls\Transition_StudentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -109,7 +109,13 @@ namespace MainWPF
                     return;
                 }
                 Transition_SponsorWindow w = new Transition_SponsorWindow(s, Transition_SponsorWindow.FundType.Private);
-                if (w.ShowDialog() == true) ;//refresh
+                if (w.ShowDialog() == true)
+                {
+                    s.Account.Transitions = Transition.GetAllTransitionByAccount(s.Account);
+                    s.Account.NotifyPropertyChanged("Transitions");
+                    cAccount.dgTransitions.Items.Refresh();
+                    cAccount.RefreshValues();
+                }
             }
         }
 

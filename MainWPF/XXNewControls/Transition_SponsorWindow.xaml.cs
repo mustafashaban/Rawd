@@ -57,6 +57,7 @@ namespace MainWPF
             {
                 if (Invoice.InsertData(i) && Transition.InsertData(i.Transitions[0]))
                 {
+                    PrintTicket.printInvoiceA6(i, 1);
                     MyMessage.InsertMessage();
                     DialogResult = true;
                 }

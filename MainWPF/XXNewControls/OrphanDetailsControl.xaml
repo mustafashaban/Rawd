@@ -125,7 +125,7 @@
                 <MainWPF:FamilyOrderContainer x:Name="cOrders"></MainWPF:FamilyOrderContainer>
             </TabItem>
             <TabItem Header="حساب اليتيم">
-                <MainWPF:AccountControl x:Name="cAccount" DataContext="{Binding Account}"/>
+                <MainWPF:AccountControl x:Name="cAccount"/>
             </TabItem>
             <TabItem Header="حسابات الايتام">
                 <MainWPF:OrphansAccountsFamilyControl x:Name="cOrphansAccounts"/>

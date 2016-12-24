@@ -67,8 +67,10 @@ namespace MainWPF
             cOrphanFamily.txtFamilyCode.IsReadOnly = true;
 
             if (o.OrphanID.HasValue)
+            {
                 o.Account = Account.GetAccountByOwnerID(Account.AccountType.Student, o.OrphanID.Value);
-
+                cAccount.Account = o.Account;
+            }
             //var gs = Guardian
 
             cOrphanFamily.Orphans = await Orphan.GetAllOrphanByFamily(f, o);

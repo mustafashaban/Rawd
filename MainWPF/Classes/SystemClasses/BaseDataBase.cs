@@ -15,8 +15,8 @@ namespace MainWPF
         {
             get
             {
-               //return Properties.Settings.Default.ConnectionString + ";Initial Catalog=Ma3an";
-               return @"Data Source=.\SQLEXPRESS;Integrated Security=True" + ";Initial Catalog=Ma3an";
+               return Properties.Settings.Default.ConnectionString + ";Initial Catalog=Ma3an";
+               //return @"Data Source=.\SQLEXPRESS;Integrated Security=True" + ";Initial Catalog=Ma3an";
             }
         }
         public static string ConnectionStringMaster

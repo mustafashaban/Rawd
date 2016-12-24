@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainWPF"
         mc:Ignorable="d" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen"
-        Height="620" Width="700">
+        Height="615" Width="700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -30,10 +30,12 @@
                 <ColumnDefinition Width="120"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Text="رقم الايصال"/>
             <TextBlock Grid.Row="2" Text="البيان"/>
             <TextBlock Grid.Row="3" Text="المستلم"/>
 
-            <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Margin="8,3" ItemsSource="{Binding Transitions}">
+            <TextBox Text="{Binding Serial, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial" Grid.Column="1" Grid.Row="0"/>
+            <DataGrid Grid.ColumnSpan="2" Margin="8,3" ItemsSource="{Binding Transitions}" Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="اسم اليتيم" Binding="{Binding RelatedSponsorship.OrphanName}"/>
                     <DataGridTextColumn Header="الكفيل" Binding="{Binding RelatedSponsorship.AvailableSponsorship.RelatedSponsor.Name}"/>
