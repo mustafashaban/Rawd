@@ -14,9 +14,9 @@ using System.Windows.Shapes;
 
 namespace MainWPF
 {
+    public enum FundType { General, GeneralHidden, Private };
     public partial class Transition_SponsorWindow : Window
     {
-        public enum FundType { General, GeneralHidden, Private };
         public Transition_SponsorWindow(Sponsor s, FundType ft)
         {
             InitializeComponent();

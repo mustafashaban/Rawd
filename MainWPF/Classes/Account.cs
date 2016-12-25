@@ -10,9 +10,9 @@ namespace MainWPF
 {
     public class Account : ModelViewContext
     {
-        public enum AccountType { Fund = 0, Sponsor, Orphan, OrphanStudent, Student };
+        public enum AccountType { Expenses = -1, Fund = 0, Sponsor, Orphan, OrphanStudent, Student };
         public static Dictionary<int, string> accountTypes = new Dictionary<int, string>()
-        { { 0, "صندوق" },{ 1, "كفيل" },{ 2, "يتيم غير طالب" },{ 3, "يتيم طالب" },{ 4, "طالب علم" } };
+        { { -1, "نفقات" },{ 0, "صندوق" },{ 1, "كفيل" },{ 2, "يتيم غير طالب" },{ 3, "يتيم طالب" },{ 4, "طالب علم" } };
 
         private int? id;
         public int? Id

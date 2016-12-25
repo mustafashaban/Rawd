@@ -108,7 +108,7 @@ namespace MainWPF
                     MyMessageBox.Show("الكفيل الحالي ليس لديه اي كفالات مدخلة\nيجب ادخال كفالات أولاً");
                     return;
                 }
-                Transition_SponsorWindow w = new Transition_SponsorWindow(s, Transition_SponsorWindow.FundType.Private);
+                Transition_SponsorWindow w = new Transition_SponsorWindow(s, FundType.Private);
                 if (w.ShowDialog() == true)
                 {
                     s.Account.Transitions = Transition.GetAllTransitionByAccount(s.Account);
@@ -126,12 +126,12 @@ namespace MainWPF
             {
                 if (Keyboard.IsKeyDown(Key.LeftShift) && Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftAlt))
                 {
-                    Transition_SponsorWindow w = new Transition_SponsorWindow(s, Transition_SponsorWindow.FundType.GeneralHidden);
+                    Transition_SponsorWindow w = new Transition_SponsorWindow(s, FundType.GeneralHidden);
                     if (w.ShowDialog() == true) ;//No Refresh
                 }
                 else
                 {
-                    Transition_SponsorWindow w = new Transition_SponsorWindow(s, Transition_SponsorWindow.FundType.General);
+                    Transition_SponsorWindow w = new Transition_SponsorWindow(s, FundType.General);
                     if (w.ShowDialog() == true)
                     {
                         s.Account = Account.GetAccountByOwnerID(Account.AccountType.Sponsor, s.SponsorID.Value);

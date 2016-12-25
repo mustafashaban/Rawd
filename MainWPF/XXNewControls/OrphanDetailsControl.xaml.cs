@@ -176,33 +176,33 @@ namespace MainWPF
                     DBMain.DeleteData(f.FamilyMother);
                 }
 
-                //if (!(string.IsNullOrEmpty(f.OrphanNursemaid?.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid?.LastName)))
-                //{
-                //    if (f.OrphanNursemaid?.GuardianID!=null)
-                //        Guardian.UpdateData(f.OrphanNursemaid);
-                //    else
-                //    {
-                //        Guardian.InsertData(f.OrphanNursemaid);
-                //    }
-                //}
-                //else if (f.OrphanNursemaid?.GuardianID !=null)
-                //{
-                //    Guardian.DeleteData(f.OrphanNursemaid);
-                //}
+                if (!(string.IsNullOrEmpty(f.OrphanNursemaid?.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid?.LastName)))
+                {
+                    if (f.OrphanNursemaid?.GuardianID != null)
+                        Guardian.UpdateData(f.OrphanNursemaid);
+                    else
+                    {
+                        Guardian.InsertData(f.OrphanNursemaid);
+                    }
+                }
+                else if (f.OrphanNursemaid?.GuardianID != null)
+                {
+                    Guardian.DeleteData(f.OrphanNursemaid);
+                }
 
-                //if (!(string.IsNullOrEmpty(f.OrphanGuardian?.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian?.LastName)))
-                //{
-                //    if (f.OrphanGuardian?.GuardianID != null)
-                //        Guardian.UpdateData(f.OrphanGuardian);
-                //    else
-                //    {
-                //        Guardian.InsertData(f.OrphanGuardian);
-                //    }
-                //}
-                //else if (f.OrphanGuardian?.GuardianID!= null)
-                //{
-                //    Guardian.DeleteData(f.OrphanGuardian);
-                //}
+                if (!(string.IsNullOrEmpty(f.OrphanGuardian?.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian?.LastName)))
+                {
+                    if (f.OrphanGuardian?.GuardianID != null)
+                        Guardian.UpdateData(f.OrphanGuardian);
+                    else
+                    {
+                        Guardian.InsertData(f.OrphanGuardian);
+                    }
+                }
+                else if (f.OrphanGuardian?.GuardianID != null)
+                {
+                    Guardian.DeleteData(f.OrphanGuardian);
+                }
 
 
                 f.FamilyHouse.FamilyID = f.FamilyID;

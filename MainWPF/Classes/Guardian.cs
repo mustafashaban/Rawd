@@ -9,8 +9,6 @@ namespace MainWPF
 {
     public class Guardian : Person
     {
-
-
         private int? guardianid;
         public int? GuardianID
         {
@@ -20,7 +18,14 @@ namespace MainWPF
             { guardianid = value; }
         }
 
-
+        private string name;
+        public string Name
+        {
+            get
+            { return name; }
+            set
+            { name = value; }
+        }
 
         private string job;
         public string Job
@@ -31,93 +36,6 @@ namespace MainWPF
             { job = value; }
         }
 
-
-
-        private double? slary;
-        public double? Slary
-        {
-            get
-            { return slary; }
-            set
-            { slary = value; }
-        }
-
-
-
-        private string salarycurrency;
-        public string SalaryCurrency
-        {
-            get
-            { return salarycurrency; }
-            set
-            { salarycurrency = value; }
-        }
-
-
-
-
-
-        private string healthsituation;
-        public string HealthSituation
-        {
-            get
-            { return healthsituation; }
-            set
-            { healthsituation = value; }
-        }
-
-
-
-        private string ethicalsituation;
-        public string EthicalSituation
-        {
-            get
-            { return ethicalsituation; }
-            set
-            { ethicalsituation = value; }
-        }
-
-
-
-
-
-        private int? childcount;
-        public int? ChildCount
-        {
-            get
-            { return childcount; }
-            set
-            { childcount = value; }
-        }
-
-
-
-        private string placeaddress;
-        public string PlaceAddress
-        {
-            get
-            { return placeaddress; }
-            set
-            { placeaddress = value; }
-        }
-
-
-        private string identityimage;
-        public string IdentityImage
-        {
-            get
-            { return identityimage; }
-            set
-            {
-                if (identityimage != value)
-                {
-                    identityimage = value;
-                    this.NotifyPropertyChanged("IdentityImage");
-                }
-            }
-        }
-
-
         private string notes;
         public string Notes
         {
@@ -127,129 +45,59 @@ namespace MainWPF
             { notes = value; }
         }
 
-        public static List<Guardian> GetAllGuardianMale
-        { get { return GetGuardianAll("ذكر"); } }
-        public static List<Guardian> GetAllGuardianFeMale
-        { get { return GetGuardianAll("أنثى"); } }
-
-
+        private int? familyid;
+        public int? FamilyID
+        {
+            get
+            { return familyid; }
+            set
+            { familyid = value; }
+        }
         public static bool InsertData(Guardian x)
         {
-            x.GuardianID = BaseDataBase._StoredProcedureReturnable("sp_Add2Guardian"
-                , new SqlParameter("@GuardianID", SqlDbType.Int)
-                , new SqlParameter("@FirstName", x.FirstName)
-                , new SqlParameter("@LastName", x.LastName)
-                , new SqlParameter("@Gender", x.Gender)
-                , new SqlParameter("@BirthPlace", x.BirthPlace)
-                , new SqlParameter("@DOB", x.DOB)
-                , new SqlParameter("@Job", x.Job)
-                , new SqlParameter("@Slary", x.Slary)
-                , new SqlParameter("@SalaryCurrency", x.SalaryCurrency)
-                , new SqlParameter("@Phone", x.Phone)
-                , new SqlParameter("@Mobile", x.Mobile)
-                , new SqlParameter("@Email", x.Email)
-                , new SqlParameter("@HealthSituation", x.HealthSituation)
-                , new SqlParameter("@EthicalSituation", x.EthicalSituation)
-                , new SqlParameter("@MaritalStatus", x.MaritalStatus)
-                , new SqlParameter("@ChildCount", x.ChildCount)
-                , new SqlParameter("@PlaceAddress", x.PlaceAddress)
-                , new SqlParameter("@IdentityImage", x.IdentityImage)
-                , new SqlParameter("@Notes", x.Notes));
-            return x.GuardianID != null;
+            x.GuardianID = BaseDataBase._StoredProcedureReturnable("sp_Add_Guardian"
+            , new SqlParameter("@GuardianID", SqlDbType.Int)
+            , new SqlParameter("@Name", x.Name)
+            , new SqlParameter("@Gender", x.Gender)
+            , new SqlParameter("@DOB", x.DOB)
+            , new SqlParameter("@Job", x.Job)
+            , new SqlParameter("@Phone", x.Phone)
+            , new SqlParameter("@Mobile", x.Mobile)
+            , new SqlParameter("@Email", x.Email)
+            , new SqlParameter("@MaritalStatus", x.MaritalStatus)
+            , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@PID", x.PID)
+            , new SqlParameter("@FamilyID", x.FamilyID));
+            return x.GuardianID.HasValue;
         }
         public static bool UpdateData(Guardian x)
         {
-            return BaseDataBase._StoredProcedure("sp_UpdateGuardian"
-                , new SqlParameter("@GuardianID", x.GuardianID)
-                 , new SqlParameter("@FirstName", x.FirstName)
-                , new SqlParameter("@LastName", x.LastName)
-                , new SqlParameter("@Gender", x.Gender)
-                , new SqlParameter("@BirthPlace", x.BirthPlace)
-                , new SqlParameter("@DOB", x.DOB)
-                , new SqlParameter("@Job", x.Job)
-                , new SqlParameter("@Slary", x.Slary)
-                , new SqlParameter("@SalaryCurrency", x.SalaryCurrency)
-                , new SqlParameter("@Phone", x.Phone)
-                , new SqlParameter("@Mobile", x.Mobile)
-                , new SqlParameter("@Email", x.Email)
-                , new SqlParameter("@HealthSituation", x.HealthSituation)
-                , new SqlParameter("@EthicalSituation", x.EthicalSituation)
-                , new SqlParameter("@MaritalStatus", x.MaritalStatus)
-                , new SqlParameter("@ChildCount", x.ChildCount)
-                , new SqlParameter("@PlaceAddress", x.PlaceAddress)
-                , new SqlParameter("@IdentityImage", x.IdentityImage)
-                , new SqlParameter("@Notes", x.Notes));
+            return BaseDataBase._StoredProcedure("sp_Update_Guardian"
+            , new SqlParameter("@GuardianID", x.GuardianID)
+            , new SqlParameter("@Name", x.Name)
+            , new SqlParameter("@Gender", x.Gender)
+            , new SqlParameter("@DOB", x.DOB)
+            , new SqlParameter("@Job", x.Job)
+            , new SqlParameter("@Phone", x.Phone)
+            , new SqlParameter("@Mobile", x.Mobile)
+            , new SqlParameter("@Email", x.Email)
+            , new SqlParameter("@MaritalStatus", x.MaritalStatus)
+            , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@PID", x.PID)
+            , new SqlParameter("@FamilyID", x.FamilyID));
         }
         public static bool DeleteData(Guardian x)
         {
-            if (BaseDataBase._StoredProcedure("sp_DeleteFromGuardian"
-                , new SqlParameter("@GuardianID", x.GuardianID)))
-            {
-                return true;
-            }
-            return false;
+            return BaseDataBase._StoredProcedure("sp_Delete_Guardian"
+            , new SqlParameter("@GuardianID", x.GuardianID));
         }
-
-
-        public static List<Guardian> GetGuardianAll(string Gender)
-        {
-            List<Guardian> lg = new List<Guardian>();
-            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_GetGuardianAll", con);
-            com.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlParameter pr = new SqlParameter("@Gender", Gender);
-            com.Parameters.Add(pr);
-            try
-            {
-                con.Open();
-                SqlDataReader rd = com.ExecuteReader();
-                while (rd.Read())
-                {
-                    Guardian x = new Guardian();
-                    if (!(rd["GuardianID"] is DBNull))
-                        x.GuardianID = System.Int32.Parse(rd["GuardianID"].ToString());
-                    x.FirstName = rd["FirstName"].ToString();
-                    x.LastName = rd["LastName"].ToString();
-                    x.Gender = rd["Gender"].ToString();
-                    x.BirthPlace = rd["BirthPlace"].ToString();
-                    if (!(rd["DOB"] is DBNull))
-                        x.DOB = System.DateTime.Parse(rd["DOB"].ToString());
-                    x.Job = rd["Job"].ToString();
-                    if (!(rd["Slary"] is DBNull))
-                        x.Slary = System.Single.Parse(rd["Slary"].ToString());
-                    x.SalaryCurrency = rd["SalaryCurrency"].ToString();
-                    x.Phone = rd["Phone"].ToString();
-                    x.Mobile = rd["Mobile"].ToString();
-                    x.Email = rd["Email"].ToString();
-                    x.HealthSituation = rd["HealthSituation"].ToString();
-                    x.EthicalSituation = rd["EthicalSituation"].ToString();
-                    x.MaritalStatus = rd["MaritalStatus"].ToString();
-                    if (!(rd["ChildCount"] is DBNull))
-                        x.ChildCount = System.Int32.Parse(rd["ChildCount"].ToString());
-                    x.PlaceAddress = rd["PlaceAddress"].ToString();
-                    x.IdentityImage = rd["IdentityImage"].ToString();
-                    x.Notes = rd["Notes"].ToString();
-                    lg.Add(x);
-                }
-                rd.Close();
-            }
-            catch
-            {
-                lg = null;
-            }
-            finally
-            {
-                con.Close();
-            }
-            return lg;
-        }
-        public static Guardian GetGuardianByID(int? id)
+        public static Guardian GetGuardianByID(int id)
         {
             Guardian x = new Guardian();
             SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_GetGuardianByID", con);
+            SqlCommand com = new SqlCommand("sp_Get_ID_Guardian", con);
             com.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlParameter pr = new SqlParameter("@GuardianID", id);
+            SqlParameter pr = new SqlParameter("@ID", id);
             com.Parameters.Add(pr);
             try
             {
@@ -258,28 +106,20 @@ namespace MainWPF
                 if (rd.Read())
                 {
                     if (!(rd["GuardianID"] is DBNull))
-                        x.GuardianID = System.Int32.Parse(rd["GuardianID"].ToString());
-                    x.FirstName = rd["FirstName"].ToString();
-                    x.LastName = rd["LastName"].ToString();
+                        x.GuardianID = int.Parse(rd["GuardianID"].ToString());
+                    x.Name = rd["Name"].ToString();
                     x.Gender = rd["Gender"].ToString();
-                    x.BirthPlace = rd["BirthPlace"].ToString();
                     if (!(rd["DOB"] is DBNull))
-                        x.DOB = System.DateTime.Parse(rd["DOB"].ToString());
+                        x.DOB = DateTime.Parse(rd["DOB"].ToString());
                     x.Job = rd["Job"].ToString();
-                    if (!(rd["Slary"] is DBNull))
-                        x.Slary = System.Single.Parse(rd["Slary"].ToString());
-                    x.SalaryCurrency = rd["SalaryCurrency"].ToString();
                     x.Phone = rd["Phone"].ToString();
                     x.Mobile = rd["Mobile"].ToString();
                     x.Email = rd["Email"].ToString();
-                    x.HealthSituation = rd["HealthSituation"].ToString();
-                    x.EthicalSituation = rd["EthicalSituation"].ToString();
                     x.MaritalStatus = rd["MaritalStatus"].ToString();
-                    if (!(rd["ChildCount"] is DBNull))
-                        x.ChildCount = System.Int32.Parse(rd["ChildCount"].ToString());
-                    x.PlaceAddress = rd["PlaceAddress"].ToString();
-                    x.IdentityImage = rd["IdentityImage"].ToString();
                     x.Notes = rd["Notes"].ToString();
+                    x.PID = rd["PID"].ToString();
+                    if (!(rd["FamilyID"] is DBNull))
+                        x.FamilyID = int.Parse(rd["FamilyID"].ToString());
                 }
                 rd.Close();
             }
@@ -292,6 +132,49 @@ namespace MainWPF
                 con.Close();
             }
             return x;
+        }
+        public static List<Guardian> GetAllGuardian()
+        {
+            List<Guardian> xx = new List<Guardian>();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_All_Guardian", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                while (rd.Read())
+                {
+                    Guardian x = new Guardian();
+
+                    if (!(rd["GuardianID"] is DBNull))
+                        x.GuardianID = int.Parse(rd["GuardianID"].ToString());
+                    x.Name = rd["Name"].ToString();
+                    x.Gender = rd["Gender"].ToString();
+                    if (!(rd["DOB"] is DBNull))
+                        x.DOB = DateTime.Parse(rd["DOB"].ToString());
+                    x.Job = rd["Job"].ToString();
+                    x.Phone = rd["Phone"].ToString();
+                    x.Mobile = rd["Mobile"].ToString();
+                    x.Email = rd["Email"].ToString();
+                    x.MaritalStatus = rd["MaritalStatus"].ToString();
+                    x.Notes = rd["Notes"].ToString();
+                    x.PID = rd["PID"].ToString();
+                    if (!(rd["FamilyID"] is DBNull))
+                        x.FamilyID = int.Parse(rd["FamilyID"].ToString());
+                    xx.Add(x);
+                }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return xx;
         }
 
         public static DataView GetAllNursemaidTableMethod()
@@ -314,15 +197,10 @@ namespace MainWPF
         {
             bool isValid = true;
             this.ClearAllErrors();
-            if (string.IsNullOrEmpty(FirstName))
+            if (string.IsNullOrEmpty(Name))
             {
                 isValid = false;
-                this.SetError("FirstName", "يجب إدخال الاسم");
-            }
-            if (string.IsNullOrEmpty(LastName))
-            {
-                isValid = false;
-                this.SetError("LastName", "يجب إدخال الكنية");
+                this.SetError("Name", "يجب إدخال الاسم");
             }
             if (!isValid)
             {

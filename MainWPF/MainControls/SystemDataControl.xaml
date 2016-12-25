@@ -99,12 +99,12 @@
             <TabItem Header="بيانات المشرفين">
                 <Local:SupervisorMainControl></Local:SupervisorMainControl>
             </TabItem>
-            <TabItem Header="بيانات الحاضنات">
+            <!--<TabItem Header="بيانات الحاضنات">
                 <Local:NursemaidMainControl></Local:NursemaidMainControl>
-            </TabItem>
-            <TabItem Header="بيانات الأوصياء">
+            </TabItem>-->
+            <!--<TabItem Header="بيانات الأوصياء">
                 <Local:GuardianMainControl></Local:GuardianMainControl>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="الدورات المقدمّة">
                 <Local:TrainingMainControl></Local:TrainingMainControl>
             </TabItem>

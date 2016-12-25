@@ -150,6 +150,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Invoice.cs" />
+    <Compile Include="Transition_Expenses.xaml.cs">
+      <DependentUpon>Transition_Expenses.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XXNewControls\OrphansAccountsFamilyControl.xaml.cs">
       <DependentUpon>OrphansAccountsFamilyControl.xaml</DependentUpon>
     </Compile>
@@ -430,12 +433,6 @@
     <Compile Include="Converters\SponsorIDConverter.cs" />
     <Compile Include="Converters\SupervisorIDConverter.cs" />
     <Compile Include="Converters\GuardianIDConverter.cs" />
-    <Compile Include="ContainersControls\NursemaidMainControl.xaml.cs">
-      <DependentUpon>NursemaidMainControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ContainersControls\GuardianMainControl.xaml.cs">
-      <DependentUpon>GuardianMainControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\HouseSector.xaml.cs">
       <DependentUpon>HouseSector.xaml</DependentUpon>
     </Compile>
@@ -476,12 +473,6 @@
     <Compile Include="UserControls\OrphanImpedingControl.xaml.cs">
       <DependentUpon>OrphanImpedingControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\NursmaidFamilyControl.xaml.cs">
-      <DependentUpon>NursmaidFamilyControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\GuardianFamilyControl.xaml.cs">
-      <DependentUpon>GuardianFamilyControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ContainersControls\ListerMainControl.xaml.cs">
       <DependentUpon>ListerMainControl.xaml</DependentUpon>
     </Compile>
@@ -513,12 +504,6 @@
     </Compile>
     <Compile Include="ProjectControls\SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\GuardianFeMaleControl.xaml.cs">
-      <DependentUpon>GuardianFeMaleControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\GuardianMaleControl.xaml.cs">
-      <DependentUpon>GuardianMaleControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainControls\AboutProjectControl.xaml.cs">
       <DependentUpon>AboutProjectControl.xaml</DependentUpon>
@@ -565,7 +550,6 @@
     <Compile Include="Classes\FamilyNeed.cs" />
     <Compile Include="Classes\FamilyProperty.cs" />
     <Compile Include="Classes\Guardian.cs" />
-    <Compile Include="Classes\Guardian_Orphan.cs" />
     <Compile Include="Classes\TeachingStage.cs" />
     <Compile Include="Classes\House.cs" />
     <Compile Include="Classes\Lister.cs" />
@@ -584,9 +568,6 @@
     </Compile>
     <Compile Include="UserControls\SupervisorControl.xaml.cs">
       <DependentUpon>SupervisorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\GuardianControl.xaml.cs">
-      <DependentUpon>GuardianControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ListerControl.xaml.cs">
       <DependentUpon>ListerControl.xaml</DependentUpon>
@@ -627,6 +608,10 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="Transition_Expenses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="XXNewControls\OrphansAccountsFamilyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -952,14 +937,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ContainersControls\NursemaidMainControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ContainersControls\GuardianMainControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UserControls\HouseSector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1012,14 +989,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\NursmaidFamilyControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\GuardianFamilyControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ContainersControls\ListerMainControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1065,14 +1034,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProjectControls\SplashWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\GuardianFeMaleControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\GuardianMaleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1143,10 +1104,6 @@
     <Page Include="UserControls\SupervisorControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\GuardianControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ListerControl.xaml">
       <SubType>Designer</SubType>

@@ -157,8 +157,8 @@ namespace MainWPF
                     Control_Changed(null, null);
                     break;
                 case "حاضنات":
-                    dgTemp.ItemsSource = Guardian.GetAllGuardianFeMale;
-                    Control_Changed(null, null);
+                    //dgTemp.ItemsSource = Guardian.GetAllGuardianFeMale;
+                    //Control_Changed(null, null);
                     break;
                 case "مقيّمين":
                     dgTemp.ItemsSource = Lister.GetAllListers;
