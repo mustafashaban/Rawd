@@ -176,20 +176,55 @@ namespace MainWPF
             }
             return xx;
         }
-
-        public static DataView GetAllNursemaidTableMethod()
+        public static List<Guardian> GetAllGuardianByFamily(Family f)
         {
-            return BaseDataBase._TablingStoredProcedure("sp_GetAllNursemaidTable").DefaultView;
-        }
+            List<Guardian> xx = new List<Guardian>();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_FamilyID_Guardian", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@FamilyID", f.FamilyID));
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                while (rd.Read())
+                {
+                    Guardian x = new Guardian();
 
+                    if (!(rd["GuardianID"] is DBNull))
+                        x.GuardianID = int.Parse(rd["GuardianID"].ToString());
+                    x.Name = rd["Name"].ToString();
+                    x.Gender = rd["Gender"].ToString();
+                    if (!(rd["DOB"] is DBNull))
+                        x.DOB = DateTime.Parse(rd["DOB"].ToString());
+                    x.Job = rd["Job"].ToString();
+                    x.Phone = rd["Phone"].ToString();
+                    x.Mobile = rd["Mobile"].ToString();
+                    x.Email = rd["Email"].ToString();
+                    x.MaritalStatus = rd["MaritalStatus"].ToString();
+                    x.Notes = rd["Notes"].ToString();
+                    x.PID = rd["PID"].ToString();
+                    if (!(rd["FamilyID"] is DBNull))
+                        x.FamilyID = int.Parse(rd["FamilyID"].ToString());
 
-        public static DataView GetAllGuardianTable
-        {
-            get { return BaseDataBase._TablingStoredProcedure("sp_GetAllGuardiansTable").DefaultView; }
-        }
-        public static DataView GetAllNursemaidTable
-        {
-            get { return GetAllNursemaidTableMethod(); }
+                    if (x.Gender == "ذكر")
+                        f.OrphanGuardian = x;
+                    else
+                        f.OrphanNursemaid = x;
+
+                    xx.Add(x);
+                }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return xx;
         }
 
 

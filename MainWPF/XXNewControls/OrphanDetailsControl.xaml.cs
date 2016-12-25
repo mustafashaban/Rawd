@@ -72,7 +72,13 @@ namespace MainWPF
                 o.Account = Account.GetAccountByOwnerID(Account.AccountType.Orphan, o.OrphanID.Value);
                 cAccount.Account = o.Account;
             }
-            //var gs = Guardian
+
+            Guardian.GetAllGuardianByFamily(f);
+            if (f.OrphanNursemaid == null)
+                f.OrphanNursemaid = new Guardian() { Gender = "انثى" };
+            if (f.OrphanGuardian == null)
+                f.OrphanGuardian = new Guardian() { Gender = "ذكر" };
+
 
             if (!o.OrphanID.HasValue)
                 cOrphansAccounts.lvInvoices.ItemsSource = Invoice.GetAllInvoiceByFamilyID(o.OrphanFamily.FamilyID.Value);
@@ -143,11 +149,6 @@ namespace MainWPF
                     return;
                 else MyMessage.UpdateMessage();
 
-                //if (tf != null)
-                //{
-                //    tf.FamilyID = f.FamilyID;
-                //    TempFamily.UpadteData(tf);
-                //}
                 if (!(string.IsNullOrEmpty(f.FamilyFather.FirstName) && string.IsNullOrEmpty(f.FamilyFather.LastName)))
                 {
                     if (f.FamilyFather.ParentrID.HasValue)
@@ -176,8 +177,9 @@ namespace MainWPF
                     DBMain.DeleteData(f.FamilyMother);
                 }
 
-                if (!(string.IsNullOrEmpty(f.OrphanNursemaid?.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid?.LastName)))
+                if (!string.IsNullOrEmpty(f.OrphanNursemaid?.Name))
                 {
+                    f.OrphanNursemaid.FamilyID = f.FamilyID;
                     if (f.OrphanNursemaid?.GuardianID != null)
                         Guardian.UpdateData(f.OrphanNursemaid);
                     else
@@ -190,8 +192,9 @@ namespace MainWPF
                     Guardian.DeleteData(f.OrphanNursemaid);
                 }
 
-                if (!(string.IsNullOrEmpty(f.OrphanGuardian?.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian?.LastName)))
+                if (!string.IsNullOrEmpty(f.OrphanGuardian?.Name))
                 {
+                    f.OrphanNursemaid.FamilyID = f.FamilyID;
                     if (f.OrphanGuardian?.GuardianID != null)
                         Guardian.UpdateData(f.OrphanGuardian);
                     else
