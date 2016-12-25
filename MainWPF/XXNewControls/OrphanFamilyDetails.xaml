@@ -751,8 +751,11 @@
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="الاسم"></TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="التولد"></TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="2" Text="رقم الموبايل"></TextBlock>
-                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Center"></TextBlock>
-                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="{Binding FirstName}" Margin="2,0"></TextBlock>
+                                    <TextBlock Text="{Binding FatherName}" Margin="2,0"></TextBlock>
+                                    <TextBlock Text="{Binding LastName}" Margin="2,0"></TextBlock>
+                                </StackPanel>                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Border>
                                         <TextBlock Margin="5,0" FontFamily="Arial" Text="{Binding DOB, StringFormat={}{0:dd-MM-yyyy}, ValidatesOnDataErrors=True}"/>
                                     </Border>
@@ -772,36 +775,40 @@
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="120"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Row="0" Text="الاسم"></TextBlock>
-                                <TextBlock Grid.Row="1" Text="تاريخ الولادة"></TextBlock>
-                                <TextBlock Grid.Row="2" Text="الرقم الوطني"></TextBlock>
-                                <TextBlock Grid.Row="3" Text="رقم الموبايل"></TextBlock>
-                                <TextBlock Grid.Row="4" Text="الوضع الاجتماعي"></TextBlock>
-                                <TextBlock Grid.Row="5" Text="المهنة الحالية"></TextBlock>
-                                <TextBlock Grid.Row="6" Text="البريد الالكتروني"></TextBlock>
-                                <TextBlock Grid.Row="7" Text="ملاحظات"></TextBlock>
+                                <TextBlock Grid.Row="1" Text="الكنية"></TextBlock>
+                                <TextBlock Grid.Row="2" Text="اسم الاب"></TextBlock>
+                                <TextBlock Grid.Row="3" Text="تاريخ الولادة"></TextBlock>
+                                <TextBlock Grid.Row="4" Text="الرقم الوطني"></TextBlock>
+                                <TextBlock Grid.Row="5" Text="رقم الموبايل"></TextBlock>
+                                <TextBlock Grid.Row="6" Text="الوضع الاجتماعي"></TextBlock>
+                                <TextBlock Grid.Row="7" Text="المهنة الحالية"></TextBlock>
+                                <TextBlock Grid.Row="8" Text="البريد الالكتروني"></TextBlock>
+                                <TextBlock Grid.Row="9" Text="ملاحظات"></TextBlock>
 
                                 <TextBox MaxLength="200" Grid.Column="1" Grid.Row="0" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
-                                <DatePicker Grid.Column="1" Grid.Row="1" SelectedDate="{Binding DOB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  />
-                                <ComboBox  Grid.Column="1" Grid.Row="2" FontFamily="Arial" FontWeight="Medium" IsEditable="True" Text="{Binding PID, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
+                                <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding DOB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  />
+                                <ComboBox  Grid.Column="1" Grid.Row="4" FontFamily="Arial" FontWeight="Medium" IsEditable="True" Text="{Binding PID, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
                                     <ComboBoxItem Content="لايوجد رقم وطني"/>
                                 </ComboBox>
-                                <TextBox MaxLength="10" Grid.Column="1" Grid.Row="3" FontFamily="Arial" Text="{Binding Mobile, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
-                                <ComboBox Grid.Column="1" Grid.Row="4" Width="160" Text="{Binding MaritalStatus, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+                                <TextBox MaxLength="10" Grid.Column="1" Grid.Row="5" FontFamily="Arial" Text="{Binding Mobile, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <ComboBox Grid.Column="1" Grid.Row="6" Width="160" Text="{Binding MaritalStatus, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
                                     <ComboBoxItem Content="متزوج"></ComboBoxItem>
                                     <ComboBoxItem Content="أعزب"></ComboBoxItem>
                                     <ComboBoxItem Content="أرمل"></ComboBoxItem>
                                     <ComboBoxItem Content="مطلّق"></ComboBoxItem>
                                     <ComboBoxItem Content="غير محدد"></ComboBoxItem>
                                 </ComboBox>
-                                <TextBox MaxLength="50" Grid.Column="1" Grid.Row="5" Text="{Binding Job, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
-                                <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"></TextBox>
-                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="7" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="50" Grid.Column="1" Grid.Row="7" Text="{Binding Job, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="9" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
                             </Grid>
                         </Grid>
                     </GroupBox>
@@ -820,8 +827,11 @@
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="الاسم"></TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="1" Text="التولد"></TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="2" Text="رقم الموبايل"></TextBlock>
-                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Center"></TextBlock>
-                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="{Binding FirstName}" Margin="2,0"></TextBlock>
+                                    <TextBlock Text="{Binding FatherName}" Margin="2,0"></TextBlock>
+                                    <TextBlock Text="{Binding LastName}" Margin="2,0"></TextBlock>
+                                </StackPanel><StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Border>
                                         <TextBlock Margin="5,0" FontFamily="Arial" Text="{Binding DOB, StringFormat={}{0:dd-MM-yyyy}, ValidatesOnDataErrors=True}"/>
                                     </Border>
@@ -841,36 +851,40 @@
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="120"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Row="0" Text="الاسم"></TextBlock>
-                                <TextBlock Grid.Row="1" Text="تاريخ الولادة"></TextBlock>
-                                <TextBlock Grid.Row="2" Text="الرقم الوطني"></TextBlock>
-                                <TextBlock Grid.Row="3" Text="رقم الموبايل"></TextBlock>
-                                <TextBlock Grid.Row="4" Text="الوضع الاجتماعي"></TextBlock>
-                                <TextBlock Grid.Row="5" Text="المهنة الحالية"></TextBlock>
-                                <TextBlock Grid.Row="6" Text="البريد الالكتروني"></TextBlock>
-                                <TextBlock Grid.Row="7" Text="ملاحظات"></TextBlock>
+                                <TextBlock Grid.Row="1" Text="الكنية"></TextBlock>
+                                <TextBlock Grid.Row="2" Text="اسم الاب"></TextBlock>
+                                <TextBlock Grid.Row="3" Text="تاريخ الولادة"></TextBlock>
+                                <TextBlock Grid.Row="4" Text="الرقم الوطني"></TextBlock>
+                                <TextBlock Grid.Row="5" Text="رقم الموبايل"></TextBlock>
+                                <TextBlock Grid.Row="6" Text="الوضع الاجتماعي"></TextBlock>
+                                <TextBlock Grid.Row="7" Text="المهنة الحالية"></TextBlock>
+                                <TextBlock Grid.Row="8" Text="البريد الالكتروني"></TextBlock>
+                                <TextBlock Grid.Row="9" Text="ملاحظات"></TextBlock>
 
                                 <TextBox MaxLength="200" Grid.Column="1" Grid.Row="0" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
-                                <DatePicker Grid.Column="1" Grid.Row="1" SelectedDate="{Binding DOB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  />
-                                <ComboBox  Grid.Column="1" Grid.Row="2" FontFamily="Arial" FontWeight="Medium" IsEditable="True" Text="{Binding PID, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
+                                <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding DOB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  />
+                                <ComboBox  Grid.Column="1" Grid.Row="4" FontFamily="Arial" FontWeight="Medium" IsEditable="True" Text="{Binding PID, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
                                     <ComboBoxItem Content="لايوجد رقم وطني"/>
                                 </ComboBox>
-                                <TextBox MaxLength="10" Grid.Column="1" Grid.Row="3" FontFamily="Arial" Text="{Binding Mobile, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
-                                <ComboBox Grid.Column="1" Grid.Row="4" Width="160" Text="{Binding MaritalStatus, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+                                <TextBox MaxLength="10" Grid.Column="1" Grid.Row="5" FontFamily="Arial" Text="{Binding Mobile, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <ComboBox Grid.Column="1" Grid.Row="6" Width="160" Text="{Binding MaritalStatus, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
                                     <ComboBoxItem Content="متزوج"></ComboBoxItem>
                                     <ComboBoxItem Content="أعزب"></ComboBoxItem>
                                     <ComboBoxItem Content="أرمل"></ComboBoxItem>
                                     <ComboBoxItem Content="مطلّق"></ComboBoxItem>
                                     <ComboBoxItem Content="غير محدد"></ComboBoxItem>
                                 </ComboBox>
-                                <TextBox MaxLength="50" Grid.Column="1" Grid.Row="5" Text="{Binding Job, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
-                                <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"></TextBox>
-                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="7" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="50" Grid.Column="1" Grid.Row="7" Text="{Binding Job, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="9" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
                             </Grid>
                         </Grid>
                     </GroupBox>

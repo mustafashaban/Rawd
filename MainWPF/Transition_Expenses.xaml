@@ -12,10 +12,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="165"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <TextBlock x:Name="txtHeader" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource MyFontFamilyMedium}" Text="دفع مبلغ من الصندوق العام لحساب النفقات"/>
         <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#FF208F49">
             <Grid.RowDefinitions>
@@ -26,7 +22,7 @@
                 <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="190"/>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Text="رقم الايصال"/>

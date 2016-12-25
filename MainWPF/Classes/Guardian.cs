@@ -18,13 +18,13 @@ namespace MainWPF
             { guardianid = value; }
         }
 
-        private string name;
-        public string Name
+        private string fathername;
+        public string FatherName
         {
             get
-            { return name; }
+            { return fathername; }
             set
-            { name = value; }
+            { fathername = value; }
         }
 
         private string job;
@@ -57,7 +57,9 @@ namespace MainWPF
         {
             x.GuardianID = BaseDataBase._StoredProcedureReturnable("sp_Add_Guardian"
             , new SqlParameter("@GuardianID", SqlDbType.Int)
-            , new SqlParameter("@Name", x.Name)
+            , new SqlParameter("@FirstName", x.FirstName)
+            , new SqlParameter("@LastName", x.LastName)
+            , new SqlParameter("@FatherName", x.FatherName)
             , new SqlParameter("@Gender", x.Gender)
             , new SqlParameter("@DOB", x.DOB)
             , new SqlParameter("@Job", x.Job)
@@ -74,7 +76,9 @@ namespace MainWPF
         {
             return BaseDataBase._StoredProcedure("sp_Update_Guardian"
             , new SqlParameter("@GuardianID", x.GuardianID)
-            , new SqlParameter("@Name", x.Name)
+            , new SqlParameter("@FirstName", x.FirstName)
+            , new SqlParameter("@LastName", x.LastName)
+            , new SqlParameter("@FatherName", x.FatherName)
             , new SqlParameter("@Gender", x.Gender)
             , new SqlParameter("@DOB", x.DOB)
             , new SqlParameter("@Job", x.Job)
@@ -107,7 +111,9 @@ namespace MainWPF
                 {
                     if (!(rd["GuardianID"] is DBNull))
                         x.GuardianID = int.Parse(rd["GuardianID"].ToString());
-                    x.Name = rd["Name"].ToString();
+                    x.FirstName = rd["FirstName"].ToString();
+                    x.LastName = rd["LastName"].ToString();
+                    x.FatherName = rd["FatherName"].ToString();
                     x.Gender = rd["Gender"].ToString();
                     if (!(rd["DOB"] is DBNull))
                         x.DOB = DateTime.Parse(rd["DOB"].ToString());
@@ -149,7 +155,9 @@ namespace MainWPF
 
                     if (!(rd["GuardianID"] is DBNull))
                         x.GuardianID = int.Parse(rd["GuardianID"].ToString());
-                    x.Name = rd["Name"].ToString();
+                    x.FirstName = rd["FirstName"].ToString();
+                    x.LastName = rd["LastName"].ToString();
+                    x.FatherName = rd["FatherName"].ToString();
                     x.Gender = rd["Gender"].ToString();
                     if (!(rd["DOB"] is DBNull))
                         x.DOB = DateTime.Parse(rd["DOB"].ToString());
@@ -193,7 +201,9 @@ namespace MainWPF
 
                     if (!(rd["GuardianID"] is DBNull))
                         x.GuardianID = int.Parse(rd["GuardianID"].ToString());
-                    x.Name = rd["Name"].ToString();
+                    x.FirstName = rd["FirstName"].ToString();
+                    x.LastName = rd["LastName"].ToString();
+                    x.FatherName = rd["FatherName"].ToString();
                     x.Gender = rd["Gender"].ToString();
                     if (!(rd["DOB"] is DBNull))
                         x.DOB = DateTime.Parse(rd["DOB"].ToString());
@@ -232,10 +242,15 @@ namespace MainWPF
         {
             bool isValid = true;
             this.ClearAllErrors();
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(FirstName))
             {
                 isValid = false;
-                this.SetError("Name", "يجب إدخال الاسم");
+                this.SetError("FirstName", "يجب إدخال الاسم");
+            }
+            if (string.IsNullOrEmpty(LastName))
+            {
+                isValid = false;
+                this.SetError("LastName", "يجب إدخال الكنية");
             }
             if (!isValid)
             {

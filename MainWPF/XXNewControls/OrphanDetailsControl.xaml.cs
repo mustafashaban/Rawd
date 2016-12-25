@@ -116,6 +116,16 @@ namespace MainWPF
                     if (!f.FamilyMother.IsValidate())
                         return;
                 }
+                if (!(string.IsNullOrEmpty(f.OrphanGuardian.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian.LastName)))
+                {
+                    if (!f.OrphanGuardian.IsValidate())
+                        return;
+                }
+                if (!(string.IsNullOrEmpty(f.OrphanNursemaid.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid.LastName)))
+                {
+                    if (!f.OrphanNursemaid.IsValidate())
+                        return;
+                }
                 if (!string.IsNullOrEmpty(f.FamilyHouse.OldAddress) || !string.IsNullOrEmpty(f.FamilyHouse.Address))
                 {
                     if (!f.FamilyHouse.IsValidate())
@@ -149,6 +159,7 @@ namespace MainWPF
                     return;
                 else MyMessage.UpdateMessage();
 
+                //Father
                 if (!(string.IsNullOrEmpty(f.FamilyFather.FirstName) && string.IsNullOrEmpty(f.FamilyFather.LastName)))
                 {
                     if (f.FamilyFather.ParentrID.HasValue)
@@ -162,7 +173,7 @@ namespace MainWPF
                 {
                     DBMain.DeleteData(f.FamilyFather);
                 }
-
+                //Mother
                 if (!(string.IsNullOrEmpty(f.FamilyMother.FirstName) && string.IsNullOrEmpty(f.FamilyMother.LastName)))
                 {
                     if (f.FamilyMother.ParentrID.HasValue)
@@ -176,37 +187,36 @@ namespace MainWPF
                 {
                     DBMain.DeleteData(f.FamilyMother);
                 }
-
-                if (!string.IsNullOrEmpty(f.OrphanNursemaid?.Name))
+                //Guardian
+                if (!(string.IsNullOrEmpty(f.OrphanGuardian.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian.LastName)))
                 {
-                    f.OrphanNursemaid.FamilyID = f.FamilyID;
-                    if (f.OrphanNursemaid?.GuardianID != null)
-                        Guardian.UpdateData(f.OrphanNursemaid);
-                    else
-                    {
-                        Guardian.InsertData(f.OrphanNursemaid);
-                    }
-                }
-                else if (f.OrphanNursemaid?.GuardianID != null)
-                {
-                    Guardian.DeleteData(f.OrphanNursemaid);
-                }
-
-                if (!string.IsNullOrEmpty(f.OrphanGuardian?.Name))
-                {
-                    f.OrphanNursemaid.FamilyID = f.FamilyID;
-                    if (f.OrphanGuardian?.GuardianID != null)
+                    f.OrphanGuardian.FamilyID = f.FamilyID;
+                    if (f.OrphanGuardian.GuardianID.HasValue)
                         Guardian.UpdateData(f.OrphanGuardian);
                     else
                     {
                         Guardian.InsertData(f.OrphanGuardian);
                     }
                 }
-                else if (f.OrphanGuardian?.GuardianID != null)
+                else if (f.OrphanGuardian.GuardianID.HasValue)
                 {
                     Guardian.DeleteData(f.OrphanGuardian);
                 }
-
+                //Nursemaid
+                if (!(string.IsNullOrEmpty(f.OrphanNursemaid.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid.LastName)))
+                {
+                    f.OrphanNursemaid.FamilyID = f.FamilyID;
+                    if (f.OrphanNursemaid.GuardianID.HasValue)
+                        Guardian.UpdateData(f.OrphanNursemaid);
+                    else
+                    {
+                        Guardian.InsertData(f.OrphanNursemaid);
+                    }
+                }
+                else if (f.OrphanNursemaid.GuardianID.HasValue)
+                {
+                    Guardian.DeleteData(f.OrphanNursemaid);
+                }
 
                 f.FamilyHouse.FamilyID = f.FamilyID;
                 if (!string.IsNullOrEmpty(f.FamilyHouse.OldAddress) || !string.IsNullOrEmpty(f.FamilyHouse.HouseSection))
