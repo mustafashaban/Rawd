@@ -252,6 +252,11 @@ namespace MainWPF
                 isValid = false;
                 this.SetError("LastName", "يجب إدخال الكنية");
             }
+            if (string.IsNullOrEmpty(PID))
+            {
+                isValid = false;
+                this.SetError("PID", "يجب إدخال الرقم الوطني");
+            }
             if (!isValid)
             {
                 string s = "";

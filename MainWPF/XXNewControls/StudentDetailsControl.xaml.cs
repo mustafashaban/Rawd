@@ -35,7 +35,7 @@ namespace MainWPF
             if (!f.FamilyID.HasValue)
             {
                 f.ApplyDate = BaseDataBase.DateNow;
-                f.OrphanNursemaid = new Guardian() { Gender = "انثى" };
+                f.OrphanNursemaid = new Guardian() { Gender = "أنثى" };
                 f.OrphanGuardian = new Guardian() { Gender = "ذكر" };
                 f.FamilyHouse = new House();
                 cOrphanFamily.dgChild.ItemsSource = new List<FamilyPerson>();
@@ -71,8 +71,13 @@ namespace MainWPF
                 o.Account = Account.GetAccountByOwnerID(Account.AccountType.Student, o.OrphanID.Value);
                 cAccount.Account = o.Account;
             }
-            //var gs = Guardian
+            Guardian.GetAllGuardianByFamily(f);
+            if (f.OrphanNursemaid == null)
+                f.OrphanNursemaid = new Guardian() { Gender = "أنثى" };
+            if (f.OrphanGuardian == null)
+                f.OrphanGuardian = new Guardian() { Gender = "ذكر" };
 
+            f.FamilyOrphans = await Orphan.GetAllOrphanByFamily(f, o, true);
             cOrphanFamily.Orphans = await Orphan.GetAllOrphanByFamily(f, o);
         }
 
@@ -104,6 +109,16 @@ namespace MainWPF
                 if (!(string.IsNullOrEmpty(f.FamilyMother.FirstName) && string.IsNullOrEmpty(f.FamilyMother.LastName)))
                 {
                     if (!f.FamilyMother.IsValidate())
+                        return;
+                }
+                if (!(string.IsNullOrEmpty(f.OrphanGuardian.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian.LastName)))
+                {
+                    if (!f.OrphanGuardian.IsValidate())
+                        return;
+                }
+                if (!(string.IsNullOrEmpty(f.OrphanNursemaid.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid.LastName)))
+                {
+                    if (!f.OrphanNursemaid.IsValidate())
                         return;
                 }
                 if (!string.IsNullOrEmpty(f.FamilyHouse.OldAddress) || !string.IsNullOrEmpty(f.FamilyHouse.Address))
@@ -139,11 +154,7 @@ namespace MainWPF
                     return;
                 else MyMessage.UpdateMessage();
 
-                //if (tf != null)
-                //{
-                //    tf.FamilyID = f.FamilyID;
-                //    TempFamily.UpadteData(tf);
-                //}
+                //Father
                 if (!(string.IsNullOrEmpty(f.FamilyFather.FirstName) && string.IsNullOrEmpty(f.FamilyFather.LastName)))
                 {
                     if (f.FamilyFather.ParentrID.HasValue)
@@ -157,7 +168,7 @@ namespace MainWPF
                 {
                     DBMain.DeleteData(f.FamilyFather);
                 }
-
+                //Mother
                 if (!(string.IsNullOrEmpty(f.FamilyMother.FirstName) && string.IsNullOrEmpty(f.FamilyMother.LastName)))
                 {
                     if (f.FamilyMother.ParentrID.HasValue)
@@ -171,35 +182,36 @@ namespace MainWPF
                 {
                     DBMain.DeleteData(f.FamilyMother);
                 }
-
-                //if (!(string.IsNullOrEmpty(f.OrphanNursemaid.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid.LastName)))
-                //{
-                //    if (f.OrphanNursemaid.GuardianID.HasValue)
-                //        Guardian.UpdateData(f.OrphanNursemaid);
-                //    else
-                //    {
-                //        Guardian.InsertData(f.OrphanNursemaid);
-                //    }
-                //}
-                //else if (f.OrphanNursemaid.GuardianID.HasValue)
-                //{
-                //    Guardian.DeleteData(f.OrphanNursemaid);
-                //}
-
-                //if (!(string.IsNullOrEmpty(f.OrphanGuardian.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian.LastName)))
-                //{
-                //    if (f.OrphanGuardian.GuardianID.HasValue)
-                //        Guardian.UpdateData(f.OrphanGuardian);
-                //    else
-                //    {
-                //        Guardian.InsertData(f.OrphanGuardian);
-                //    }
-                //}
-                //else if (f.OrphanGuardian.GuardianID.HasValue)
-                //{
-                //    Guardian.DeleteData(f.OrphanGuardian);
-                //}
-
+                //Guardian
+                if (!(string.IsNullOrEmpty(f.OrphanGuardian.FirstName) && string.IsNullOrEmpty(f.OrphanGuardian.LastName)))
+                {
+                    f.OrphanGuardian.FamilyID = f.FamilyID;
+                    if (f.OrphanGuardian.GuardianID.HasValue)
+                        Guardian.UpdateData(f.OrphanGuardian);
+                    else
+                    {
+                        Guardian.InsertData(f.OrphanGuardian);
+                    }
+                }
+                else if (f.OrphanGuardian.GuardianID.HasValue)
+                {
+                    Guardian.DeleteData(f.OrphanGuardian);
+                }
+                //Nursemaid
+                if (!(string.IsNullOrEmpty(f.OrphanNursemaid.FirstName) && string.IsNullOrEmpty(f.OrphanNursemaid.LastName)))
+                {
+                    f.OrphanNursemaid.FamilyID = f.FamilyID;
+                    if (f.OrphanNursemaid.GuardianID.HasValue)
+                        Guardian.UpdateData(f.OrphanNursemaid);
+                    else
+                    {
+                        Guardian.InsertData(f.OrphanNursemaid);
+                    }
+                }
+                else if (f.OrphanNursemaid.GuardianID.HasValue)
+                {
+                    Guardian.DeleteData(f.OrphanNursemaid);
+                }
 
                 f.FamilyHouse.FamilyID = f.FamilyID;
                 if (!string.IsNullOrEmpty(f.FamilyHouse.OldAddress) || !string.IsNullOrEmpty(f.FamilyHouse.HouseSection))
@@ -227,8 +239,8 @@ namespace MainWPF
                     {
                         if (Orphan.InsertData(o))
                         {
-                            o.Account = new MainWPF.Account();
-                            o.Account.Name = o.FirstName + o.LastName;
+                            o.Account = new Account();
+                            o.Account.Name = o.FirstName + " "+ o.LastName;
                             o.Account.Type = o.Type == "يتيم" ? Account.AccountType.Orphan : o.Type == "يتيم طالب علم" ? Account.AccountType.OrphanStudent : Account.AccountType.Student;
                             o.Account.CurrentBalance = 0;
                             o.Account.CreateDate = BaseDataBase.DateNow;

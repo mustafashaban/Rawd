@@ -417,14 +417,14 @@ namespace MainWPF
 
                 if (Type == 1)
                 {
-                    uc.DataContext = BaseDataBase._Tabling($@"select Description, Barcode, TotalValue, Serial, Receiver, dbo.GetUserByID(LastUserID) UserName, CreateDate, (select Name from Account where ID = {i.Transitions[0].LeftAccount.Id.Value}) SponsorName
+                    uc.DataContext = BaseDataBase._Tabling($@"select Description, Barcode, TotalValue, Serial, Receiver, ReceiverPID, dbo.GetUserByID(LastUserID) UserName, CreateDate, (select Name from Account where ID = {i.Transitions[0].LeftAccount.Id.Value}) SponsorName
                                          from Invoice where Id = {i.ID.Value}");
 
                     (uc.FindName("grdSponsor") as Grid).Visibility = Visibility.Visible;
                 }
                 else if (Type == 2)
                 {
-                    uc.DataContext = BaseDataBase._Tabling($@"select Description, Barcode, TotalValue, Serial, Receiver, dbo.GetUserByID(LastUserID) UserName, CreateDate from Invoice where Id = {i.ID.Value}");
+                    var dv = BaseDataBase._Tabling($@"select Description, Barcode, TotalValue, Serial, Receiver, ReceiverPID, dbo.GetUserByID(LastUserID) UserName, CreateDate from Invoice where Id = {i.ID.Value}");
                     (uc.FindName("icOrphans") as ItemsControl).ItemsSource = BaseDataBase._Tabling($@"select FirstName + ' ' + ISNULL(LastName,'') OrphanName, orphan.Type, Value, Sponsor.Name SponsorName from orphan
                                             inner join Account on Account.Type >= 2 and OwnerID = OrphanID
                                             inner join Transition on InvoiceID = {i.ID.Value} and Account.Id = RightAccount
@@ -432,7 +432,10 @@ namespace MainWPF
                                             inner join AvailableSponsorship on AvailableSponsorship.Id = Sponsorship.AvailableSponsorshipID
                                             inner join Sponsor on AvailableSponsorship.SponsorID = Sponsor.SponsorID").DefaultView;
 
+                    uc.DataContext = dv;
                     (uc.FindName("grdOrphan") as Grid).Visibility = Visibility.Visible;
+                    var w = new ToWord(decimal.Parse(dv.Rows[0]["TotalValue"].ToString()), new CurrencyInfo(CurrencyInfo.Currencies.Syria));
+                    (uc.FindName("TotalValueWord") as TextBlock).Text = w.ConvertToArabic();
                 }
 
                 // Create the print dialog object and set options

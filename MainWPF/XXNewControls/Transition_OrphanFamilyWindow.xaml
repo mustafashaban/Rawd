@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainWPF"
         mc:Ignorable="d" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen"
-        Height="615" Width="700">
+        Height="650" Width="700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -24,6 +24,7 @@
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="300"/>
                 <RowDefinition Height="70"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -44,7 +45,18 @@
                 </DataGrid.Columns>
             </DataGrid>
             <TextBox MaxLength="1000" Margin="8,2" Text="{Binding Description, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" Height="Auto"/>
-            <TextBox Text="{Binding Receiver, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" SelectionChanged="cmboReciever_Changed">
+                <ComboBoxItem Content="الام"/>
+                <ComboBoxItem Content="الحاضنة"/>
+                <ComboBoxItem Content="الوصي"/>
+                <ComboBoxItem Content="غير ذلك"/>
+            </ComboBox>
+            <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" Orientation="Horizontal" Grid.Row="4">
+                <TextBlock Text="الاسم"/>
+                <TextBox x:Name="txtReceiver" Width="150" Text="{Binding Receiver, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <TextBlock Text="الرقم الوطني"/>
+                <TextBox x:Name="txtReceiverPID" FontFamily="Arial" Width="150" Text="{Binding ReceiverPID, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+            </StackPanel>
         </Grid>
         <StackPanel Grid.Row="6" HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Button Width="120" Content="الغاء" IsCancel="True"/>

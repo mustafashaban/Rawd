@@ -32,7 +32,21 @@ namespace MainWPF
             get
             { return receiver; }
             set
-            { receiver = value; }
+            {
+                receiver = value;
+                NotifyPropertyChanged("Receiver");
+            }
+        }
+        private string receiverPID;
+        public string ReceiverPID
+        {
+            get
+            { return receiverPID; }
+            set
+            {
+                receiverPID = value;
+                NotifyPropertyChanged("receiverPID");
+            }
         }
 
         public Transition AddTransition()
@@ -47,7 +61,7 @@ namespace MainWPF
         private double? totalvalue;
         public double? TotalValue
         {
-            set { totalvalue = value; }
+            set { totalvalue = value; NotifyPropertyChanged("TotalValueWord"); }
             get
             {
                 if (totalvalue.HasValue) return totalvalue;
@@ -90,7 +104,7 @@ namespace MainWPF
             set
             { serial = value; }
         }
-        
+
 
         List<Transition> transitions;
         public List<Transition> Transitions
@@ -105,6 +119,7 @@ namespace MainWPF
             , new SqlParameter("@ID", System.Data.SqlDbType.Int)
             , new SqlParameter("@CreateDate", x.CreateDate)
             , new SqlParameter("@Receiver", x.Receiver)
+            , new SqlParameter("@ReceiverPID", x.ReceiverPID)
             , new SqlParameter("@TotalValue", x.TotalValue)
             , new SqlParameter("@Barcode", x.Barcode)
             , new SqlParameter("@Serial", x.Serial)
@@ -118,6 +133,7 @@ namespace MainWPF
             , new SqlParameter("@ID", x.ID)
             , new SqlParameter("@CreateDate", x.CreateDate)
             , new SqlParameter("@Receiver", x.Receiver)
+            , new SqlParameter("@ReceiverPID", x.ReceiverPID)
             , new SqlParameter("@TotalValue", x.TotalValue)
             , new SqlParameter("@Barcode", x.Barcode)
             , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
@@ -148,6 +164,7 @@ namespace MainWPF
                     if (!(rd["CreateDate"] is DBNull))
                         x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
                     x.Receiver = rd["Receiver"].ToString();
+                    x.ReceiverPID = rd["ReceiverPID"].ToString();
                     if (!(rd["TotalValue"] is DBNull))
                         x.TotalValue = double.Parse(rd["TotalValue"].ToString());
                     x.Barcode = rd["Barcode"].ToString();
@@ -187,6 +204,7 @@ namespace MainWPF
                     if (!(rd["CreateDate"] is DBNull))
                         x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
                     x.Receiver = rd["Receiver"].ToString();
+                    x.ReceiverPID = rd["ReceiverPID"].ToString();
                     if (!(rd["TotalValue"] is DBNull))
                         x.TotalValue = double.Parse(rd["TotalValue"].ToString());
                     x.Barcode = rd["Barcode"].ToString();
@@ -229,6 +247,7 @@ namespace MainWPF
                     if (!(rd["CreateDate"] is DBNull))
                         x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
                     x.Receiver = rd["Receiver"].ToString();
+                    x.ReceiverPID = rd["ReceiverPID"].ToString();
                     if (!(rd["TotalValue"] is DBNull))
                         x.TotalValue = double.Parse(rd["TotalValue"].ToString());
                     x.Barcode = rd["Barcode"].ToString();

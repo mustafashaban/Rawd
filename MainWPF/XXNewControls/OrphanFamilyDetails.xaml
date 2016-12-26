@@ -736,7 +736,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="بيانات الولي" Grid.Column="0" Background="#331C7A8F" DataContext="{Binding OrphanGuardian, Mode=TwoWay}">
+                    <GroupBox Header="بيانات الوصي" Grid.Column="0" Background="#331C7A8F" DataContext="{Binding OrphanGuardian, Mode=TwoWay}">
                         <Grid>
                             <Grid x:Name="grdGuardian1" Visibility="Visible">
                                 <Grid.ColumnDefinitions>
@@ -793,7 +793,9 @@
                                 <TextBlock Grid.Row="8" Text="البريد الالكتروني"></TextBlock>
                                 <TextBlock Grid.Row="9" Text="ملاحظات"></TextBlock>
 
-                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="0" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="0" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="1" Text="{Binding LastName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="2" Text="{Binding FatherName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
                                 <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding DOB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  />
                                 <ComboBox  Grid.Column="1" Grid.Row="4" FontFamily="Arial" FontWeight="Medium" IsEditable="True" Text="{Binding PID, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
                                     <ComboBoxItem Content="لايوجد رقم وطني"/>
@@ -869,7 +871,9 @@
                                 <TextBlock Grid.Row="8" Text="البريد الالكتروني"></TextBlock>
                                 <TextBlock Grid.Row="9" Text="ملاحظات"></TextBlock>
 
-                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="0" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="0" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="1" Text="{Binding LastName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="2" Text="{Binding FatherName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
                                 <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding DOB, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  />
                                 <ComboBox  Grid.Column="1" Grid.Row="4" FontFamily="Arial" FontWeight="Medium" IsEditable="True" Text="{Binding PID, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
                                     <ComboBoxItem Content="لايوجد رقم وطني"/>

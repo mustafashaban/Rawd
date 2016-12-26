@@ -371,7 +371,7 @@ namespace MainWPF
         {
             bool isValid = true;
             this.ClearAllErrors();
-            if (RightAccount == null || LeftAccount == null)
+            if (RightAccount == null || LeftAccount == null || !RightAccount.Id.HasValue || !LeftAccount.Id.HasValue)
             {
                 isValid = false;
                 this.SetError("RightAccount", "يجب اختيار الحساب");

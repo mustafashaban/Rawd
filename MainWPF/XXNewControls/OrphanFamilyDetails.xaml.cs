@@ -255,7 +255,7 @@ namespace MainWPF
                     if (Orphan.InsertData(o))
                     {
                         o.Account = new Account();
-                        o.Account.Name = o.FirstName + o.LastName;
+                        o.Account.Name = o.FirstName + " " + o.LastName;
                         o.Account.Type = o.Type == "يتيم" ? Account.AccountType.Orphan : o.Type == "يتيم طالب علم" ? Account.AccountType.OrphanStudent : Account.AccountType.Student;
                         o.Account.CurrentBalance = 0;
                         o.Account.CreateDate = BaseDataBase.DateNow;

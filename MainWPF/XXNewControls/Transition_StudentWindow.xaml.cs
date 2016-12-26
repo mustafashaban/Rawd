@@ -58,5 +58,40 @@ namespace MainWPF
                 }
             }
         }
+
+        private void cmboReciever_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                var i = this.DataContext as Invoice;
+                if ((sender as ComboBox).SelectedIndex == 3)
+                {
+                    txtReceiver.IsReadOnly = false;
+                    txtReceiverPID.IsReadOnly = false;
+                    i.Receiver = "";
+                    i.ReceiverPID = "";
+                }
+                else
+                {
+                    txtReceiver.IsReadOnly = true;
+                    txtReceiverPID.IsReadOnly = true;
+                    if ((sender as ComboBox).SelectedIndex == 0)
+                    {
+                        i.Receiver = BaseDataBase._Scalar($"select FirstName + ' ' + Isnull(LastName,'') from Parent where FamilyID = {o.OrphanFamily.FamilyID} and Gender = 'أنثى'");
+                        i.ReceiverPID = BaseDataBase._Scalar($"select IsNull(PID,'') from Parent where FamilyID = {o.OrphanFamily.FamilyID} and Gender = 'أنثى'");
+                    }
+                    else if ((sender as ComboBox).SelectedIndex == 1)
+                    {
+                        i.Receiver = BaseDataBase._Scalar($"select FirstName + ' ' + Isnull(LastName,'') from Guardian where FamilyID = {o.OrphanFamily.FamilyID} and Gender = 'أنثى'");
+                        i.ReceiverPID = BaseDataBase._Scalar($"select IsNull(PID,'') from Guardian where FamilyID = {o.OrphanFamily.FamilyID} and Gender = 'أنثى'");
+                    }
+                    else
+                    {
+                        i.Receiver = BaseDataBase._Scalar($"select FirstName + ' ' + Isnull(LastName,'') from Guardian where FamilyID = {o.OrphanFamily.FamilyID} and Gender = N'ذكر'");
+                        i.ReceiverPID = BaseDataBase._Scalar($"select IsNull(PID,'') from Guardian where FamilyID = {o.OrphanFamily.FamilyID} and Gender = N'ذكر'");
+                    }
+                }
+            }
+        }
     }
 }

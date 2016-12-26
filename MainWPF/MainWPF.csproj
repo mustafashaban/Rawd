@@ -150,6 +150,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Invoice.cs" />
+    <Compile Include="Classes\SystemClasses\CurrencyInfo.cs" />
+    <Compile Include="Classes\SystemClasses\ToWord.cs" />
     <Compile Include="Transition_Expenses.xaml.cs">
       <DependentUpon>Transition_Expenses.xaml</DependentUpon>
     </Compile>

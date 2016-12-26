@@ -244,7 +244,7 @@ namespace MainWPF
             {
                 con.Close();
             }
-            return x;
+            return x.Id.HasValue ? x : null;
         }
 
         public static List<Account> GetAllAccount()

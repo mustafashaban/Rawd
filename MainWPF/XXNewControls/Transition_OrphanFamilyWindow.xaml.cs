@@ -16,9 +16,11 @@ namespace MainWPF
 {
     public partial class Transition_OrphanFamilyWindow : Window
     {
+        Family f;
         public Transition_OrphanFamilyWindow(Family f)
         {
             InitializeComponent();
+            this.f = f;
             txtFamily.Text = f.FamilyCode;
             var i = new Invoice();
             foreach (var o in f.FamilyOrphans.Where(x => x.Type != "طالب علم"))
@@ -75,6 +77,41 @@ namespace MainWPF
                 {
                     MyMessageBox.Show("حدث خطأ اثناء حفظ البيانات يرجى مراجعة مسؤل البرنامج");
                     return;
+                }
+            }
+        }
+
+        private void cmboReciever_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                var i = this.DataContext as Invoice;
+                if ((sender as ComboBox).SelectedIndex == 3)
+                {
+                    txtReceiver.IsReadOnly = false;
+                    txtReceiverPID.IsReadOnly = false;
+                    i.Receiver = "";
+                    i.ReceiverPID = "";
+                }
+                else
+                {
+                    txtReceiver.IsReadOnly = true;
+                    txtReceiverPID.IsReadOnly = true;
+                    if ((sender as ComboBox).SelectedIndex == 0)
+                    {
+                        i.Receiver = BaseDataBase._Scalar($"select FirstName + ' ' + Isnull(LastName,'') from Parent where FamilyID = {f.FamilyID} and Gender = 'أنثى'");
+                        i.ReceiverPID = BaseDataBase._Scalar($"select IsNull(PID,'') from Parent where FamilyID = {f.FamilyID} and Gender = 'أنثى'");
+                    }
+                    else if ((sender as ComboBox).SelectedIndex == 1)
+                    {
+                        i.Receiver = BaseDataBase._Scalar($"select FirstName + ' ' + Isnull(LastName,'') from Guardian where FamilyID = {f.FamilyID} and Gender = 'أنثى'");
+                        i.ReceiverPID = BaseDataBase._Scalar($"select IsNull(PID,'') from Guardian where FamilyID = {f.FamilyID} and Gender = 'أنثى'");
+                    }
+                    else
+                    {
+                        i.Receiver = BaseDataBase._Scalar($"select FirstName + ' ' + Isnull(LastName,'') from Guardian where FamilyID = {f.FamilyID} and Gender = N'ذكر'");
+                        i.ReceiverPID = BaseDataBase._Scalar($"select IsNull(PID,'') from Guardian where FamilyID = {f.FamilyID} and Gender = N'ذكر'");
+                    }
                 }
             }
         }
