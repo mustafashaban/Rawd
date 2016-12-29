@@ -66,6 +66,7 @@ namespace MainWPF
                 var a = w.dgAvailableSponsorships.SelectedItem as AvailableSponsorship;
                 Sponsorship ss = new MainWPF.Sponsorship();
                 ss.AvailableSponsorship = a;
+                ss.IsDouble = w.chkIsDouble.IsChecked.Value;
                 ss.StartDate = w.dtpStartDate.SelectedDate;
                 if (a.SponsorType == "كفالة عامة")
                     ss.EndDate = null;

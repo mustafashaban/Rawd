@@ -106,7 +106,7 @@ namespace MainWPF
         }
         public void GetOrders()
         {
-            Orders = Order.GetAllOrderBySpecialFamilyID(Id.Value);
+            Orders = Order.GetAllOrderBySpecialFamilyID(Id.Value).OrderByDescending(x => x.Date).ToList();
             NotifyPropertyChanged("Orders");
         }
 

@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Local="clr-namespace:MainWPF"
              xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
-        x:Name="myWindow" FlowDirection="RightToLeft">
+        x:Name="myWindow" FlowDirection="RightToLeft" >
     <UserControl.Resources>
         <SolidColorBrush x:Key="MyDarkGreenSolidBrush" Color="#FF0F2316"></SolidColorBrush>
         <Style x:Key="MyTabControlStyle" TargetType="{x:Type TabControl}">
@@ -151,6 +151,7 @@
                             <DataGridTextColumn Header="نوع الكفالة" Binding="{Binding SponsorshipType}"/>
                             <DataGridTextColumn Header="مدة الكفالة" FontFamily="Arial" Binding="{Binding Duration,StringFormat='{}{0} شهر'}"/>
                             <DataGridTextColumn Header="الحد الاقصى للمستفيدين"  Binding="{Binding NOB}" FontFamily="Arial"/>
+                            <DataGridTextColumn Header="العدد المتبقي" Binding="{Binding RemainingNOB}" FontFamily="Arial"/>
                             <DataGridTextColumn Header="قيمة الكفالة" FontFamily="Arial" Binding="{Binding SponsorshipValue}"/>
                             <DataGridTemplateColumn Width="105" Header="الكفيل يعوض" SortMemberPath="IsCompensated">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -180,6 +181,13 @@
                     <DataGrid x:Name="dgSponsorship" ItemsSource="{Binding Sponsorships}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="اسم اليتيم/طالب العلم" Binding="{Binding OrphanName}"/>
+                            <Local:MyDataGridTemplateColumn Header="مضاعف؟" SortMemberPath="IsDouble">
+                                <Local:MyDataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox FlowDirection="LeftToRight" IsEnabled="False" Margin="2,0" IsChecked="{Binding IsDouble}" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                                    </DataTemplate>
+                                </Local:MyDataGridTemplateColumn.CellTemplate>
+                            </Local:MyDataGridTemplateColumn>
                             <DataGridTextColumn Header="الام / الحاضنة"/>
                             <DataGridTextColumn Header="حالة الكفالة"  Binding="{Binding Status}"/>
                             <DataGridTextColumn Header="مدة الكفالة" FontFamily="Arial" Binding="{Binding AvailableSponsorship.Duration}"/>

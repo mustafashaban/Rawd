@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainWPF"
         mc:Ignorable="d" Style="{StaticResource MyWindowStyle}" WindowStartupLocation="CenterScreen"
-        Title="Transition_SponsorWindow" Height="460" Width="600">
+        Title="Transition_SponsorWindow" Height="425" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -13,15 +13,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="165"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBlock x:Name="txtHeader" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource MyFontFamilyMedium}" Text="تسليم دفعة لحساب طالب العلم"/>
-        <TextBlock x:Name="txtStudent" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource MyFontFamilyMedium}" Text="{Binding Name}" Foreground="#FF9B0000"/>
-        <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FF208F49">
+        <TextBlock x:Name="txtHeader" Grid.Row="0" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource MyFontFamilyMedium}" Text="تسليم دفعة لحساب طالب العلم"/>
+        <TextBlock x:Name="txtStudent" Grid.Row="1" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource MyFontFamilyMedium}" Text="{Binding Name}" Foreground="#FF9B0000"/>
+        <Grid Grid.Row="2" Background="#FF208F49">
             <Grid.RowDefinitions>
-                <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
@@ -33,31 +28,29 @@
                 <ColumnDefinition Width="190"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="رقم الايصال"/>
-            <TextBlock Grid.Row="1" Text="تسليم من حساب"/>
-            <TextBlock Grid.Row="2" Text="المبلغ"/>
-            <TextBlock Grid.Row="3" Text="الكفيل"/>
-            <TextBlock Grid.Row="4" Text="البيان"/>
-            <TextBlock Grid.Row="5" Text="المستلم"/>
-            <TextBox Text="{Binding Serial, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial" Grid.Column="1" Grid.Row="0"/>
-            <TextBox Text="صندوق طالب العلم" IsReadOnly="True" Grid.Row="1" Grid.Column="1"/>
-            <local:NumericUpDown IsEnabled="False" Value="{Binding Transitions[0].Value, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="2" Width="200" Minimum="1" Maximum="1000000"/>
-            <TextBox x:Name="txtSponsor" IsReadOnly="True" Grid.Row="3" Grid.Column="1"/>
-            <TextBox MaxLength="1000" Margin="8,2" Text="{Binding Transitions[0].Details, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" Height="Auto"/>
-            <ComboBox Grid.Column="1" Grid.Row="5" SelectionChanged="cmboReciever_Changed">
+            <TextBlock Grid.Row="0" Text="تسليم من حساب"/>
+            <TextBlock Grid.Row="1" Text="المبلغ"/>
+            <TextBlock Grid.Row="2" Text="الكفيل"/>
+            <TextBlock Grid.Row="3" Text="البيان"/>
+            <TextBlock Grid.Row="4" Text="المستلم"/>
+            <TextBox Text="صندوق طالب العلم" IsReadOnly="True" Grid.Row="0" Grid.Column="1"/>
+            <local:NumericUpDown IsEnabled="False" Value="{Binding Transitions[0].Value, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" Width="200" Minimum="1" Maximum="1000000"/>
+            <TextBox x:Name="txtSponsor" IsReadOnly="True" Grid.Row="2" Grid.Column="1"/>
+            <TextBox MaxLength="1000" Margin="8,2" Text="{Binding Transitions[0].Details, Mode=TwoWay, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" Height="Auto"/>
+            <ComboBox SelectedIndex="0" Grid.Column="1" Grid.Row="4" SelectionChanged="cmboReciever_Changed">
                 <ComboBoxItem Content="الام"/>
                 <ComboBoxItem Content="الحاضنة"/>
                 <ComboBoxItem Content="الوصي"/>
                 <ComboBoxItem Content="غير ذلك"/>
             </ComboBox>
-            <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" Orientation="Horizontal" Grid.Row="6">
+            <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" Orientation="Horizontal" Grid.Row="5">
                 <TextBlock Text="الاسم"/>
-                <TextBox x:Name="txtReceiver" Width="150" Text="{Binding Receiver, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <TextBox x:Name="txtReceiver" IsReadOnly="True" Width="150" Text="{Binding Receiver, Mode=TwoWay, ValidatesOnDataErrors=True}" />
                 <TextBlock Text="الرقم الوطني"/>
-                <TextBox x:Name="txtReceiverPID" FontFamily="Arial" Width="150" Text="{Binding ReceiverPID, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                <TextBox x:Name="txtReceiverPID" IsReadOnly="True" FontFamily="Arial" Width="150" Text="{Binding ReceiverPID, Mode=TwoWay, ValidatesOnDataErrors=True}" />
             </StackPanel>
         </Grid>
-        <StackPanel Grid.Row="6" HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="6" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Width="120" Content="الغاء" IsCancel="True"/>
             <Button Width="120" Content="اضافة" Click="btnAdd_Click"/>
         </StackPanel>

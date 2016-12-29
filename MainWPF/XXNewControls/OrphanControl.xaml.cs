@@ -106,5 +106,12 @@ namespace MainWPF
         {
 
         }
+
+        private void btnGoToFamily_Click(object sender, RoutedEventArgs e)
+        {
+            var o = (Orphan)this.DataContext;
+            MainWindow m = App.Current.MainWindow as MainWindow;
+            m.SendTabItem(new TabItem() { Header = o.OrphanFamily.FamilyName, Content = new OrphanDetailsControl(Family.GetFamilyByID(o.OrphanFamily.FamilyID.Value)) });
+        }
     }
 }

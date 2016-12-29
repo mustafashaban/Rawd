@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,7 +78,6 @@ namespace MainWPF
                 if (MaxNextOrderDate > BaseDataBase.DateNow)
                     MyMessageBox.Show("متبقي " + (MaxNextOrderDate - BaseDataBase.DateNow).Days + " ايام للاستلام القادم\nتاريخ الاستلام القادم " + MaxNextOrderDate.ToShortDateString());
             }
-            await Task.Delay(10);
         }
 
 
@@ -168,6 +168,11 @@ namespace MainWPF
                     if (!fp.IsValidate())
                         return;
                 }
+
+
+                string a = (cFamily.cmboSector.SelectedItem as Sector).Code;
+                string s = a + BaseDataBase._Scalar_StoredProcedure("sp_GetMaxFamilyCodeByChar", new SqlParameter("@char", a));
+                f.FamilyCode = s;
 
                 if (DBMain.InsertData(f))
                 {

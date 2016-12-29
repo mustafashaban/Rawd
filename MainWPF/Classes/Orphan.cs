@@ -245,7 +245,7 @@ namespace MainWPF
                 }
                 rd.Close();
             }
-            catch
+            catch(Exception ex)
             {
                 x = null;
             }

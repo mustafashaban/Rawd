@@ -408,6 +408,7 @@ namespace MainWPF
             return await BaseDataBase._TablingStoredProcedureAsync("sp_Get_All_Order_Table");
         }
 
+        //Done :)
         public static List<Order> GetAllOrderByFamilyID(int FamilyID)
         {
             List<Order> xx = new List<Order>();
@@ -419,39 +420,77 @@ namespace MainWPF
             {
                 con.Open();
                 SqlDataReader rd = com.ExecuteReader();
+                Order o = null;
                 while (rd.Read())
                 {
-                    Order x = new Order();
+                    if (o == null || (int)rd["OrderID"] != o.Id.Value)
+                    {
+                        o = new Order();
 
-                    if (!(rd["Id"] is DBNull))
-                        x.Id = int.Parse(rd["Id"].ToString());
-                    if (!(rd["OrderCode"] is DBNull))
-                        x.OrderCode = int.Parse(rd["OrderCode"].ToString());
-                    if (!(rd["InventoryID"] is DBNull))
-                        x.InventoryID = int.Parse(rd["InventoryID"].ToString());
-                    if (!(rd["FamilyID"] is DBNull))
-                        x.FamilyID = int.Parse(rd["FamilyID"].ToString());
-                    if (!(rd["SpecialFamilyID"] is DBNull))
-                        x.SpecialFamilyID = int.Parse(rd["SpecialFamilyID"].ToString());
-                    if (!(rd["OrphanID"] is DBNull))
-                        x.OrphanID = int.Parse(rd["OrphanID"].ToString());
-                    if (!(rd["Type"] is DBNull))
-                        x.Type = int.Parse(rd["Type"].ToString());
-                    if (!(rd["Date"] is DBNull))
-                        x.Date = DateTime.Parse(rd["Date"].ToString());
-                    if (!(rd["NextOrderDate"] is DBNull))
-                        x.NextOrderDate = DateTime.Parse(rd["NextOrderDate"].ToString());
-                    x.Description = rd["Description"].ToString();
-                    x.Source = rd["Source"].ToString();
-                    x.InvoiceSerial = rd["InvoiceSerial"].ToString();
-                    x.Notes = rd["Notes"].ToString();
-                    x.BarCode = rd["BarCode"].ToString();
-                    if (!(rd["LastUserID"] is DBNull))
-                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                        o.Id = (int)rd["OrderID"];
+                        o.InventoryID = (int)rd["InventoryID"];
+                        if (!(rd["FamilyID"] is DBNull))
+                            o.FamilyID = int.Parse(rd["FamilyID"].ToString());
+                        if (!(rd["SpecialFamilyID"] is DBNull))
+                            o.SpecialFamilyID = int.Parse(rd["SpecialFamilyID"].ToString());
+                        if (!(rd["OrphanID"] is DBNull))
+                            o.OrphanID = int.Parse(rd["OrphanID"].ToString());
+                        o.Type = (int)rd["Type"];
+                        o.Date = (DateTime)rd["Date"];
+                        if (!(rd["NextOrderDate"] is DBNull))
+                            o.NextOrderDate = (DateTime)rd["NextOrderDate"];
+                        o.Description = rd["OrderDescription"].ToString();
+                        o.Source = rd["OrderSource"].ToString();
+                        o.InvoiceSerial = rd["InvoiceSerial"].ToString();
+                        o.Notes = rd["OrderNotes"].ToString();
+                        o.LastUserID = int.Parse(rd["OrderLastUserID"].ToString());
+                        o.BarCode = rd["OrderBarcode"].ToString();
+                        o.OrderCode = (int)rd["OrderCode"];
 
-                    x.OIs = Order_Item.GetAllOrder_ItemByOrder(x);
+                        xx.Add(o);
+                    }
 
-                    xx.Add(x);
+                    Item i = new Item();
+                    i.Id = (int)rd["ItemID"];
+                    i.Name = rd["Name"].ToString();
+                    i.IsActive = (bool)rd["IsActive"];
+                    i.Source = rd["ItemSource"].ToString();
+                    i.Barcode = rd["ItemBarcode"].ToString();
+                    i.ItemType = rd["ItemType"].ToString();
+                    i.Description = rd["ItemDescription"].ToString();
+                    i.StandardUnit = rd["StandardUnit"].ToString();
+                    i.Unit2 = rd["Unit2"].ToString();
+                    if (!(rd["Unit2Convert"] is DBNull))
+                        i.Unit2Convert = (float)rd["Unit2Convert"];
+                    i.Unit3 = rd["Unit3"].ToString();
+                    if (!(rd["Unit3Convert"] is DBNull))
+                        i.Unit3Convert = (float)rd["Unit3Convert"];
+                    if (!(rd["MinimumQuantity"] is DBNull))
+                        i.MinimumQuantity = (float)rd["MinimumQuantity"];
+                    if (!(rd["MaximumQuantity"] is DBNull))
+                        i.MaximumQuantity = (float)rd["MaximumQuantity"];
+                    if (!(rd["MaxQuantityPerOrder"] is DBNull))
+                        i.MaxQuantityPerOrder = (float)rd["MaxQuantityPerOrder"];
+                    if (!(rd["MaxQuantityPerFamily"] is DBNull))
+                        i.MaxQuantityPerFamily = (float)rd["MaxQuantityPerFamily"];
+                    if (!(rd["MaxQuantityPerDay"] is DBNull))
+                        i.MaxQuantityPerDay = (float)rd["MaxQuantityPerDay"];
+                    if (!(rd["WarningQuantity"] is DBNull))
+                        i.WarningQuantity = (float)rd["WarningQuantity"];
+                    if (!(rd["Weight"] is DBNull))
+                        i.Weight = (float)rd["Weight"];
+                    i.DefaultLocation = rd["DefaultLocation"].ToString();
+                    i.Notes = rd["ItemNotes"].ToString();
+                    i.LastUserID = (int)rd["ItemLastUserID"];
+
+
+                    Order_Item oi = new Order_Item();
+                    oi.Order = o;
+                    oi.Item = i;
+                    oi.Quantity = (float)rd["Quantity"];
+                    oi.LastUserID = (int)rd["Order_ItemLastUserID"];
+                    o.OIs.Add(oi);
+
                 }
                 rd.Close();
             }
@@ -466,6 +505,7 @@ namespace MainWPF
             return xx;
         }
 
+        //Done
         public static List<Order> GetAllOrderBySpecialFamilyID(int SpecialFamilyID)
         {
             List<Order> xx = new List<Order>();
@@ -477,39 +517,76 @@ namespace MainWPF
             {
                 con.Open();
                 SqlDataReader rd = com.ExecuteReader();
+                Order o = null;
                 while (rd.Read())
                 {
-                    Order x = new Order();
+                    if (o == null || (int)rd["OrderID"] != o.Id.Value)
+                    {
+                        o = new Order();
 
-                    if (!(rd["Id"] is DBNull))
-                        x.Id = int.Parse(rd["Id"].ToString());
-                    if (!(rd["OrderCode"] is DBNull))
-                        x.OrderCode = int.Parse(rd["OrderCode"].ToString());
-                    if (!(rd["InventoryID"] is DBNull))
-                        x.InventoryID = int.Parse(rd["InventoryID"].ToString());
-                    if (!(rd["FamilyID"] is DBNull))
-                        x.FamilyID = int.Parse(rd["FamilyID"].ToString());
-                    if (!(rd["SpecialFamilyID"] is DBNull))
-                        x.SpecialFamilyID = int.Parse(rd["SpecialFamilyID"].ToString());
-                    if (!(rd["OrphanID"] is DBNull))
-                        x.OrphanID = int.Parse(rd["OrphanID"].ToString());
-                    if (!(rd["Type"] is DBNull))
-                        x.Type = int.Parse(rd["Type"].ToString());
-                    if (!(rd["Date"] is DBNull))
-                        x.Date = DateTime.Parse(rd["Date"].ToString());
-                    if (!(rd["NextOrderDate"] is DBNull))
-                        x.NextOrderDate = DateTime.Parse(rd["NextOrderDate"].ToString());
-                    x.Description = rd["Description"].ToString();
-                    x.Source = rd["Source"].ToString();
-                    x.InvoiceSerial = rd["InvoiceSerial"].ToString();
-                    x.Notes = rd["Notes"].ToString();
-                    x.BarCode = rd["BarCode"].ToString();
-                    if (!(rd["LastUserID"] is DBNull))
-                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                        o.Id = (int)rd["OrderID"];
+                        o.InventoryID = (int)rd["InventoryID"];
+                        if (!(rd["FamilyID"] is DBNull))
+                            o.FamilyID = int.Parse(rd["FamilyID"].ToString());
+                        if (!(rd["SpecialFamilyID"] is DBNull))
+                            o.SpecialFamilyID = int.Parse(rd["SpecialFamilyID"].ToString());
+                        if (!(rd["OrphanID"] is DBNull))
+                            o.OrphanID = int.Parse(rd["OrphanID"].ToString());
+                        o.Type = (int)rd["Type"];
+                        o.Date = (DateTime)rd["Date"];
+                        if (!(rd["NextOrderDate"] is DBNull))
+                            o.NextOrderDate = (DateTime)rd["NextOrderDate"];
+                        o.Description = rd["OrderDescription"].ToString();
+                        o.Source = rd["OrderSource"].ToString();
+                        o.InvoiceSerial = rd["InvoiceSerial"].ToString();
+                        o.Notes = rd["OrderNotes"].ToString();
+                        o.LastUserID = int.Parse(rd["OrderLastUserID"].ToString());
+                        o.BarCode = rd["OrderBarcode"].ToString();
+                        o.OrderCode = (int)rd["OrderCode"];
 
-                    x.OIs = Order_Item.GetAllOrder_ItemByOrder(x);
+                        xx.Add(o);
+                    }
 
-                    xx.Add(x);
+                    Item i = new Item();
+                    i.Id = (int)rd["ItemID"];
+                    i.Name = rd["Name"].ToString();
+                    i.IsActive = (bool)rd["IsActive"];
+                    i.Source = rd["ItemSource"].ToString();
+                    i.Barcode = rd["ItemBarcode"].ToString();
+                    i.ItemType = rd["ItemType"].ToString();
+                    i.Description = rd["ItemDescription"].ToString();
+                    i.StandardUnit = rd["StandardUnit"].ToString();
+                    i.Unit2 = rd["Unit2"].ToString();
+                    if (!(rd["Unit2Convert"] is DBNull))
+                        i.Unit2Convert = (float)rd["Unit2Convert"];
+                    i.Unit3 = rd["Unit3"].ToString();
+                    if (!(rd["Unit3Convert"] is DBNull))
+                        i.Unit3Convert = (float)rd["Unit3Convert"];
+                    if (!(rd["MinimumQuantity"] is DBNull))
+                        i.MinimumQuantity = (float)rd["MinimumQuantity"];
+                    if (!(rd["MaximumQuantity"] is DBNull))
+                        i.MaximumQuantity = (float)rd["MaximumQuantity"];
+                    if (!(rd["MaxQuantityPerOrder"] is DBNull))
+                        i.MaxQuantityPerOrder = (float)rd["MaxQuantityPerOrder"];
+                    if (!(rd["MaxQuantityPerFamily"] is DBNull))
+                        i.MaxQuantityPerFamily = (float)rd["MaxQuantityPerFamily"];
+                    if (!(rd["MaxQuantityPerDay"] is DBNull))
+                        i.MaxQuantityPerDay = (float)rd["MaxQuantityPerDay"];
+                    if (!(rd["WarningQuantity"] is DBNull))
+                        i.WarningQuantity = (float)rd["WarningQuantity"];
+                    if (!(rd["Weight"] is DBNull))
+                        i.Weight = (float)rd["Weight"];
+                    i.DefaultLocation = rd["DefaultLocation"].ToString();
+                    i.Notes = rd["ItemNotes"].ToString();
+                    i.LastUserID = (int)rd["ItemLastUserID"];
+
+
+                    Order_Item oi = new Order_Item();
+                    oi.Order = o;
+                    oi.Item = i;
+                    oi.Quantity = (float)rd["Quantity"];
+                    oi.LastUserID = (int)rd["Order_ItemLastUserID"];
+                    o.OIs.Add(oi);
                 }
                 rd.Close();
             }

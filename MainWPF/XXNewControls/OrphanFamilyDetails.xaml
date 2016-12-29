@@ -244,25 +244,22 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="بيانات العائلة"  Grid.Row="0" Background="#55747474">
-                        <Grid >
+                        <Grid>
                             <Grid x:Name="grdFamily1" Visibility="Visible">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="120"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="25"/>
-                                        <RowDefinition Height="25"/>
-                                        <RowDefinition Height="25"/>
-                                        <RowDefinition Height="25"/>
-                                        <RowDefinition Height="25"/>
-                                        <RowDefinition Height="25"/>
-                                    </Grid.RowDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="Auto" MinHeight="25"/>
+                                </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Text="نوع العائلة"/>
                                     <TextBlock Grid.Row="1" Text="رمز العائلة"></TextBlock>
                                     <TextBlock Grid.Row="2" Text="تارخ التسجيل"></TextBlock>
@@ -294,21 +291,10 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="25"/>
-                                        <RowDefinition Height="Auto" MinHeight="25"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="اسم رب الاسرة" Grid.Row="0"/>
-                                    <TextBlock Grid.Row="1" Text="ملاحظات" VerticalAlignment="Top" Margin="0,3,0,0"></TextBlock>
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Text="{Binding FamilyName}"/>
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" Text="{Binding Notes}" TextWrapping="Wrap"></TextBlock>
-                                </Grid>
+                                    <TextBlock Text="اسم رب الاسرة" Grid.Row="6"/>
+                                    <TextBlock Grid.Row="7" Text="ملاحظات" VerticalAlignment="Top" Margin="0,3,0,0"></TextBlock>
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="6" Text="{Binding FamilyName}"/>
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="7" Text="{Binding Notes}" TextWrapping="Wrap"></TextBlock>
                             </Grid>
                             <Grid x:Name="grdFamily2" Visibility="Collapsed" Margin="0,5">
                                 <Grid.RowDefinitions>
@@ -766,7 +752,8 @@
                                 <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Mobile}"/>
                             </Grid>
                             <Grid x:Name="grdGuardian2" Visibility="Collapsed">
-                                <Grid.RowDefinitions>
+                                  <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
@@ -790,8 +777,9 @@
                                 <TextBlock Grid.Row="5" Text="رقم الموبايل"></TextBlock>
                                 <TextBlock Grid.Row="6" Text="الوضع الاجتماعي"></TextBlock>
                                 <TextBlock Grid.Row="7" Text="المهنة الحالية"></TextBlock>
-                                <TextBlock Grid.Row="8" Text="البريد الالكتروني"></TextBlock>
-                                <TextBlock Grid.Row="9" Text="ملاحظات"></TextBlock>
+                                <TextBlock Grid.Row="8" Text="صلة القربى"></TextBlock>
+                                <TextBlock Grid.Row="9" Text="البريد الالكتروني"></TextBlock>
+                                <TextBlock Grid.Row="10" Text="ملاحظات"></TextBlock>
 
                                 <TextBox MaxLength="200" Grid.Column="1" Grid.Row="0" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
                                 <TextBox MaxLength="200" Grid.Column="1" Grid.Row="1" Text="{Binding LastName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
@@ -809,8 +797,9 @@
                                     <ComboBoxItem Content="غير محدد"></ComboBoxItem>
                                 </ComboBox>
                                 <TextBox MaxLength="50" Grid.Column="1" Grid.Row="7" Text="{Binding Job, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
-                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"></TextBox>
-                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="9" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="50" Grid.Column="1" Grid.Row="8" Text="{Binding Relationship, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="10" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
                             </Grid>
                         </Grid>
                     </GroupBox>
@@ -855,6 +844,7 @@
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="120"/>
@@ -868,8 +858,9 @@
                                 <TextBlock Grid.Row="5" Text="رقم الموبايل"></TextBlock>
                                 <TextBlock Grid.Row="6" Text="الوضع الاجتماعي"></TextBlock>
                                 <TextBlock Grid.Row="7" Text="المهنة الحالية"></TextBlock>
-                                <TextBlock Grid.Row="8" Text="البريد الالكتروني"></TextBlock>
-                                <TextBlock Grid.Row="9" Text="ملاحظات"></TextBlock>
+                                <TextBlock Grid.Row="8" Text="صلة القربى"></TextBlock>
+                                <TextBlock Grid.Row="9" Text="البريد الالكتروني"></TextBlock>
+                                <TextBlock Grid.Row="10" Text="ملاحظات"></TextBlock>
 
                                 <TextBox MaxLength="200" Grid.Column="1" Grid.Row="0" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
                                 <TextBox MaxLength="200" Grid.Column="1" Grid.Row="1" Text="{Binding LastName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
@@ -887,8 +878,9 @@
                                     <ComboBoxItem Content="غير محدد"></ComboBoxItem>
                                 </ComboBox>
                                 <TextBox MaxLength="50" Grid.Column="1" Grid.Row="7" Text="{Binding Job, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
-                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"></TextBox>
-                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="9" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox MaxLength="50" Grid.Column="1" Grid.Row="8" Text="{Binding Relationship, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" FontFamily="Arial"></TextBox>
+                                <TextBox MaxLength="200" Grid.Column="1" Grid.Row="10" Text="{Binding Notes, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
                             </Grid>
                         </Grid>
                     </GroupBox>
@@ -1139,7 +1131,7 @@
                         </Button>
                     </StackPanel>
                     <GroupBox Header="بيانات الايتام / طلاب العلم" Grid.Row="9" MinHeight="120">
-                        <ListView x:Name="lvOrphans" Margin="5" MinHeight="100">
+                        <ListView x:Name="lvOrphans" Margin="5" MinHeight="100" MouseDoubleClick="lvOrphans_MouseDoubleClick">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal" />
@@ -1147,23 +1139,40 @@
                             </ListView.ItemsPanel>
                             <ListView.ItemTemplate>
                                 <DataTemplate >
-                                    <Grid Margin="5,8">
+                                    <Border x:Name="brdr" Margin="5" Background="#FF90FF7F" Width="120" CornerRadius="5">
+                                    <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="120"/>
                                             <RowDefinition Height="25"/>
                                             <RowDefinition Height="25"/>
                                         </Grid.RowDefinitions>
-                                        <Image >
+                                        <Image Height="100" VerticalAlignment="Center" x:Name="img">
                                             <Image.Source>
-                                                <BitmapImage DecodePixelHeight="120" UriSource="../Images/orphan.png" />
+                                                <BitmapImage DecodePixelHeight="120" UriSource="../Images/orphanM.png" />
                                             </Image.Source>
                                             </Image>
                                         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
                                             <TextBlock Text="{Binding FirstName}"/>
                                             <TextBlock Text="{Binding LastName, StringFormat='{} {0}'}"/>
                                         </StackPanel>
-                                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Type}"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Type}"/>
+                                            <TextBlock Margin="5,0,0,0" FontSize="11" FontFamily="Arial" Foreground="#FF7E0000" Text="{Binding DOB, Converter={StaticResource AgeConverter}}"/>
+                                        </StackPanel>
                                     </Grid>
+                                    </Border>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Type}" Value="طالب علم">
+                                            <Setter TargetName="brdr" Property="Background" Value="#FFFF9C7F"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Gender}" Value="أنثى">
+                                            <Setter TargetName="img" Property="Source">
+                                                <Setter.Value>
+                                                    <BitmapImage DecodePixelHeight="120" UriSource="../Images/orphanF.png" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             </ListView>

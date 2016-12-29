@@ -45,14 +45,20 @@ namespace MainWPF
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (dgAvailableSponsorships.SelectedIndex != -1)
+            var ss = dgAvailableSponsorships.SelectedItem as AvailableSponsorship;
+            if (ss != null)
             {
                 if (!dtpStartDate.SelectedDate.HasValue)
                 {
                     MyMessageBox.Show("يجب اختيار تاريخ بداية الكفالة");
                     return;
                 }
-                DialogResult = true;
+                if (chkIsDouble.IsChecked == true && ss.RemainingNOB == 1)
+                {
+                    MyMessageBox.Show("المتبقي في الكفالة يتيم/طالب واحد فقط.. (في حال اختيار مضاعف تحسب كفالتين)");
+                    return;
+                }
+                    DialogResult = true;
             }
         }
 

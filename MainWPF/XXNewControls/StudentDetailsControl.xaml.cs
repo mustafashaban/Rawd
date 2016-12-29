@@ -27,9 +27,8 @@ namespace MainWPF
         {
             InitializeComponent();
             tcm.Items.RemoveAt(0);
-            tcm.Items.RemoveAt(1);
-            tcm.Items.RemoveAt(1);
-            tcm.Items.RemoveAt(6);
+            tcm.Items.RemoveAt(2);
+            tcm.Items.RemoveAt(7);
             Orphan o = new Orphan();
             o.OrphanFamily = f;
             if (!f.FamilyID.HasValue)
@@ -240,7 +239,7 @@ namespace MainWPF
                         if (Orphan.InsertData(o))
                         {
                             o.Account = new Account();
-                            o.Account.Name = o.FirstName + " "+ o.LastName;
+                            o.Account.Name = o.FirstName + " " + o.LastName;
                             o.Account.Type = o.Type == "يتيم" ? Account.AccountType.Orphan : o.Type == "يتيم طالب علم" ? Account.AccountType.OrphanStudent : Account.AccountType.Student;
                             o.Account.CurrentBalance = 0;
                             o.Account.CreateDate = BaseDataBase.DateNow;
@@ -272,6 +271,18 @@ namespace MainWPF
                 {
                     MyMessageBox.Show("الطالب الحالي ليس مكفولا بعد\nيجب اختيار كفالة للطالب أولا");
                     return;
+                }
+                var t = Transition.GetLastTransitionByAccount(o.Account);
+                var diff = (BaseDataBase.DateNow - t.CreateDate.Value).Days;
+                if (diff < 25)
+                {
+                    if (!BaseDataBase.CurrentUser.IsAdmin)
+                    {
+                        MyMessageBox.Show($"اخر دفعة تم تسليمها للطالب منذ {diff} يوم\nلا يمكن التسليم حاليا");
+                        return;
+                    }
+                    else if (MyMessageBox.Show($"اخر دفعة تم تسليمها للطالب منذ {diff} يوم\nهل تريد المتابعة؟", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                        return;
                 }
                 Transition_StudentWindow w = new Transition_StudentWindow(o);
                 if (w.ShowDialog() == true)

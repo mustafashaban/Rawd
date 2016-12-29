@@ -45,6 +45,15 @@ namespace MainWPF
             { notes = value; }
         }
 
+        private string relationship;
+        public string Relationship
+        {
+            get
+            { return relationship; }
+            set
+            { relationship = value; }
+        }
+
         private int? familyid;
         public int? FamilyID
         {
@@ -68,6 +77,7 @@ namespace MainWPF
             , new SqlParameter("@Email", x.Email)
             , new SqlParameter("@MaritalStatus", x.MaritalStatus)
             , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@Relationship", x.Relationship)
             , new SqlParameter("@PID", x.PID)
             , new SqlParameter("@FamilyID", x.FamilyID));
             return x.GuardianID.HasValue;
@@ -87,6 +97,7 @@ namespace MainWPF
             , new SqlParameter("@Email", x.Email)
             , new SqlParameter("@MaritalStatus", x.MaritalStatus)
             , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@Relationship", x.Relationship)
             , new SqlParameter("@PID", x.PID)
             , new SqlParameter("@FamilyID", x.FamilyID));
         }
@@ -114,6 +125,7 @@ namespace MainWPF
                     x.FirstName = rd["FirstName"].ToString();
                     x.LastName = rd["LastName"].ToString();
                     x.FatherName = rd["FatherName"].ToString();
+                    x.Relationship = rd["Relationship"].ToString();
                     x.Gender = rd["Gender"].ToString();
                     if (!(rd["DOB"] is DBNull))
                         x.DOB = DateTime.Parse(rd["DOB"].ToString());
@@ -158,6 +170,7 @@ namespace MainWPF
                     x.FirstName = rd["FirstName"].ToString();
                     x.LastName = rd["LastName"].ToString();
                     x.FatherName = rd["FatherName"].ToString();
+                    x.Relationship = rd["Relationship"].ToString();
                     x.Gender = rd["Gender"].ToString();
                     if (!(rd["DOB"] is DBNull))
                         x.DOB = DateTime.Parse(rd["DOB"].ToString());
@@ -205,6 +218,7 @@ namespace MainWPF
                     x.LastName = rd["LastName"].ToString();
                     x.FatherName = rd["FatherName"].ToString();
                     x.Gender = rd["Gender"].ToString();
+                    x.Relationship = rd["Relationship"].ToString();
                     if (!(rd["DOB"] is DBNull))
                         x.DOB = DateTime.Parse(rd["DOB"].ToString());
                     x.Job = rd["Job"].ToString();

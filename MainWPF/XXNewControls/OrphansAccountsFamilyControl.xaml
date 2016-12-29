@@ -95,6 +95,7 @@
         </ListView>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Content="اضافة دفعة" Width="150" Click="btnWithdrawn_Click"></Button>
+            <Button Content="حذف دفعة" Width="150" Click="btnRemove_Click"></Button>
         </StackPanel>
 
     </Grid>

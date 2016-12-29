@@ -139,11 +139,15 @@ namespace MainWPF
             , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
             , new SqlParameter("@Description", x.Description));
         }
-
         public static bool DeleteData(Invoice x)
         {
+            if (x.Transitions != null)
+            {
+                foreach (var t in x.Transitions)
+                    Transition.DeleteData(t);
+            }
             return BaseDataBase._StoredProcedure("sp_Delete_Invoice"
-            , new SqlParameter("@ID", x.ID));
+            , new SqlParameter("@ID", x.ID), new SqlParameter("@ModifiedUserID", BaseDataBase.CurrentUser.ID));
         }
         public static Invoice GetInvoiceByID(int id)
         {
@@ -281,11 +285,11 @@ namespace MainWPF
                 isValid = false;
                 this.SetError("Receiver", "يجب إدخال المستلم");
             }
-            if (string.IsNullOrEmpty(Description))
-            {
-                isValid = false;
-                this.SetError("Description", "يجب إدخال البيان");
-            }
+            //if (string.IsNullOrEmpty(Description))
+            //{
+            //    isValid = false;
+            //    this.SetError("Description", "يجب إدخال البيان");
+            //}
             if (string.IsNullOrEmpty(Serial))
             {
                 isValid = false;

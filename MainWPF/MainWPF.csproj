@@ -457,9 +457,6 @@
     <Compile Include="UserControls\TempFamilyControl.xaml.cs">
       <DependentUpon>TempFamilyControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XXNewControls\SponsorSelectControl.xaml.cs">
-      <DependentUpon>SponsorSelectControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="XXNewControls\SponsorOrphanControl.xaml.cs">
       <DependentUpon>SponsorOrphanControl.xaml</DependentUpon>
     </Compile>
@@ -525,9 +522,6 @@
     </Compile>
     <Compile Include="XXNewControls\OrphanControl.xaml.cs">
       <DependentUpon>OrphanControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\FamilyControl.xaml.cs">
-      <DependentUpon>FamilyControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TrainingControl.xaml.cs">
       <DependentUpon>TrainingControl.xaml</DependentUpon>
@@ -605,6 +599,8 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\orphanF.png" />
+    <Resource Include="Images\orphanM.png" />
     <Content Include="InvoiceReportTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -967,10 +963,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XXNewControls\SponsorSelectControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="XXNewControls\SponsorOrphanControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1060,10 +1052,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XXNewControls\OrphanControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\FamilyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

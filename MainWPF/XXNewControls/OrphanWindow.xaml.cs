@@ -23,6 +23,7 @@ namespace MainWPF
         {
             InitializeComponent();
             this.DataContext = o;
+            cOrphan.btnGoToFamilyDetails.Visibility = Visibility.Collapsed;
             cOrphan.btnSave.Click -= cOrphan.btnSave_Click;
             cOrphan.btnSave.Click += BtnSave_Click;
         }

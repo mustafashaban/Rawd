@@ -67,6 +67,18 @@ namespace MainWPF
             set
             { lastuserid = value; }
         }
+        private bool isDouble;
+        public bool IsDouble
+        {
+            get
+            { return isDouble; }
+            set
+            { isDouble = value; }
+        }
+        public string Status
+        {
+            get { return !StartDate.HasValue ? "بالانتظار" : EndDate.HasValue ? "منتهية" : "غير منتهية"; }
+        }
 
         public static bool InsertData(Sponsorship x)
         {
@@ -77,6 +89,7 @@ namespace MainWPF
             , new SqlParameter("@EndDate", x.EndDate)
             , new SqlParameter("@Notes", x.Notes)
             , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
+            , new SqlParameter("@IsDouble", x.IsDouble)
             , new SqlParameter("@AvailableSponsorshipID", x.AvailableSponsorship.ID));
             return x.ID.HasValue;
         }
@@ -89,6 +102,7 @@ namespace MainWPF
             , new SqlParameter("@EndDate", x.EndDate)
             , new SqlParameter("@Notes", x.Notes)
             , new SqlParameter("@LastUserID", BaseDataBase.CurrentUser.ID)
+            , new SqlParameter("@IsDouble", x.IsDouble)
             , new SqlParameter("@AvailableSponsorshipID", x.AvailableSponsorship.ID));
         }
         public static bool DeleteData(Sponsorship x)
@@ -123,6 +137,7 @@ namespace MainWPF
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     if (!(rd["AvailableSponsorshipID"] is DBNull))
                         x.AvailableSponsorship = AvailableSponsorship.GetAvailableSponsorshipByID(int.Parse(rd["AvailableSponsorshipID"].ToString()));
+                    x.IsDouble = (bool)rd["IsDouble"];
                 }
                 rd.Close();
             }
@@ -163,6 +178,7 @@ namespace MainWPF
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     if (!(rd["AvailableSponsorshipID"] is DBNull))
                         x.AvailableSponsorship = AvailableSponsorship.GetAvailableSponsorshipByID(int.Parse(rd["AvailableSponsorshipID"].ToString()));
+                    x.IsDouble = (bool)rd["IsDouble"];
                 }
                 rd.Close();
             }
@@ -204,6 +220,7 @@ namespace MainWPF
                         x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     if (!(rd["AvailableSponsorshipID"] is DBNull))
                         x.AvailableSponsorship = AvailableSponsorship.GetAvailableSponsorshipByID(int.Parse(rd["AvailableSponsorshipID"].ToString()));
+                    x.IsDouble = (bool)rd["IsDouble"];
                     xx.Add(x);
                 }
                 rd.Close();
@@ -218,26 +235,8 @@ namespace MainWPF
             }
             return xx;
         }
-        public string Status
-        {
-            get { return !StartDate.HasValue ? "بالانتظار" : EndDate.HasValue ? "منتهية" : "غير منتهية"; }
-        }
+       
 
-        internal bool IsValidate()
-        {
-            bool isValid = true;
-            this.ClearAllErrors();
-            if (!isValid)
-            {
-                string s = "";
-                foreach (var item in errors)
-                {
-                    s += item.Value + "\n";
-                }
-                MyMessageBox.Show(s);
-            }
-            return isValid;
-        }
 
         public static List<Sponsorship> GetSponsorshipAllBySponsorID(Sponsor s)
         {
@@ -266,6 +265,7 @@ namespace MainWPF
                     x.OrphanName = rd["OrphanName"].ToString();
                     if (!(rd["SponsorshipLastUserID"] is DBNull))
                         x.LastUserID = int.Parse(rd["SponsorshipLastUserID"].ToString());
+                    x.IsDouble = (bool)rd["IsDouble"];
 
                     x.AvailableSponsorship = new AvailableSponsorship();
                     x.AvailableSponsorship.RelatedSponsor = s;
@@ -323,6 +323,7 @@ namespace MainWPF
                     x.Notes = rd["SponsorshipNotes"].ToString();
                     if (!(rd["SponsorshipLastUserID"] is DBNull))
                         x.LastUserID = int.Parse(rd["SponsorshipLastUserID"].ToString());
+                    x.IsDouble = (bool)rd["IsDouble"];
 
                     x.AvailableSponsorship = new AvailableSponsorship();
                     if (!(rd["SponsorID"] is DBNull))
@@ -355,6 +356,19 @@ namespace MainWPF
                 con.Close();
             }
             return xx;
+        }
+        internal bool IsValidate()
+        {
+            bool isValid = true;
+            this.ClearAllErrors();
+            if (!isValid)
+            {
+                string s = "";
+                foreach (var item in errors)
+                    s += item.Value + "\n";
+                MyMessageBox.Show(s);
+            }
+            return isValid;
         }
 
     }

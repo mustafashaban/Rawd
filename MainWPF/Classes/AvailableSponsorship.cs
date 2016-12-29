@@ -26,6 +26,11 @@ namespace MainWPF
             set
             { relatedSponsor = value; }
         }
+        private int remainingNOB;
+        public int RemainingNOB
+        {
+            get { return remainingNOB; }
+        }
         private int? nob;
         public int? NOB
         {
@@ -34,6 +39,7 @@ namespace MainWPF
             set
             { nob = value; }
         }
+
 
         private double? duration;
         public double? Duration
@@ -121,7 +127,7 @@ namespace MainWPF
                 x.Duration = null;
 
             x.ID = BaseDataBase._StoredProcedureReturnable("sp_Add_AvailableSponsorship"
-            , new SqlParameter("@ID",System.Data.SqlDbType.Int)
+            , new SqlParameter("@ID", System.Data.SqlDbType.Int)
             , new SqlParameter("@SponsorID", x.RelatedSponsor.SponsorID)
             , new SqlParameter("@NOB", x.NOB)
             , new SqlParameter("@Duration", x.Duration)
@@ -172,10 +178,9 @@ namespace MainWPF
                 {
                     if (!(rd["ID"] is DBNull))
                         x.ID = int.Parse(rd["ID"].ToString());
-                    if (!(rd["SponsorID"] is DBNull))
-                        x.RelatedSponsor = Sponsor.GetSponsorByID(int.Parse(rd["SponsorID"].ToString()));
-                    if (!(rd["NOB"] is DBNull))
-                        x.NOB = int.Parse(rd["NOB"].ToString());
+                    x.RelatedSponsor = Sponsor.GetSponsorByID(int.Parse(rd["SponsorID"].ToString()));
+                    x.NOB = int.Parse(rd["NOB"].ToString());
+                    x.remainingNOB = int.Parse(rd["RemainingNOB"].ToString());
                     if (!(rd["Duration"] is DBNull))
                         x.Duration = double.Parse(rd["Duration"].ToString());
                     if (!(rd["SponsorshipValue"] is DBNull))
@@ -220,10 +225,59 @@ namespace MainWPF
 
                     if (!(rd["ID"] is DBNull))
                         x.ID = int.Parse(rd["ID"].ToString());
-                    if (!(rd["SponsorID"] is DBNull))
-                        x.RelatedSponsor = Sponsor.GetSponsorByID(int.Parse(rd["SponsorID"].ToString()));
+                    x.RelatedSponsor = Sponsor.GetSponsorByID(int.Parse(rd["SponsorID"].ToString()));
+                    x.NOB = int.Parse(rd["NOB"].ToString());
+                    x.remainingNOB = int.Parse(rd["RemainingNOB"].ToString());
+                    if (!(rd["Duration"] is DBNull))
+                        x.Duration = double.Parse(rd["Duration"].ToString());
+                    if (!(rd["SponsorshipValue"] is DBNull))
+                        x.SponsorshipValue = double.Parse(rd["SponsorshipValue"].ToString());
+                    x.SponsorshipType = rd["SponsorshipType"].ToString();
+                    x.Notes = rd["Notes"].ToString();
+                    if (!(rd["LastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    if (!(rd["IsCompensated"] is DBNull))
+                        x.IsCompensated = bool.Parse(rd["IsCompensated"].ToString());
+                    if (!(rd["OverMonths"] is DBNull))
+                        x.OverMonths = int.Parse(rd["OverMonths"].ToString());
+                    x.SponsorType = rd["SponsorType"].ToString();
+                    if (!(rd["CreateDate"] is DBNull))
+                        x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
+                    xx.Add(x);
+                }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return xx;
+        }
+
+        public static List<AvailableSponsorship> GetAllAvailableSponsorshipBySponsorID(Sponsor s)
+        {
+            List<AvailableSponsorship> xx = new List<AvailableSponsorship>();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_SponsorID_AvailableSponsorship", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter("@SponsorID", s.SponsorID));
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                while (rd.Read())
+                {
+                    AvailableSponsorship x = new AvailableSponsorship();
+                    x.RelatedSponsor = s;
+                    if (!(rd["ID"] is DBNull))
+                        x.ID = int.Parse(rd["ID"].ToString());
                     if (!(rd["NOB"] is DBNull))
                         x.NOB = int.Parse(rd["NOB"].ToString());
+                    x.remainingNOB = int.Parse(rd["RemainingNOB"].ToString());
                     if (!(rd["Duration"] is DBNull))
                         x.Duration = double.Parse(rd["Duration"].ToString());
                     if (!(rd["SponsorshipValue"] is DBNull))
@@ -289,55 +343,6 @@ namespace MainWPF
                 MyMessageBox.Show(s);
             }
             return isValid;
-        }
-
-        internal static List<AvailableSponsorship> GetAllAvailableSponsorshipBySponsorID(Sponsor s)
-        {
-            List<AvailableSponsorship> xx = new List<AvailableSponsorship>();
-            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_Get_SponsorID_AvailableSponsorship", con);
-            com.CommandType = System.Data.CommandType.StoredProcedure;
-            com.Parameters.Add(new SqlParameter("@SponsorID", s.SponsorID));
-            try
-            {
-                con.Open();
-                SqlDataReader rd = com.ExecuteReader();
-                while (rd.Read())
-                {
-                    AvailableSponsorship x = new AvailableSponsorship();
-                    x.RelatedSponsor = s;
-                    if (!(rd["ID"] is DBNull))
-                        x.ID = int.Parse(rd["ID"].ToString());
-                    if (!(rd["NOB"] is DBNull))
-                        x.NOB = int.Parse(rd["NOB"].ToString());
-                    if (!(rd["Duration"] is DBNull))
-                        x.Duration = double.Parse(rd["Duration"].ToString());
-                    if (!(rd["SponsorshipValue"] is DBNull))
-                        x.SponsorshipValue = double.Parse(rd["SponsorshipValue"].ToString());
-                    x.SponsorshipType = rd["SponsorshipType"].ToString();
-                    x.Notes = rd["Notes"].ToString();
-                    if (!(rd["LastUserID"] is DBNull))
-                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
-                    if (!(rd["IsCompensated"] is DBNull))
-                        x.IsCompensated = bool.Parse(rd["IsCompensated"].ToString());
-                    if (!(rd["OverMonths"] is DBNull))
-                        x.OverMonths = int.Parse(rd["OverMonths"].ToString());
-                    x.SponsorType = rd["SponsorType"].ToString();
-                    if (!(rd["CreateDate"] is DBNull))
-                        x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
-                    xx.Add(x);
-                }
-                rd.Close();
-            }
-            catch
-            {
-                xx = null;
-            }
-            finally
-            {
-                con.Close();
-            }
-            return xx;
         }
     }
 }

@@ -131,19 +131,21 @@
             <TextBlock Text="ملاحظات"  VerticalAlignment="Top" Margin="5,15,0,0"/>
             <TextBox Text="{Binding Notes, Mode=TwoWay}" TextWrapping="WrapWithOverflow" Height="81" AcceptsReturn="True" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" />
         </DockPanel>
-
-        <Button Grid.Row="2" Width="120" Content="الحالة الصحية" FontSize="16" HorizontalAlignment="Right" Click="btnOrphanHealth_Click"></Button>
-        <Button Grid.Row="2" Width="120" Content="وضع الإعاقة" FontSize="16" HorizontalAlignment="Right" Margin="0,0,125,0" Click="btnOrphanImpeding_Click"></Button>
-        <Button Grid.Row="2" Width="120" Content="المستوى التعليمي" FontSize="15" HorizontalAlignment="Right" Margin="0,0,250,0" Click="btnOrphanTeachingStage_Click"></Button>
-        <Button Grid.Row="2" Width="120" Content="المؤهلات" FontSize="16" HorizontalAlignment="Right" Margin="0,0,375,0" Click="btnOrphanQualification_Click"></Button>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Width="150" Margin="2,0" Content="الحالة الصحية" Click="btnOrphanHealth_Click"></Button>
+            <Button Width="150" Margin="2,0" Content="المستوى التعليمي" Click="btnOrphanTeachingStage_Click"></Button>
+            <!--<Button Width="120" Margin="2,0" Content="المؤهلات" Click="btnOrphanQualification_Click"></Button>-->
+        </StackPanel>
 
         <Grid FlowDirection="RightToLeft" Grid.Row="3" Width="450" HorizontalAlignment="Left" Margin="5,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="btnSave" Grid.Column="5" Margin="10,1" ToolTip="حفظ" Click="btnSave_Click" Style="{StaticResource TransparentButton}">
-                <Image Source="../Images/SAVE-ALT.PNG"></Image>
-            </Button>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnSave" Margin="10,1" ToolTip="حفظ" Click="btnSave_Click" Style="{StaticResource TransparentButton}">
+                    <Image Source="../Images/SAVE-ALT.PNG"></Image>
+                </Button>
+                <Button x:Name="btnGoToFamilyDetails" Margin="10,1" ToolTip="الانتقال الى نافذة العائلة" Click="btnGoToFamily_Click" Style="{StaticResource TransparentButton}">
+                    <Image Source="/MainWPF;component/Images/USERS.PNG"></Image>
+                </Button>
+            </StackPanel>
         </Grid>
 
     </Grid>

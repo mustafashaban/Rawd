@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:Local="clr-namespace:MainWPF" 
              xmlns:LocalConverter="clr-namespace:MainWPF.Converters" Name="MyControl"
              mc:Ignorable="d" FlowDirection="RightToLeft">
     <UserControl.Resources>
@@ -33,6 +34,13 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="بداية الكفالة" FontFamily="Arial" Binding="{Binding StartDate, StringFormat='dd-MM-yyy'}"/>
                 <DataGridTextColumn Header="نهاية الكفالة" FontFamily="Arial" Binding="{Binding EndDate, StringFormat='dd-MM-yyy'}"/>
+                <Local:MyDataGridTemplateColumn Header="مضاعف؟" SortMemberPath="IsDouble">
+                    <Local:MyDataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox FlowDirection="LeftToRight" IsEnabled="False" Margin="2,0" IsChecked="{Binding IsDouble}" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </Local:MyDataGridTemplateColumn.CellTemplate>
+                </Local:MyDataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Click="NewSponsorship_Click" Width="150" HorizontalAlignment="Left" Grid.Row="1" Content="اضافة كفالة جديدة"/>

@@ -67,7 +67,7 @@ namespace MainWPF
             {
                 var f = this.DataContext as Family;
                 if (!string.IsNullOrWhiteSpace(f.Notes))
-                    f.Notes += "\n";
+                    f.Notes += "\n-------------------\n";
                 f.Notes += w.txt.Text + $" ({BaseDataBase.CurrentUser.Name} - {BaseDataBase.DateNow.ToString("dd/MM/yyy")})";
                 f.NotifyPropertyChanged("Notes");
             }
@@ -80,25 +80,25 @@ namespace MainWPF
 
         private void cmboPlace_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (IsLoaded)
-            //{
-            //    try
-            //    {
-            //        var f = DataContext as Family;
-            //        //if (!f.FamilyID.HasValue || BaseDataBase.CurrentUser.IsAdmin)
-            //        {
-            //            if (cmboSector.SelectedIndex == -1)
-            //            {
-            //                f.FamilyCode = "";
-            //                return;
-            //            }
-            //            string a = (cmboSector.SelectedItem as Sector).Code;
-            //            string s = a + BaseDataBase._Scalar_StoredProcedure("sp_GetMaxFamilyCodeByChar", new SqlParameter("@char", a));
-            //            f.FamilyCode = s;
-            //        }
-            //    }
-            //    catch { }
-            //}
+            if (IsLoaded)
+            {
+                try
+                {
+                    var f = DataContext as Family;
+                    //if (!f.FamilyID.HasValue || BaseDataBase.CurrentUser.IsAdmin)
+                    {
+                        if (cmboSector.SelectedIndex == -1)
+                        {
+                            f.FamilyCode = "";
+                            return;
+                        }
+                        string a = (cmboSector.SelectedItem as Sector).Code;
+                        string s = a + BaseDataBase._Scalar_StoredProcedure("sp_GetMaxFamilyCodeByChar", new SqlParameter("@char", a));
+                        f.FamilyCode = s;
+                    }
+                }
+                catch { }
+            }
         }
 
         private void txt_GotFocus(object sender, RoutedEventArgs e)
@@ -265,6 +265,7 @@ namespace MainWPF
 
                         Account.InsertData(o.Account);
                     }
+                    f.UpdateFamilyPersonCount();
                 }
                 f.FamilyOrphans = Orphans;
                 lvOrphans.ItemsSource = Orphans;
@@ -280,6 +281,16 @@ namespace MainWPF
                 var w = new OrphanWindow(o);
                 if (w.ShowDialog() == true)
                     lvOrphans.Items.Refresh();
+            }
+        }
+
+        private void lvOrphans_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (lvOrphans.SelectedItem != null)
+            {
+                var o = lvOrphans.SelectedItem as Orphan;
+                MainWindow m = App.Current.MainWindow as MainWindow;
+                m.SendTabItem(new TabItem() { Header = o.FirstName + " " + o.LastName, Content = new OrphanDetailsControl(Orphan.GetOrphanByID(o.OrphanID.Value)) });
             }
         }
     }

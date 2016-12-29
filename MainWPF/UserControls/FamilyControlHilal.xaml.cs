@@ -243,7 +243,7 @@ namespace MainWPF
             {
                 var f = this.DataContext as Family;
                 if (!string.IsNullOrWhiteSpace(f.Notes))
-                    f.Notes += "\n";
+                    f.Notes += "\n-------------------\n";
                 f.Notes += w.txt.Text + $" ({BaseDataBase.CurrentUser.Name} - {BaseDataBase.DateNow.ToString("dd/MM/yyy")})";
                 f.NotifyPropertyChanged("Notes");
             }

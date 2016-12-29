@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +29,8 @@ namespace MainWPF
         {
             InitializeComponent();
             tcm.Items.RemoveAt(0);
-            tcm.Items.RemoveAt(1);
-            tcm.Items.RemoveAt(1);
-            tcm.Items.RemoveAt(6);
+            tcm.Items.RemoveAt(2);
+            tcm.Items.RemoveAt(7);
             Orphan o = new Orphan();
             o.OrphanFamily = f;
             if (!f.FamilyID.HasValue)
@@ -143,6 +143,10 @@ namespace MainWPF
 
                 if (!f.FamilyID.HasValue)
                 {
+                    string a = (cOrphanFamily.cmboSector.SelectedItem as Sector).Code;
+                    string s = a + BaseDataBase._Scalar_StoredProcedure("sp_GetMaxFamilyCodeByChar", new SqlParameter("@char", a));
+                    f.FamilyCode = s;
+
                     if (!DBMain.InsertData(f))
                         return;
                     else

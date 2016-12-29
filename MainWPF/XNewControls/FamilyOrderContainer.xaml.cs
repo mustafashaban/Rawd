@@ -47,7 +47,7 @@ namespace MainWPF
             set
             {
                 familyID = value;
-                lvOrders.ItemsSource = Order.GetAllOrderByFamilyID(value.Value);
+                lvOrders.ItemsSource = Order.GetAllOrderByFamilyID(value.Value).OrderByDescending(x => x.Date);
                 GetTotal();
                 if (value != null)
                 {

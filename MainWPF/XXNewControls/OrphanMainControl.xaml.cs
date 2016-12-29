@@ -110,7 +110,7 @@ namespace MainWPF
                 var dt = await BaseDataBase._TablingStoredProcedureAsync("sp_GetOrphanFamilyAllTable");
                 dgFamily.ItemsSource = dt.DefaultView;
                 sb.Pause();
-                Control_Changed(null, null);
+                Control1_Changed(null, null);
                 isWorking2 = false;
             }
         }
@@ -166,15 +166,21 @@ namespace MainWPF
         private void Control1_Changed(object sender, TextChangedEventArgs e)
         {
             var dv = dgFamily.ItemsSource as DataView;
-            try
+            if (dv != null)
             {
-                dv.RowFilter = string.Format("FamilyCode like '{0}*'", txtFamilyCode.Text);
-                if (!string.IsNullOrEmpty(txtFamilyName.Text))
-                    dv.RowFilter += string.Format(" and (FamilyName like '*{0}*' or Father like '*{0}*' or Mother Like '*{0}*' or Father like '*{1}*' or Mother Like '*{1}*' or Father like '*{2}*' or Mother Like '*{2}*' or Father like '*{3}*' or Mother Like '*{3}*' or Father like '*{4}*' or Mother Like '*{4}*' or Father like '*{5}*' or Mother Like '*{5}*' or Father like '*{6}*' or Mother Like '*{6}*' or Father like '*{7}*' or Mother Like '*{7}*' or Father like '*{8}*' or Mother Like '*{8}*' )", txtFamilyName.Text, txtFamilyName.Text.Replace('أ', 'ا'), txtFamilyName.Text.Replace('ا', 'أ'), txtFamilyName.Text.Replace('ى', 'ا'), txtFamilyName.Text.Replace('ا', 'ى'), txtFamilyName.Text.Replace('آ', 'ا'), txtFamilyName.Text.Replace('ا', 'آ'), txtFamilyName.Text.Replace('ة', 'ه'), txtFamilyName.Text.Replace('ه', 'ة'));
-                if (!string.IsNullOrEmpty(txtPID.Text))
-                    dv.RowFilter += string.Format(" and (FatherNa like '{0}*' or MotherNa Like '{0}*')", txtPID.Text);
+                try
+                {
+                    string s = string.Format("(FamilyCode like '{0}*'", txtFamilyCode.Text);
+                    s += BaseDataBase.IsStringNumber(txtFamilyCode.Text) ? string.Format(" or FamilyID = {0})", txtFamilyCode.Text) : ")";
+                    dv.RowFilter = s;
+
+                    if (!string.IsNullOrEmpty(txtFamilyName.Text))
+                        dv.RowFilter += string.Format(" and (FamilyName like '*{0}*' or Father like '*{0}*' or Mother Like '*{0}*' or Father like '*{1}*' or Mother Like '*{1}*' or Father like '*{2}*' or Mother Like '*{2}*' or Father like '*{3}*' or Mother Like '*{3}*' or Father like '*{4}*' or Mother Like '*{4}*' or Father like '*{5}*' or Mother Like '*{5}*' or Father like '*{6}*' or Mother Like '*{6}*' or Father like '*{7}*' or Mother Like '*{7}*' or Father like '*{8}*' or Mother Like '*{8}*' )", txtFamilyName.Text, txtFamilyName.Text.Replace('أ', 'ا'), txtFamilyName.Text.Replace('ا', 'أ'), txtFamilyName.Text.Replace('ى', 'ا'), txtFamilyName.Text.Replace('ا', 'ى'), txtFamilyName.Text.Replace('آ', 'ا'), txtFamilyName.Text.Replace('ا', 'آ'), txtFamilyName.Text.Replace('ة', 'ه'), txtFamilyName.Text.Replace('ه', 'ة'));
+                    if (!string.IsNullOrEmpty(txtPID.Text))
+                        dv.RowFilter += string.Format(" and (FatherNa like '{0}*' or MotherNa Like '{0}*')", txtPID.Text);
+                }
+                catch { dv.RowFilter = ""; }
             }
-            catch { dv.RowFilter = ""; }
         }
     }
 }

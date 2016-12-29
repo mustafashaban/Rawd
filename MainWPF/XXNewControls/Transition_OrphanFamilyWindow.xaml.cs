@@ -23,11 +23,12 @@ namespace MainWPF
             this.f = f;
             txtFamily.Text = f.FamilyCode;
             var i = new Invoice();
-            foreach (var o in f.FamilyOrphans.Where(x => x.Type != "طالب علم"))
+            foreach (var o in f.FamilyOrphans.Where(x => x.Type != "طالب علم" && x.CurrentSponsorship != null))
             {
                 var t = i.AddTransition();
                 t.RightAccount = o.Account;
                 t.Value = o.CurrentSponsorship.AvailableSponsorship.SponsorshipValue;
+                t.Value = o.CurrentSponsorship.IsDouble ? t.Value * 2 : t.Value;
                 t.Details = "دفعة من صندوق الايتام";
                 t.LeftAccount = new Account() { Id = (o.Type == "يتيم" ? 2 : 3) };//the id of ophan fund (2) account or ophan student fund (3) account 
                 t.RelatedSponsorship = o.CurrentSponsorship;
@@ -35,6 +36,10 @@ namespace MainWPF
                 t.SponsorshipID = o.CurrentSponsorship.ID;
                 t.AccountType = (o.Type == "يتيم" ? Account.AccountType.Orphan : Account.AccountType.OrphanStudent); //the ophan type (2) or ophan student type (3)
             }
+
+            i.Serial = "A";
+            i.Receiver = BaseDataBase._Scalar($"select FirstName + ' ' + Isnull(LastName,'') from Parent where FamilyID = {f.FamilyID} and Gender = 'أنثى'");
+            i.ReceiverPID = BaseDataBase._Scalar($"select IsNull(PID,'') from Parent where FamilyID = {f.FamilyID} and Gender = 'أنثى'");
             this.DataContext = i;
         }
 

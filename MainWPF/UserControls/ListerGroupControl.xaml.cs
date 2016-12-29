@@ -256,7 +256,7 @@ namespace MainWPF
             {
                 var lg = this.DataContext as ListerGroup;
                 if (!string.IsNullOrWhiteSpace(lg.Notes))
-                    lg.Notes += "\n";
+                    lg.Notes += "\n-------------------\n";
                 lg.Notes += w.txt.Text + $" ({BaseDataBase.CurrentUser.Name} - {BaseDataBase.DateNow.ToString("dd/MM/yyy")})";
                 lg.NotifyPropertyChanged("Notes");
                 btnSave_Click(null, null);

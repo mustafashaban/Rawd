@@ -43,7 +43,7 @@ namespace MainWPF
             set
             { lastuserid = value; }
         }
-        
+
         public static bool InsertData(Order_Item x)
         {
             return BaseDataBase._StoredProcedure("sp_Add_Order_Item"
@@ -155,12 +155,9 @@ namespace MainWPF
                 {
                     Order_Item x = new Order_Item();
                     x.Order = Order;
-                    if (!(rd["ItemID"] is DBNull))
-                        x.Item = Item.GetItemByID(int.Parse(rd["ItemID"].ToString()));
-                    if (!(rd["Quantity"] is DBNull))
-                        x.Quantity = double.Parse(rd["Quantity"].ToString());
-                    if (!(rd["LastUserID"] is DBNull))
-                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    x.Item = Item.GetItemByID(int.Parse(rd["ItemID"].ToString()));
+                    x.Quantity = double.Parse(rd["Quantity"].ToString());
+                    x.LastUserID = int.Parse(rd["LastUserID"].ToString());
                     xx.Add(x);
                 }
                 rd.Close();

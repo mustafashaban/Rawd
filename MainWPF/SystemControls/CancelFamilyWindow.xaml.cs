@@ -85,7 +85,7 @@ namespace MainWPF
             {
                 var f = this.DataContext as Family;
                 if (!string.IsNullOrWhiteSpace(f.CancelReason))
-                    f.CancelReason += "\n";
+                    f.CancelReason += "\n-------------------\n";
                 f.CancelReason += w.txt.Text + $" ({BaseDataBase.CurrentUser.Name} - {BaseDataBase.DateNow.ToString("dd/MM/yyy")})";
                 f.NotifyPropertyChanged("CancelReason");
             }

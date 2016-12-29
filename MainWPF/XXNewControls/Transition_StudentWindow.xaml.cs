@@ -30,9 +30,14 @@ namespace MainWPF
             t.RightAccount = o.Account;
             t.LeftAccount = new Account() { Id = 4 }; //4 is the id of student fund account
             t.Value = o.CurrentSponsorship.AvailableSponsorship.SponsorshipValue;
+            t.Value = o.CurrentSponsorship.IsDouble ? t.Value * 2 : t.Value;
             t.SponsorshipID = o.CurrentSponsorship.ID;
             t.AccountType = Account.AccountType.Student; // 4 is the student type id
             txtSponsor.Text = o.CurrentSponsorship.AvailableSponsorship.RelatedSponsor.Name;
+
+            i.Serial = "B";
+            i.Receiver = BaseDataBase._Scalar($"select FirstName + ' ' + Isnull(LastName,'') from Parent where FamilyID = {o.OrphanFamily.FamilyID} and Gender = 'أنثى'");
+            i.ReceiverPID = BaseDataBase._Scalar($"select IsNull(PID,'') from Parent where FamilyID = {o.OrphanFamily.FamilyID} and Gender = 'أنثى'");
             this.DataContext = i;
         }
 

@@ -46,6 +46,7 @@
                     <DataGridTextColumn Header="تصنيف الكفالة" Binding="{Binding SponsorType}"/>
                     <DataGridTextColumn Header="نوع الكفالة" Binding="{Binding SponsorshipType}"/>
                     <DataGridTextColumn Header="عدد المستفيدين"  Binding="{Binding NOB}" FontFamily="Arial"/>
+                    <DataGridTextColumn Header="العدد المتبقي" Binding="{Binding RemainingNOB}" FontFamily="Arial"/>
                     <DataGridTextColumn Header="مدة الكفالة" FontFamily="Arial" Binding="{Binding Duration}"/>
                     <DataGridTextColumn Header="قيمة الكفالة" Width="*" FontFamily="Arial" Binding="{Binding SponsorshipValue}"/>
                 </DataGrid.Columns>
@@ -56,6 +57,8 @@
             <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Left" >
                 <TextBlock Text="تاريخ بداية الكفالة"/>
                 <DatePicker x:Name="dtpStartDate"/>
+                <TextBlock Text="مضاعف؟"/>
+                <CheckBox x:Name="chkIsDouble" IsThreeState="False" Style="{StaticResource LargeCheckBox}" />
             </StackPanel>
         </Grid>
     </Grid>

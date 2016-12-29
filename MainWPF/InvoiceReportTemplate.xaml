@@ -14,7 +14,7 @@
     </UserControl.Resources>
     <Grid FlowDirection="RightToLeft" VerticalAlignment="Top" Margin="30,30,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="33"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>

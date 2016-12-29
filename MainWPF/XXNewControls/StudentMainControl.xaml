@@ -54,6 +54,53 @@
                 </Button>
             </StackPanel>
             <DataGrid MouseDoubleClick="dgOrphans_MouseDoubleClick" x:Name="dgOrphans" Grid.Row="1" Margin="-20,5" FontSize="16">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="IsTabStop" Value="False"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="MinHeight" Value="28"/>
+                        <Setter Property="Height" Value="28"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSponsored}" Value="0">
+                                <Setter Property="Background" Value="#FFFF9C9C"></Setter>
+                                <Setter Property="Foreground" Value="Black"></Setter>
+                            </DataTrigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="#FFF0A334" Offset="0"/>
+                                            <GradientStop Color="#FFF9C12A" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Height" Value="Auto"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="DetailsTemplate" Value="{x:Null}"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Height" Value="28"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="Black"></Setter>
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="#AAD8C54D" Offset="0"/>
+                                            <GradientStop Color="#AAE8B93C" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="رقم طالب العلم" Visibility="Hidden" Binding="{Binding OrphanID}"/>
                     <DataGridTextColumn MinWidth="120" Header="اسم طالب العلم" Binding="{Binding Name}"/>
@@ -120,5 +167,7 @@
                 <Path Stretch="Uniform" Fill="#FF424242" Data="F1 M 25,27L 25,17L 51,17L 51,27L 47,27L 47,21L 29,21L 29,27L 25,27 Z M 16,28L 60,28L 60,51L 52,51L 52,46L 55,46L 55,33L 21,33L 21,46L 24,46L 24,51L 16,51L 16,28 Z M 25,39L 28,39L 28,52L 35,52L 35,59L 48,59L 48,39L 51,39L 51,62L 33,62L 25,54L 25,39 Z M 46,55L 38,55L 38,52L 46,52L 46,55 Z M 46,49L 30,49L 30,46L 46,46L 46,49 Z M 46,43L 30,43L 30,40L 46,40L 46,43 Z "/>
             </Button>
         </StackPanel>
+        <TextBlock x:Name="txtCountFamily" Visibility="{Binding ElementName=radFamilies, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,0,10,0" FontFamily="Arial" FontSize="20" Grid.Row="2" Text="{Binding ElementName=dgFamily, Path=Items.Count, StringFormat='{}عدد العوائل {0}'}"/>
+        <TextBlock x:Name="txtCountOrpahn" Visibility="{Binding ElementName=radOrphans, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,0,10,0" FontFamily="Arial" FontSize="20" Grid.Row="2" Text="{Binding ElementName=dgOrphans, Path=Items.Count, StringFormat='{}عدد الايتام {0}'}"/>
     </Grid>
 </UserControl>

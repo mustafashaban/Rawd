@@ -6,7 +6,7 @@
              xmlns:Local="clr-namespace:MainWPF"
              xmlns:LocalConverter="clr-namespace:MainWPF.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="395.618" d:DesignWidth="731.996" Margin="50" >
+             d:DesignHeight="395.618" d:DesignWidth="731.996" Margin="25" >
     <UserControl.Resources>
         <Local:Sponsor x:Key="Sponsor"></Local:Sponsor>
         <LocalConverter:AgeConverter x:Key="MyAgeConverter"></LocalConverter:AgeConverter>
@@ -67,7 +67,7 @@
                     </Local:MyDataGridTemplateColumn.CellTemplate>
                 </Local:MyDataGridTemplateColumn>
                 <DataGridTextColumn MinWidth="100" Header="رقم الموبايل" Binding="{Binding Mobile}"/>
-                <DataGridTextColumn MinWidth="100" Header="الرصيد الحالي" Width="*"/>
+                <DataGridTextColumn Header="عدد الكفالات المتبقي" Width="*" Binding="{Binding RemainingNOB}" FontFamily="Arial"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal">

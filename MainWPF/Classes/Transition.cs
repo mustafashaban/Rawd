@@ -57,7 +57,7 @@ namespace MainWPF
                         return null;
                 }
                 else if (MainAccount.Id.Value != LeftAccount.Id.Value)
-                        return null;
+                    return null;
                 return value;
             }
         }
@@ -71,7 +71,7 @@ namespace MainWPF
                         return null;
                 }
                 else if (MainAccount.Id.Value == LeftAccount.Id.Value)
-                        return null;
+                    return null;
                 return value;
             }
         }
@@ -175,7 +175,8 @@ namespace MainWPF
         public static bool DeleteData(Transition x)
         {
             return BaseDataBase._StoredProcedure("sp_Delete_Transition"
-            , new SqlParameter("@Id", x.Id));
+              , new SqlParameter("@Id", x.Id)
+              , new SqlParameter("@ModifiedUserID", BaseDataBase.CurrentUser.ID));
         }
         public static Transition GetTransitionByID(int id)
         {
@@ -222,6 +223,96 @@ namespace MainWPF
             }
             return x;
         }
+        public static Transition GetLastTransitionByOrphanID(int OrphanID)
+        {
+            Transition x = new Transition();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_Last_Transition", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter pr = new SqlParameter("@OrphanID", OrphanID);
+            com.Parameters.Add(pr);
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                if (rd.Read())
+                {
+                    if (!(rd["Id"] is DBNull))
+                        x.Id = int.Parse(rd["Id"].ToString());
+                    if (!(rd["RightAccount"] is DBNull))
+                        x.RightAccount = Account.GetAccountByID(int.Parse(rd["RightAccount"].ToString()));
+                    if (!(rd["LeftAccount"] is DBNull))
+                        x.LeftAccount = Account.GetAccountByID(int.Parse(rd["LeftAccount"].ToString()));
+                    if (!(rd["Value"] is DBNull))
+                        x.Value = double.Parse(rd["Value"].ToString());
+                    if (!(rd["CreateDate"] is DBNull))
+                        x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
+                    x.Details = rd["Details"].ToString();
+                    if (!(rd["LastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    if (!(rd["SponsorshipID"] is DBNull))
+                        x.SponsorshipID = int.Parse(rd["SponsorshipID"].ToString());
+                    if (!(rd["InvoiceID"] is DBNull))
+                        x.InvoiceID = int.Parse(rd["InvoiceID"].ToString());
+                    x.IsHidden = (bool)rd["IsHidden"];
+                }
+                rd.Close();
+            }
+            catch
+            {
+                x = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return x;
+        }
+        public static Transition GetLastTransitionByAccount(Account a)
+        {
+            Transition x = new Transition();
+            SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
+            SqlCommand com = new SqlCommand("sp_Get_Last_Transition", con);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter pr = new SqlParameter("@AccountID", a.Id);
+            com.Parameters.Add(pr);
+            try
+            {
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                if (rd.Read())
+                {
+                    if (!(rd["Id"] is DBNull))
+                        x.Id = int.Parse(rd["Id"].ToString());
+                    if (!(rd["RightAccount"] is DBNull))
+                        x.RightAccount = Account.GetAccountByID(int.Parse(rd["RightAccount"].ToString()));
+                    x.LeftAccount = a;
+                    if (!(rd["Value"] is DBNull))
+                        x.Value = double.Parse(rd["Value"].ToString());
+                    if (!(rd["CreateDate"] is DBNull))
+                        x.CreateDate = DateTime.Parse(rd["CreateDate"].ToString());
+                    x.Details = rd["Details"].ToString();
+                    if (!(rd["LastUserID"] is DBNull))
+                        x.LastUserID = int.Parse(rd["LastUserID"].ToString());
+                    if (!(rd["SponsorshipID"] is DBNull))
+                        x.SponsorshipID = int.Parse(rd["SponsorshipID"].ToString());
+                    if (!(rd["InvoiceID"] is DBNull))
+                        x.InvoiceID = int.Parse(rd["InvoiceID"].ToString());
+                    x.IsHidden = (bool)rd["IsHidden"];
+                }
+                rd.Close();
+            }
+            catch
+            {
+                x = null;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return x;
+        }
+
         public static List<Transition> GetAllTransition()
         {
             List<Transition> xx = new List<Transition>();
