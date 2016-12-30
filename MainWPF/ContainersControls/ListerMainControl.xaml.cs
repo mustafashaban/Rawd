@@ -78,8 +78,8 @@ namespace MainWPF
         {
             if (dgListers.SelectedIndex != -1)
             {
-                TrainingTrainedDetails w = new TrainingTrainedDetails((int)(dgListers.Items[dgListers.SelectedIndex] as DataRowView)[0], Trained.TrainedEnumType.مقيّم);
-                w.ShowDialog();
+                //TrainingTrainedDetails w = new TrainingTrainedDetails((int)(dgListers.Items[dgListers.SelectedIndex] as DataRowView)[0], Trained.TrainedEnumType.مقيّم);
+                //w.ShowDialog();
             }
         }
 

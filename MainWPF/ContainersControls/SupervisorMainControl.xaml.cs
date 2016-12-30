@@ -80,8 +80,8 @@ namespace MainWPF
         {
             if (dgSupervisor.SelectedIndex >= 0)
             {
-                TrainingTrainedDetails w = new TrainingTrainedDetails((dgSupervisor.SelectedItem as Supervisor).SupervisorID, Trained.TrainedEnumType.مشرف);
-                w.ShowDialog();
+                //TrainingTrainedDetails w = new TrainingTrainedDetails((dgSupervisor.SelectedItem as Supervisor).SupervisorID, Trained.TrainedEnumType.مشرف);
+                //w.ShowDialog();
             }
         }
 

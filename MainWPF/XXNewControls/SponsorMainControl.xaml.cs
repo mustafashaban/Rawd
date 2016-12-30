@@ -17,9 +17,6 @@ using System.Windows.Media.Animation;
 
 namespace MainWPF
 {
-    /// <summary>
-    /// Interaction logic for SponsorMainControl.xaml
-    /// </summary>
     public partial class SponsorMainControl : UserControl
     {
         public SponsorMainControl()
@@ -69,7 +66,7 @@ namespace MainWPF
             }
         }
         bool isWorking = false;
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private async void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             if (!isWorking)
             {

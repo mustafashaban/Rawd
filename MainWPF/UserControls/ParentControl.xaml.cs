@@ -106,8 +106,8 @@ namespace MainWPF
             Parent p = this.DataContext as Parent;
             if (p.ParentrID != null)
             {
-                TrainingTrainedDetails w = new TrainingTrainedDetails(p.ParentrID, Trained.TrainedEnumType.والدة);
-                w.ShowDialog();
+                //TrainingTrainedDetails w = new TrainingTrainedDetails(p.ParentrID, Trained.TrainedEnumType.والدة);
+                //w.ShowDialog();
             }
             else MyMessageBox.Show("لم يتم إدخال بيانات الوالد بعد");
         }

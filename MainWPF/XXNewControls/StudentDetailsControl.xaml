@@ -110,7 +110,7 @@
                 <MainWPF:OrphanContinousControl x:Name="cContinous"></MainWPF:OrphanContinousControl>
             </TabItem>-->
                 <TabItem Header="الدورات المقدمة">
-                    <MainWPF:TrainingDetailsControl2 x:Name="cTrainings"/>
+                    <MainWPF:TrainingDetailsControl x:Name="cTrainings"/>
                 </TabItem>
                 <TabItem Header="الاحتياجات">
                     <MainWPF:FamilyNeedControl x:Name="cFamilyNeed"></MainWPF:FamilyNeedControl>

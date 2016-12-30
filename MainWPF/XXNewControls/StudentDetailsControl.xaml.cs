@@ -59,6 +59,7 @@ namespace MainWPF
             cExternalFamilySupport.FamilyID = f.FamilyID;
             cSpecialCard.FamilyID = f.FamilyID;
             cListerGroup.FamilyID = f.FamilyID;
+            cTrainings.FamilyID = f.FamilyID;
 
             if (o.OrphanID.HasValue)
                 cSponsor.OrphanID = o.OrphanID;

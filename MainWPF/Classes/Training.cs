@@ -10,57 +10,46 @@ namespace MainWPF
 {
     public class Training : ModelViewContext
     {
-        private int? trainingid;
-        public int? TrainingID
+        public enum TrainingType { نشاط = 0, حفلة, دورة, تدريب };
+        public static List<string> TrainingTypes
+        { get { return Enum.GetNames(typeof(TrainingType)).ToList(); } }
+
+
+        private int? id;
+        public int? ID
         {
             get
-            { return trainingid; }
+            { return id; }
             set
-            { trainingid = value; }
+            { id = value; }
         }
 
-
-
-        private string trainingname;
-        public string TrainingName
+        private string name;
+        public string Name
         {
             get
-            { return trainingname; }
+            { return name; }
             set
-            {
-                trainingname = value;
-                this.ClearError("TrainingName");
-                this.NotifyPropertyChanged("TrainingName");
-            }
+            { name = value; }
         }
 
-
-
-        private DateTime? trainingdate;
-        public DateTime? TrainingDate
+        private DateTime? startdate;
+        public DateTime? StartDate
         {
             get
-            { return trainingdate; }
+            { return startdate; }
             set
-            {
-                trainingdate = value;
-                this.ClearError("TrainingDate");
-                this.NotifyPropertyChanged("TrainingDate");
-            }
+            { startdate = value; }
         }
 
-
-
-        private DateTime? trainingenddate;
-        public DateTime? TrainingEndDate
+        private DateTime? enddate;
+        public DateTime? EndDate
         {
             get
-            { return trainingenddate; }
+            { return enddate; }
             set
-            { trainingenddate = value; }
+            { enddate = value; }
         }
-
-
 
         private string traininggoal;
         public string TrainingGoal
@@ -69,28 +58,6 @@ namespace MainWPF
             { return traininggoal; }
             set
             { traininggoal = value; }
-        }
-
-
-
-        private bool isprivatetraining = false;
-        public bool IsPrivateTraining
-        {
-            get
-            { return isprivatetraining; }
-            set
-            {
-                isprivatetraining = value;
-            }
-        }
-
-        private string privateSide;
-        public string PrivateSide
-        {
-            get
-            { return privateSide; }
-            set
-            { privateSide = value; }
         }
 
         private string notes;
@@ -102,53 +69,117 @@ namespace MainWPF
             { notes = value; }
         }
 
-        public bool InsertTrainingData()
+        private bool iscancelled;
+        public bool IsCancelled
         {
-            TrainingID = BaseDataBase._StoredProcedureReturnable("sp_Add2Training"
-                , new SqlParameter("@TrainingID", System.Data.SqlDbType.Int)
-                 , new SqlParameter("@TrainingName", TrainingName)
-                 , new SqlParameter("@TrainingDate", TrainingDate)
-                 , new SqlParameter("@TrainingEndDate", TrainingEndDate)
-                 , new SqlParameter("@TrainingGoal", TrainingGoal)
-                 , new SqlParameter("@IsPrivateTraining", IsPrivateTraining)
-                 , new SqlParameter("@Notes", Notes)
-                 , new SqlParameter("@PrivateSide", PrivateSide));
-            return TrainingID != null;
-        }
-        public bool UpdateTrainingData()
-        {
-            return BaseDataBase._StoredProcedure("sp_UpdateTraining"
-                , new SqlParameter("@TrainingID", TrainingID)
-                , new SqlParameter("@TrainingName", TrainingName)
-                , new SqlParameter("@TrainingDate", TrainingDate)
-                , new SqlParameter("@TrainingEndDate", TrainingEndDate)
-                , new SqlParameter("@TrainingGoal", TrainingGoal)
-                , new SqlParameter("@IsPrivateTraining", IsPrivateTraining)
-                , new SqlParameter("@Notes", Notes)
-                , new SqlParameter("@PrivateSide", PrivateSide));
-        }
-        public bool DeleteTrainingData()
-        {
-            return BaseDataBase._StoredProcedure("sp_DeleteFromTraining"
-                , new SqlParameter("@TrainingID", TrainingID));
+            get
+            { return iscancelled; }
+            set
+            { iscancelled = value; }
         }
 
-        public static DataView GetAllTrainingsTable
+        private string cancelreason;
+        public string CancelReason
+        {
+            get
+            { return cancelreason; }
+            set
+            { cancelreason = value; }
+        }
+
+        private TrainingType? type;
+        public TrainingType? Type
+        {
+            get
+            { return type; }
+            set
+            {
+                type = value;
+                selectedType = (int)value;
+            }
+        }
+        private int selectedType = -1;
+        public int SelectedType
+        {
+            get
+            { return selectedType; }
+            set
+            {
+                selectedType = value;
+                type = (TrainingType)value;
+            }
+        }
+        public string TypeText
+        {
+            get { return selectedType == -1 ? "" : TrainingTypes[selectedType]; }
+        }
+
+        private string trainer;
+        public string Trainer
+        {
+            get
+            { return trainer; }
+            set
+            { trainer = value; }
+        }
+
+        private List<Trained> trainees;
+        public List<Trained> Trainees
         {
             get
             {
-                return BaseDataBase._TablingStoredProcedure("sp_GetAllTrainingTable").DefaultView;
+                if (trainees == null)
+                    trainees = new List<Trained>();
+                return trainees;
             }
+            set
+            { trainees = value; }
         }
 
+        public static bool InsertData(Training x)
+        {
+            x.ID = BaseDataBase._StoredProcedureReturnable("sp_Add_Training"
+            , new SqlParameter("@ID", SqlDbType.Int)
+            , new SqlParameter("@Name", x.Name)
+            , new SqlParameter("@StartDate", x.StartDate)
+            , new SqlParameter("@EndDate", x.EndDate)
+            , new SqlParameter("@TrainingGoal", x.TrainingGoal)
+            , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@IsCancelled", x.IsCancelled)
+            , new SqlParameter("@CancelReason", x.CancelReason)
+            , new SqlParameter("@Trainer", x.Trainer)
+            , new SqlParameter("@Type", (int)x.Type));
+            return x.ID.HasValue;
+        }
+        public static bool UpdateData(Training x)
+        {
+            return BaseDataBase._StoredProcedure("sp_Update_Training"
+            , new SqlParameter("@ID", x.ID)
+            , new SqlParameter("@Name", x.Name)
+            , new SqlParameter("@StartDate", x.StartDate)
+            , new SqlParameter("@EndDate", x.EndDate)
+            , new SqlParameter("@TrainingGoal", x.TrainingGoal)
+            , new SqlParameter("@Notes", x.Notes)
+            , new SqlParameter("@IsCancelled", x.IsCancelled)
+            , new SqlParameter("@CancelReason", x.CancelReason)
+            , new SqlParameter("@Trainer", x.Trainer)
+            , new SqlParameter("@Type", (int)x.Type));
+        }
+        public static bool DeleteData(Training x)
+        {
+            foreach (var t in x.Trainees)
+                Trained.DeleteData(t);
 
-        public static Training GetTrainingByID(int? id)
+            return BaseDataBase._StoredProcedure("sp_Delete_Training"
+            , new SqlParameter("@ID", x.ID));
+        }
+        public static Training GetTrainingByID(int id)
         {
             Training x = new Training();
             SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_GetTrainingByID", con);
+            SqlCommand com = new SqlCommand("sp_Get_ID_Training", con);
             com.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlParameter pr = new SqlParameter("@TrainingID", id);
+            SqlParameter pr = new SqlParameter("@ID", id);
             com.Parameters.Add(pr);
             try
             {
@@ -156,18 +187,17 @@ namespace MainWPF
                 SqlDataReader rd = com.ExecuteReader();
                 if (rd.Read())
                 {
-                    if (!(rd["TrainingID"] is DBNull))
-                        x.TrainingID = System.Int32.Parse(rd["TrainingID"].ToString());
-                    x.TrainingName = rd["TrainingName"].ToString();
-                    if (!(rd["TrainingDate"] is DBNull))
-                        x.TrainingDate = System.DateTime.Parse(rd["TrainingDate"].ToString());
-                    if (!(rd["TrainingEndDate"] is DBNull))
-                        x.TrainingEndDate = System.DateTime.Parse(rd["TrainingEndDate"].ToString());
+                    x.ID = int.Parse(rd["ID"].ToString());
+                    x.Name = rd["Name"].ToString();
+                    x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
+                    if (!(rd["EndDate"] is DBNull))
+                        x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
                     x.TrainingGoal = rd["TrainingGoal"].ToString();
-                    if (!(rd["IsPrivateTraining"] is DBNull))
-                        x.IsPrivateTraining = System.Boolean.Parse(rd["IsPrivateTraining"].ToString());
-                    x.PrivateSide = rd["PrivateSide"].ToString();
                     x.Notes = rd["Notes"].ToString();
+                    x.IsCancelled = bool.Parse(rd["IsCancelled"].ToString());
+                    x.CancelReason = rd["CancelReason"].ToString();
+                    x.Trainer = rd["Trainer"].ToString();
+                    x.Type = (TrainingType)rd["Type"];
                 }
                 rd.Close();
             }
@@ -181,43 +211,87 @@ namespace MainWPF
             }
             return x;
         }
-        public static List<Training> GetTrainingAllByTrainedID(int? TrainedID)
+        public static List<Training> GetAllTraining()
         {
-            List<Training> b = new List<Training>();
+            List<Training> xx = new List<Training>();
             SqlConnection con = new SqlConnection(BaseDataBase.ConnectionString);
-            SqlCommand com = new SqlCommand("sp_GetTrainingAllByTrainedID", con);
+            SqlCommand com = new SqlCommand("sp_Get_All_Training", con);
             com.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlParameter pr = new SqlParameter("@TrainedID", TrainedID);
-            com.Parameters.Add(pr);
             try
             {
                 con.Open();
                 SqlDataReader rd = com.ExecuteReader();
                 while (rd.Read())
                 {
-                    b.Add(GetTrainingByID(rd.GetInt32(0)));
+                    Training x = new Training();
+
+                    x.ID = int.Parse(rd["ID"].ToString());
+                    x.Name = rd["Name"].ToString();
+                    x.StartDate = DateTime.Parse(rd["StartDate"].ToString());
+                    if (!(rd["EndDate"] is DBNull))
+                        x.EndDate = DateTime.Parse(rd["EndDate"].ToString());
+                    x.TrainingGoal = rd["TrainingGoal"].ToString();
+                    x.Notes = rd["Notes"].ToString();
+                    x.IsCancelled = bool.Parse(rd["IsCancelled"].ToString());
+                    x.CancelReason = rd["CancelReason"].ToString();
+                    x.Trainer = rd["Trainer"].ToString();
+                    x.Type = (TrainingType)rd["Type"];
+
+                    xx.Add(x);
                 }
+                rd.Close();
+            }
+            catch
+            {
+                xx = null;
             }
             finally
             {
                 con.Close();
             }
-            return b;
+            return xx;
+        }
+        public void GetTrainees()
+        {
+            if (ID.HasValue)
+            {
+                Trainees = Trained.GetAllTrainedByTraining(this);
+            }
         }
 
         internal bool IsValidate()
         {
             bool isValid = true;
             this.ClearAllErrors();
-            if (string.IsNullOrEmpty(TrainingName))
+            if (string.IsNullOrEmpty(Name))
             {
                 isValid = false;
-                this.SetError("TrainingName", "يجب إدخال اسم التدريب");
+                this.SetError("Name", "يجب إدخال اسم التدريب");
             }
-            if (TrainingDate == null)
+            if (string.IsNullOrEmpty(Trainer))
             {
                 isValid = false;
-                this.SetError("TrainingDate", "يجب إدخال تاريخ بداية التدريب");
+                this.SetError("Trainer", "يجب إدخال اسم المدرب");
+            }
+            if (StartDate == null)
+            {
+                isValid = false;
+                this.SetError("StartDate", "يجب إدخال تاريخ بداية التدريب");
+            }
+            else if (EndDate.HasValue && (EndDate.Value - StartDate.Value).Days < 0)
+            {
+                isValid = false;
+                this.SetError("EndDate", "تاريخ نهاية التدريب يجب أن يكون اكبر من تاريخ البداية");
+            }
+            if (Type == null)
+            {
+                isValid = false;
+                this.SetError("Type", "يجب إدخال نوع التدريب");
+            }
+            if (Trainees.Count == 0)
+            {
+                isValid = false;
+                this.SetError("Trainees", "لم يتم اضافة اي متدرب بعد");
             }
             if (!isValid)
             {

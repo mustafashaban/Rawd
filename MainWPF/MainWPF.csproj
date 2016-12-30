@@ -417,10 +417,10 @@
     <Compile Include="SystemControls\StudySideInsertControl.xaml.cs">
       <DependentUpon>StudySideInsertControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TrainedControl.xaml.cs">
-      <DependentUpon>TrainedControl.xaml</DependentUpon>
+    <Compile Include="SelectTraineesControl.xaml.cs">
+      <DependentUpon>SelectTraineesControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ContainersControls\TrainingMainControl.xaml.cs">
+    <Compile Include="TrainingMainControl.xaml.cs">
       <DependentUpon>TrainingMainControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="XXNewControls\SponsorMainControl.xaml.cs">
@@ -523,7 +523,7 @@
     <Compile Include="XXNewControls\OrphanControl.xaml.cs">
       <DependentUpon>OrphanControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TrainingControl.xaml.cs">
+    <Compile Include="TrainingControl.xaml.cs">
       <DependentUpon>TrainingControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProjectControls\EvaluationControl.xaml.cs">
@@ -582,16 +582,9 @@
     <Compile Include="Classes\StudySide.cs" />
     <Compile Include="Classes\Supervisor.cs" />
     <Compile Include="Classes\Trained.cs" />
-    <Compile Include="Classes\Trainer.cs" />
     <Compile Include="Classes\Training.cs" />
-    <Compile Include="UserControls\TrainerControl.xaml.cs">
-      <DependentUpon>TrainerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TrainingDetailsControl2.xaml.cs">
-      <DependentUpon>TrainingDetailsControl2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TrainingTrainedDetails.xaml.cs">
-      <DependentUpon>TrainingTrainedDetails.xaml</DependentUpon>
+    <Compile Include="TrainingDetailsControl.xaml.cs">
+      <DependentUpon>TrainingDetailsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Users.cs" />
     <Content Include="FamilyReportTemplate.xaml">
@@ -919,11 +912,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\TrainedControl.xaml">
+    <Page Include="SelectTraineesControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ContainersControls\TrainingMainControl.xaml">
+    <Page Include="TrainingMainControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1055,7 +1048,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\TrainingControl.xaml">
+    <Page Include="TrainingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1118,15 +1111,7 @@
       <DependentUpon>SponsorControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\TrainerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TrainingDetailsControl2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TrainingTrainedDetails.xaml">
+    <Page Include="TrainingDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
